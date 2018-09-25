@@ -1,2 +1,4 @@
-# oneamerica-insurance-calculator
-CS495 - Software Engineering - OneAmerica Insurance calculator website
+# OneAmerica-Insurance-Calculator
+CS495 - Software Engineering - OneAmerica Insurance Calculator Website
+
+Default React Project
