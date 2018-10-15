@@ -60,6 +60,53 @@ class Home extends Component {
                     this.submitInformation()
                 }}>
 
+                    <section className="about-you">
+
+                        <div className="input-wrapper">
+                            <label for="age">Age</label>
+                            <input type="text" name="age" placeholder="45"/>
+
+                            <label for="spouse-age">Spouse Age</label>
+                            <input type="text" name="spouse-age" placeholder="43"/>
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label for="income">Income</label>
+                            <input type="text" name="income" placeholder="37000" required/>
+
+                            <label for="spouse-income">Spouse Income</label>
+                            <input type="text" name="spouse-income" placeholder="34000"/>
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label for="gender">Gender</label>
+                            <select name="gender" required>
+                                <option selected>Select</option>
+                                <option>Male</option>
+                                <option>Female</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+
+                            <label for="spouse-age">Number of Children</label>
+                            <input type="text" name="spouse-age" placeholder="3"/>
+                        </div>
+
+                    </section>
+                    <section className="personal-assets">
+
+                    </section>
+                    <section className="life-insurance">
+
+                    </section>
+                    <section className="immediate-needs">
+
+                    </section>
+                    <section className="long-term-needs">
+
+                    </section>
+
+                    <button type="submit">Calculate</button>
+
                 </form>
 
             </div>
