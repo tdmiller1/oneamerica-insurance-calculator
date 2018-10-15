@@ -12,36 +12,36 @@ class Home extends Component {
             //I don't know the actual numbers
 
             //about you information
-            age: 0,
-            spouse_age: 0,
-            income: 0,
-            spouse_income: 0,
+            age: 1,
+            spouse_age: 1,
+            income: -1,
+            spouse_income: 1,
             gender: null,
-            children: 0,
+            children: 1,
 
             //personal assets
-            savings: 0,
-            checkings: 0,
-            retirement: 0,
+            savings: 1,
+            checkings: 1,
+            retirement: 1,
 
             //current life insurance
-            current_policy: 0,
-            offered_through_compnay: false,
+            current_policy: 1,
+            offered_through_company: false,
 
             //immediate needs
-            medical: 0,
-            mortgage: 0,
-            student_loans: 0,
-            car_loans: 0,
-            credit_card: 0,
-            other: 0,
-            final_expenses: 0,
+            medical: 1,
+            mortgage: 1,
+            student_loans: 1,
+            car_loans: 1,
+            credit_card: 1,
+            other: 1,
+            final_expenses: 1,
 
             //long term needs
             spouse_working: false,
-            spouse_length: 0,
-            years_provide: 0,
-            children_to_collge: 0,
+            spouse_length: 1,
+            years_provide: 1,
+            children_to_collge: 1,
             type_of_college: null
 
         }
@@ -49,7 +49,22 @@ class Home extends Component {
 
 
     submitInformation(){
-        console.log("This works!")
+        if(this.validation()){
+            this.calculate();
+        }
+        else {
+            //this will eventually be some kind of form state
+        }
+    }
+
+    validation(){
+        console.log("validating");
+        return ((this.state.income !== -1) && (this.state.gender !== null));
+    }
+
+    calculate(){
+        console.log("calculating")
+        return 0;
     }
 
     render() {
@@ -57,6 +72,7 @@ class Home extends Component {
             <div>
 
                 <form onSubmit={(e) => {
+                    e.preventDefault();
                     this.submitInformation()
                 }}>
 
@@ -81,7 +97,7 @@ class Home extends Component {
                         <div className="input-wrapper">
                             <label for="gender">Gender</label>
                             <select name="gender" required>
-                                <option selected>Select</option>
+                                <option disabled selected>Select</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Prefer not to answer</option>
@@ -93,14 +109,33 @@ class Home extends Component {
 
                     </section>
                     <section className="personal-assets">
+                        <label for="savings">Savings</label>
+                        <input type="text" name="savings" placeholder="15000"/>
 
-                    </section>
-                    <section className="life-insurance">
+                        <label for="checking">Checking</label>
+                        <input type="text" name="checking" placeholder="7000"/>
 
+                        <label for="retirement">Retirement</label>
+                        <input type="text" name="retirement" placeholder="70000"/>
                     </section>
+
+                    <section>
+                        <label for="your-policy">Your Policy</label>
+                        <input type="text" name="your-policy" placeholder="200000"/>
+
+                        <label for="offered-through-company">Offered Through Your Company?</label>
+                        <select name="offered-through-company" required>
+                            <option disabled selected>Select</option>
+                            <option>Yes</option>
+                            <option>No</option>
+                            <option>Prefer not to answer</option>
+                        </select>
+                    </section>
+
                     <section className="immediate-needs">
 
                     </section>
+
                     <section className="long-term-needs">
 
                     </section>

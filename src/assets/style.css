@@ -1,3 +1,16 @@
-*{
-    background-color: gray;
+input{
+    width: 18em;
+    height: 2.5em;
+    border-radius: 2px;
+}
+
+.input-wrapper{
+    display: flex;
+    flex-direction: column;
+}
+
+.about-you{
+    display: flex;
+    flex-direction: row;
+
 }

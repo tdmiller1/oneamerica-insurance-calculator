@@ -7,7 +7,7 @@ class Results extends Component {
     render() {
         return (
             <div>
-                <h1>Dude ask her if she's single</h1>
+                <h1>This is the Results page</h1>
             </div>
         )
     }
