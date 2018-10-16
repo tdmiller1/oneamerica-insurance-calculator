@@ -133,11 +133,77 @@ class Home extends Component {
                     </section>
 
                     <section className="immediate-needs">
+                        <div className="input-wrapper">
+                            <label for="mortgage">Mortgage</label>
+                            <input type="text" name="mortgage" placeholder="40000"/>
 
+                            <label for="medical">Medical</label>
+                            <input type="text" name="medical" placeholder="3000"/>
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label for="student-loans">Student Loans</label>
+                            <input type="text" name="student-loans" placeholder="8000"/>
+
+                            <label for="credit-card">Credit Card</label>
+                            <input type="text" name="credit-card" placeholder="1000"/>
+                        </div>
+
+                        <div className="input-wrapper">
+                            <label for="car-loans">Car Loans</label>
+                            <input type="text" name="car-loans" placeholder="5000"/>
+
+                            <label for="other">Other</label>
+                            <input type="text" name="other" placeholder="200"/>
+                        </div>
+
+                        <label for="final-expenses">Final Expenses</label>
+                        <input type="text" name="final-expenses" placeholder="8500"/>
                     </section>
 
-                    <section className="long-term-needs">
+                    {/*  THIS IS WHERE LONG TERM NEEDS IS */}
 
+                    <section className="long-term-needs">
+                        <label for="spouse-working">Spouse continue working or take time off?</label>
+                        <select name="spouse-working" required>
+                            <option disabled selected>Select</option>
+                            <option>Continue Working</option>
+                            <option>Take Time Off</option>
+                            <option>Prefer not to answer</option>
+                        </select>
+
+                        <label for="spouse-length">How long?</label>
+                        <select name="spouse-length" required>
+                            <option disabled selected>Select</option>
+                            <option>1/2 year</option>
+                            <option>1 year</option>
+                            <option>1 1/2 years</option>
+                            <option>2 years</option>
+                            <option>More than 2 years</option>
+                        </select>
+
+                        <label for="years-length">Years your income should provide after you pass?</label>
+                        <input type="text" name="years-length" placeholder="200"/>
+
+                        <label for="children-to-college">How many children going to college?</label>
+                        <select name="children-to-college" required>
+                            <option disabled selected>Select</option>
+                            <option>0</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>More than 3</option>
+                        </select>
+
+                        <label for="type-of-college">What type of college?</label>
+                        <select name="type-of-college" required>
+                            <option disabled selected>Select</option>
+                            <option>Public University</option>
+                            <option>Private College</option>
+                            <option>Trade School</option>
+                            <option>Community College</option>
+                            <option>Other / Prefer not to answer</option>
+                        </select>
                     </section>
 
                     <button type="submit">Calculate</button>
