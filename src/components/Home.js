@@ -80,7 +80,11 @@ class Home extends Component {
 
                         <div className="input-wrapper">
                             <label for="age">Age</label>
-                            <input type="text" name="age" placeholder="45"/>
+                            <input type="text" name="age" placeholder="45" onChange={(e) => {
+                                this.setState({
+                                    age: e.target.value
+                                })
+                            }}/>
 
                             <label for="spouse-age">Spouse Age</label>
                             <input type="text" name="spouse-age" placeholder="43"/>
