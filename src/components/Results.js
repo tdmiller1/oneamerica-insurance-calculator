@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
+import PropTypes from "prop-types";
 
 
 class Results extends Component {
@@ -56,3 +57,8 @@ class Results extends Component {
 }
 
 export default withRouter(Results)
+
+Results.propTypes = {
+    insurance_needs: PropTypes.number.isRequired,
+    timeline: PropTypes.string.isRequired
+}

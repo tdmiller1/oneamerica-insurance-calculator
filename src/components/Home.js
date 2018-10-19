@@ -1,6 +1,7 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
 import { withRouter, Switch, Route } from "react-router";
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 class Home extends Component {
 
@@ -312,4 +313,7 @@ class Home extends Component {
 
 }
 
+
+
 export default withRouter(Home)
+
