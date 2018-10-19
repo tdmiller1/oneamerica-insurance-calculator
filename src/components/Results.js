@@ -7,7 +7,7 @@ class Results extends Component {
 
     render() {
         return (
-            <div>
+            <div className="component">
 
                 <div className="overview">
                     <h1>Lorem Ipsum Dolor Sit Amet, Consectetur Elit?</h1>
@@ -34,22 +34,42 @@ class Results extends Component {
                         this.submitInformation()
                     }}/>
 
-                    <div className="customer-submit">
 
-                        <label for="full-name">Full Name</label>
-                        <input name="full-name" type="text" />
+                    <h1>Want to know more? Contact us here:</h1>
+                    <div className="customer-submit mobile">
 
-                        <label for="email">Email</label>
-                        <input name="email" type="email" />
-
-                        <label for="phone">Phone</label>
-                        <input name="phone" type="tel" />
-
+                       <div>
+                           <label for="full-name">Full Name</label>
+                           <br/>
+                           <input name="full-name" type="text" />
+                        </div>
+                        <div>
+                            <label htmlFor="email">Email</label>
+                            <br/>
+                            <input name="email" type="email" />
+                        </div>
+                        <div>
+                            <label htmlFor="phone">Phone</label>
+                            <br/>
+                            <input name="phone" type="tel" />
+                        </div>
                     </div>
 
-                    <button type="submit">Contact</button>
+                    <div className="customer-submit desktop">
+
+                        <label htmlFor="full-name">Full Name</label>
+                        <input name="full-name" type="text"/>
+
+                        <label htmlFor="email">Email</label>
+                        <input name="email" type="email"/>
+
+                        <label htmlFor="phone">Phone</label>
+                        <input name="phone" type="tel"/>
+                    </div>
 
                 </div>
+                <button type="submit">Contact</button>
+
             </div>
         )
     }

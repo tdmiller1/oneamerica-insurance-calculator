@@ -14,3 +14,48 @@ input{
     flex-direction: row;
 
 }
+body{
+    font-family: "Garamond";
+}
+h1{
+    font-weight: 500;
+    color:#003a6b;
+}
+
+.component{
+    padding:20px;
+}
+
+label{
+    color:brown;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.mobile{
+    display:none;
+}
+
+.desktop{
+    display:inline;
+}
+
+.desktop label{
+    padding:10px;
+}
+
+table{
+    margin:auto;
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .mobile{
+        display:inline;
+    }
+
+    .desktop{
+        display:none;
+    }
+
+}
