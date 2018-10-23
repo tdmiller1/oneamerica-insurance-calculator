@@ -40,7 +40,7 @@ class Results extends Component {
                     <div className="customer-submit mobile">
 
                        <div>
-                           <label for="full-name">Full Name</label>
+                           <label htmlFor="full-name">Full Name</label>
                            <br/>
                            <input name="full-name" type="text" />
                         </div>
@@ -82,7 +82,7 @@ class Results extends Component {
 
 export default withRouter(Results)
 
-Results.propTypes = {
-    insurance_needs: PropTypes.number.isRequired,
-    timeline: PropTypes.string.isRequired
-}
+// Results.propTypes = {
+//     insurance_needs: PropTypes.number.isRequired,
+//     timeline: PropTypes.string.isRequired
+// }
