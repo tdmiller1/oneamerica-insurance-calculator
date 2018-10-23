@@ -23,7 +23,7 @@ h1{
 }
 
 .component{
-    padding:20px;
+    max-width:1000px;
 }
 
 label{
@@ -44,9 +44,25 @@ label{
     padding:10px;
 }
 
-table{
+.center{
     margin:auto;
+    width:100%;
+    text-align: left;
 }
+
+.text{
+    text-align: left;
+}
+
+.button{
+    color:white;
+    margin:20px auto;
+    padding:10px;
+    width:10em;
+    background-color:#003a6b;
+    font-size: 20px;
+}
+
 
 @media only screen and (max-width: 1000px) {
 
@@ -58,4 +74,8 @@ table{
         display:none;
     }
 
+    .list-center{
+        text-align: left;
+        margin:auto;
+    }
 }
