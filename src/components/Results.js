@@ -15,17 +15,26 @@ class Results extends Component {
 
                 <div className="results-information">
                     <h1>Generic Information You May Need</h1>
+
                     <div className="center">
-                        <ol>
-                            <li>You might want to know the number $10,000</li>
-                            <li>You might also want to know the number of $12,000 for your spouse.</li>
-                            <br/>
-                            <li>You might want to know the number $10,000</li>
-                            <li>You might also want to know the number of $12,000 for your spouse.</li>
-                            <br/>
-                            <li>You might want to know the number $10,000</li>
-                            <li>You might also want to know the number of $12,000 for your spouse.</li>
-                        </ol>
+                        {
+                            this.props.location.state &&
+                            <ol>
+                                <li>Type of insurance: {this.props.location.state.type}</li>
+                                <li>Amount of insurance: {this.props.location.state.amount}</li>
+                                <li>Cost of insurance per month: {this.props.location.state.cost}</li>
+                                <li>Type of plan: {this.props.location.state.plan}</li>
+                            </ol>
+
+                        }
+                        {
+                            !this.props.location.state &&
+                            <div>
+                                <h3>Oops!</h3>
+                                <p>It looks like you made it to this page without fillout out our form.
+                                    Go back to the OneAmerica Life Insurance Calculator form to see more.</p>
+                            </div>
+                        }
                     </div>
                 </div>
 

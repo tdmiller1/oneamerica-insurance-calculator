@@ -56,7 +56,15 @@ class Home extends Component {
 
         if(this.validation()){
             this.calculate();
-            this.props.history.push("/results")
+            this.props.history.push({
+                pathname: '/results',
+                state: {
+                    type: "Life Insurance",
+                    cost: 200000,
+                    amount: "$300",
+                    plan: "Plan C"
+                }
+            })
         }
         else {
             //this will eventually be some kind of form state
@@ -73,8 +81,8 @@ class Home extends Component {
 
     calculate(){
         console.log("Begin Calculation")
-        //this is where the oneAmerica algorithm will go
 
+        //this is where the oneAmerica algorithm will go
     }
 
     render() {
@@ -127,7 +135,7 @@ class Home extends Component {
                                     gender: e.target.value
                                 })
                             }}>
-                                <option disabled defaultValue>Select</option>
+                                <option disabled selected>Select</option>
                                 <option>Male</option>
                                 <option>Female</option>
                                 <option>Prefer not to answer</option>
@@ -179,7 +187,7 @@ class Home extends Component {
                                 offered_through_company: e.target.value
                             })
                         }}>
-                            <option disabled defaultValue>Select</option>
+                            <option disabled selected>Select</option>
                             <option>Yes</option>
                             <option>No</option>
                             <option>Prefer not to answer</option>
@@ -252,7 +260,7 @@ class Home extends Component {
                                 spouse_working: e.target.value
                             })
                         }}>
-                            <option disabled defaultValue>Select</option>
+                            <option disabled selected>Select</option>
                             <option>Continue Working</option>
                             <option>Take Time Off</option>
                             <option>Prefer not to answer</option>
@@ -264,7 +272,7 @@ class Home extends Component {
                                 spouse_length: e.target.value
                             })
                         }}>
-                            <option disabled defaultValue>Select</option>
+                            <option disabled selected>Select</option>
                             <option>1/2 year</option>
                             <option>1 year</option>
                             <option>1 1/2 years</option>
@@ -285,7 +293,7 @@ class Home extends Component {
                                 children_to_college: e.target.value
                             })
                         }}>
-                            <option disabled defaultValue>Select</option>
+                            <option disabled selected>Select</option>
                             <option>0</option>
                             <option>1</option>
                             <option>2</option>
@@ -299,7 +307,7 @@ class Home extends Component {
                                 type_of_college: e.target.value
                             })
                         }}>
-                            <option disabled defaultValue>Select</option>
+                            <option disabled selected>Select</option>
                             <option>Public University</option>
                             <option>Private College</option>
                             <option>Trade School</option>
