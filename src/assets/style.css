@@ -1,19 +1,70 @@
-input{
-    width: 18em;
+
+#calculator-title{
+    margin: 2vw;;
+}
+
+.overview-text{
+    max-width: 65vw;
+    margin: 2vw;
+}
+
+form{
+    margin: 2vw;
+    padding: 2.5vw;
+    max-width: 60vw;
+    border: .1em solid #AAA;
+}
+
+.about-you, .personal-assets, .your-policy, .immediate-needs, .long-term-needs{
+    padding: 3vw;
+}
+
+.about-you::before, .personal-assets::before, .your-policy::before, .immediate-needs::before, .long-term-needs::before{
+    display: inline-block;
+    background-color: #FFF9ec;
+    box-shadow: 1px 3px 5px #AAA;
+    border-right: 8px solid #00346a;
+    padding: 1vw 2vw;
+    width: 50%;
+    text-align: start;
+    font-family: "Garamond", Serif;
+    color: #516571;
+    font-size: 1.7em;
+}
+
+.about-you::before{
+    content: "About You";
+}
+
+.personal-assets::before{
+    content: "Personal Assets";
+}
+
+.your-policy::before{
+    content: "Your Policy";
+}
+
+.immediate-needs::before{
+    content: "Immediate Needs";
+}
+
+.long-term-needs::before{
+    content: "Long Term Needs";
+}
+
+input, select{
+    width: 22%;
     height: 2.5em;
-    border-radius: 2px;
+    border-radius: 1px;
+    background-color: #FFF;
+    font-family: Garamond, Serif;
 }
 
-.input-wrapper{
-    display: flex;
-    flex-direction: column;
+input::placeholder, select::selection{
+    color: #DDD;
+    font-size: .9em;
 }
 
-.about-you{
-    display: flex;
-    flex-direction: row;
-
-}
 body{
     font-family: "Garamond";
 }
@@ -27,9 +78,8 @@ h1{
 }
 
 label{
-    color:brown;
-    font-weight: bold;
-    font-size: 20px;
+    font-size: .8em;
+    margin-top: 1vh;
 }
 
 .mobile{

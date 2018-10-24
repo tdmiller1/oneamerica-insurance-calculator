@@ -87,12 +87,21 @@ class Home extends Component {
 
     render() {
         return (
-            <div>
+            <div className="home-page">
+
+                <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
+
+                <div className="overview-text">
+                    <h1>Lorem Ipsum Dolor Sit Amet, Consectetur Elit?</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                </div>
 
                 <form onSubmit={(e) => {
                     e.preventDefault();
                     this.submitInformation()
                 }}>
+
+                    {/* ABOUT YOU SECTION BEGINS */}
 
                     <section className="about-you">
 
@@ -150,6 +159,11 @@ class Home extends Component {
                         </div>
 
                     </section>
+
+
+                    {/* ABOUT YOU SECTION ENDS */}
+                    {/* PERSONAL ASSETS SECTION BEGINS */}
+
                     <section className="personal-assets">
                         <label htmlFor="savings">Savings</label>
                         <input type="text" name="savings" placeholder="15000" onChange={(e) => {
@@ -173,6 +187,11 @@ class Home extends Component {
                         }}/>
                     </section>
 
+
+                    {/* PERSONAL ASSETS SECTION ENDS */}
+                    {/* CURRENT INSURANCE SECTION BEGINS */}
+
+
                     <section>
                         <label htmlFor="your-policy">Your Policy</label>
                         <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
@@ -193,6 +212,11 @@ class Home extends Component {
                             <option>Prefer not to answer</option>
                         </select>
                     </section>
+
+
+                    {/* CURRENT INSURANCE SECTION ENDS */}
+                    {/* IMMEDIATE NEEDS SECTION BEGINS */}
+
 
                     <section className="immediate-needs">
                         <div className="input-wrapper">
@@ -251,7 +275,10 @@ class Home extends Component {
                         }}/>
                     </section>
 
-                    {/*  THIS IS WHERE LONG TERM NEEDS IS */}
+
+                    {/* IMMEDIATE NEEDS SECTION ENDS */}
+                    {/* LONG TERM NEEDS SECTION BEGINS */}
+
 
                     <section className="long-term-needs">
                         <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
@@ -315,6 +342,10 @@ class Home extends Component {
                             <option>Other / Prefer not to answer</option>
                         </select>
                     </section>
+
+
+                    {/* LONG TERM NEEDS SECTION ENDS */}
+
 
                     <button type="submit">Calculate</button>
 
