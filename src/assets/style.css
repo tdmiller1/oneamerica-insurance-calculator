@@ -1,18 +1,32 @@
 
 #calculator-title{
-    margin: 2vw;;
+    margin: 5vw;
+    font-weight: lighter;
+    color: #555
 }
 
 .overview-text{
     max-width: 65vw;
-    margin: 2vw;
+    margin: 5vw;
+}
+
+.overview-text p{
+    font-size: 1em;
 }
 
 form{
-    margin: 2vw;
+    margin: 5vw;
     padding: 2.5vw;
     max-width: 60vw;
     border: .1em solid #AAA;
+}
+
+input, select{
+    border: .1vw solid #AAA;
+    width: 22%;
+    height: 2.5em;
+    background-color: #FFF;
+    font-family: Garamond, Serif;
 }
 
 .about-you, .personal-assets, .your-policy, .immediate-needs, .long-term-needs{
@@ -20,9 +34,9 @@ form{
 }
 
 .about-you::before, .personal-assets::before, .your-policy::before, .immediate-needs::before, .long-term-needs::before{
-    display: inline-block;
+    display: block;
     background-color: #FFF9ec;
-    box-shadow: 1px 3px 5px #AAA;
+    box-shadow: 1px 4px 7px #AAA;
     border-right: 8px solid #00346a;
     padding: 1vw 2vw;
     width: 50%;
@@ -30,6 +44,75 @@ form{
     font-family: "Garamond", Serif;
     color: #516571;
     font-size: 1.7em;
+    position: relative;
+    margin-left: -7.5vw;
+}
+
+label{
+    font-size: 1em;
+    color: #333;
+    margin-top: 1vh;
+}
+
+
+{/* TABLET / SMALL SCREEN STYLING */}
+
+
+
+@media only screen and (max-width: 800px) {
+
+    form{
+        max-width: 80vw;
+    }
+
+    .about-you::before, .personal-assets::before, .your-policy::before, .immediate-needs::before, .long-term-needs::before{
+        padding: 1.5vw 2.5vw;
+        width: 55%;
+        color: #516571;
+        font-size: 1.7em;
+    }
+}
+
+
+{/* MOBILE STYLING */}
+
+
+@media only screen and (max-width: 500px) {
+
+    #calculator-title{
+        margin: 10vw;
+    }
+
+    .input-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+
+    input, select{
+        width: 75%;
+    }
+
+    .overview-text{
+        max-width: 90vw;
+        margin: 10vw;
+    }
+
+    form{
+        max-width: 90vw;
+    }
+
+    .about-you, .personal-assets, .your-policy, .immediate-needs, .long-term-needs{
+        display: flex;
+        flex-direction: column;
+    }
+
+    .about-you::before, .personal-assets::before, .your-policy::before, .immediate-needs::before, .long-term-needs::before{
+        padding: 2vw 4vw;
+        width: 70%;
+        color: #516571;
+        font-size: 1.9em;
+    }
+
 }
 
 .about-you::before{
@@ -52,18 +135,22 @@ form{
     content: "Long Term Needs";
 }
 
-input, select{
-    width: 22%;
-    height: 2.5em;
-    border-radius: 1px;
-    background-color: #FFF;
-    font-family: Garamond, Serif;
-}
 
 input::placeholder, select::selection{
     color: #DDD;
     font-size: .9em;
 }
+
+.calculate{
+    width: 15em;
+    height: 4em;
+    border-radius: 0;
+    background-color: #00346a;
+    color: white;
+    font-size: .9em;
+    font-weight: bolder;
+}
+
 
 body{
     font-family: "Garamond";
@@ -77,10 +164,7 @@ h1{
     max-width:1000px;
 }
 
-label{
-    font-size: .8em;
-    margin-top: 1vh;
-}
+
 
 .mobile{
     display:none;
