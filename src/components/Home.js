@@ -113,15 +113,7 @@ class Home extends Component {
                                 })
                             }}/>
 
-                            <label htmlFor="spouse-age">Spouse Age</label>
-                            <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
-                                this.setState({
-                                    spouse_age: e.target.value
-                                })
-                            }}/>
-                        </div>
 
-                        <div className="input-wrapper">
                             <label htmlFor="income">Income</label>
                             <input type="text" name="income" placeholder="37000" required onChange={(e) => {
                                 this.setState({
@@ -129,15 +121,6 @@ class Home extends Component {
                                 })
                             }}/>
 
-                            <label htmlFor="spouse-income">Spouse Income</label>
-                            <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
-                                this.setState({
-                                    spouse_income: e.target.value
-                                })
-                            }}/>
-                        </div>
-
-                        <div className="input-wrapper">
                             <label htmlFor="gender">Gender</label>
                             <select name="gender" required onChange={(e) => {
                                 this.setState({
@@ -149,6 +132,24 @@ class Home extends Component {
                                 <option>Female</option>
                                 <option>Prefer not to answer</option>
                             </select>
+
+                        </div>
+                        <div className="input-wrapper">
+
+                            <label htmlFor="spouse-age">Spouse Age</label>
+                            <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
+                                this.setState({
+                                    spouse_age: e.target.value
+                                })
+                            }}/>
+
+                            <label htmlFor="spouse-income">Spouse Income</label>
+                            <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
+                                this.setState({
+                                    spouse_income: e.target.value
+                                })
+                            }}/>
+
 
                             <label htmlFor="spouse-age">Number of Children</label>
                             <input type="text" name="spouse-age" placeholder="3" onChange={(e) => {
@@ -165,26 +166,28 @@ class Home extends Component {
                     {/* PERSONAL ASSETS SECTION BEGINS */}
 
                     <section className="personal-assets">
-                        <label htmlFor="savings">Savings</label>
-                        <input type="text" name="savings" placeholder="15000" onChange={(e) => {
-                            this.setState({
-                                savings: e.target.value
-                            })
-                        }}/>
+                        <div className="input-wrapper">
+                            <label htmlFor="savings">Savings</label>
+                            <input type="text" name="savings" placeholder="15000" onChange={(e) => {
+                                this.setState({
+                                    savings: e.target.value
+                                })
+                            }}/>
 
-                        <label htmlFor="checking">Checking</label>
-                        <input type="text" name="checking" placeholder="7000" onChange={(e) => {
-                            this.setState({
-                                checking: e.target.value
-                            })
-                        }}/>
+                            <label htmlFor="checking">Checking</label>
+                            <input type="text" name="checking" placeholder="7000" onChange={(e) => {
+                                this.setState({
+                                    checking: e.target.value
+                                })
+                            }}/>
 
-                        <label htmlFor="retirement">Retirement</label>
-                        <input type="text" name="retirement" placeholder="70000" onChange={(e) => {
-                            this.setState({
-                                age: e.target.value
-                            })
-                        }}/>
+                            <label htmlFor="retirement">Retirement</label>
+                            <input type="text" name="retirement" placeholder="70000" onChange={(e) => {
+                                this.setState({
+                                    age: e.target.value
+                                })
+                            }}/>
+                        </div>
                     </section>
 
 
@@ -192,25 +195,27 @@ class Home extends Component {
                     {/* CURRENT INSURANCE SECTION BEGINS */}
 
 
-                    <section>
-                        <label htmlFor="your-policy">Your Policy</label>
-                        <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
-                            this.setState({
-                                current_policy: e.target.value
-                            })
-                        }}/>
+                    <section className="current-policy">
+                        <div className="input-wrapper">
+                            <label htmlFor="your-policy">Your Policy</label>
+                            <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
+                                this.setState({
+                                    current_policy: e.target.value
+                                })
+                            }}/>
 
-                        <label htmlFor="offered-through-company">Offered Through Your Company?</label>
-                        <select name="offered-through-company" required onChange={(e) => {
-                            this.setState({
-                                offered_through_company: e.target.value
-                            })
-                        }}>
-                            <option disabled selected>Select</option>
-                            <option>Yes</option>
-                            <option>No</option>
-                            <option>Prefer not to answer</option>
-                        </select>
+                            <label htmlFor="offered-through-company">Offered Through Your Company?</label>
+                            <select name="offered-through-company" required onChange={(e) => {
+                                this.setState({
+                                    offered_through_company: e.target.value
+                                })
+                            }}>
+                                <option disabled selected>Select</option>
+                                <option>Yes</option>
+                                <option>No</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+                        </div>
                     </section>
 
 
@@ -219,6 +224,7 @@ class Home extends Component {
 
 
                     <section className="immediate-needs">
+
                         <div className="input-wrapper">
                             <label htmlFor="mortgage">Mortgage</label>
                             <input type="text" name="mortgage" placeholder="40000" onChange={(e) => {
@@ -227,15 +233,6 @@ class Home extends Component {
                                 })
                             }}/>
 
-                            <label htmlFor="medical">Medicdal</label>
-                            <input type="text" name="medical" placeholder="3000" onChange={(e) => {
-                                this.setState({
-                                    medical: e.target.value
-                                })
-                            }}/>
-                        </div>
-
-                        <div className="input-wrapper">
                             <label htmlFor="student-loans">Student Loans</label>
                             <input type="text" name="student-loans" placeholder="8000" onChange={(e) => {
                                 this.setState({
@@ -243,19 +240,25 @@ class Home extends Component {
                                 })
                             }}/>
 
-                            <label htmlFor="credit-card">Credit Card</label>
-                            <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
-                                this.setState({
-                                    credit_card: e.target.value
-                                })
-                            }}/>
-                        </div>
-
-                        <div className="input-wrapper">
                             <label htmlFor="car-loans">Car Loans</label>
                             <input type="text" name="car-loans" placeholder="5000" onChange={(e) => {
                                 this.setState({
                                     car_loans: e.target.value
+                                })
+                            }}/>
+                        </div>
+                        <div className="input-wrapper">
+                            <label htmlFor="medical">Medicdal</label>
+                            <input type="text" name="medical" placeholder="3000" onChange={(e) => {
+                                this.setState({
+                                    medical: e.target.value
+                                })
+                            }}/>
+
+                            <label htmlFor="credit-card">Credit Card</label>
+                            <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
+                                this.setState({
+                                    credit_card: e.target.value
                                 })
                             }}/>
 
@@ -266,8 +269,7 @@ class Home extends Component {
                                 })
                             }}/>
                         </div>
-
-                        <label htmlFor="final-expenses">Final Expenses</label>
+                        <label htmlFor="final-expenses">Final Expenses (usually between 7,000 - 10,000)</label>
                         <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
                             this.setState({
                                 final_expenses: e.target.value
@@ -281,31 +283,35 @@ class Home extends Component {
 
 
                     <section className="long-term-needs">
-                        <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
-                        <select name="spouse-working" required onChange={(e) => {
-                            this.setState({
-                                spouse_working: e.target.value
-                            })
-                        }}>
-                            <option disabled selected>Select</option>
-                            <option>Continue Working</option>
-                            <option>Take Time Off</option>
-                            <option>Prefer not to answer</option>
-                        </select>
+                        <div className="input-wrapper">
 
-                        <label htmlFor="spouse-length">How long?</label>
-                        <select name="spouse-length" required onChange={(e) => {
-                            this.setState({
-                                spouse_length: e.target.value
-                            })
-                        }}>
-                            <option disabled selected>Select</option>
-                            <option>1/2 year</option>
-                            <option>1 year</option>
-                            <option>1 1/2 years</option>
-                            <option>2 years</option>
-                            <option>More than 2 years</option>
-                        </select>
+                            <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
+                            <select name="spouse-working" required onChange={(e) => {
+                                this.setState({
+                                    spouse_working: e.target.value
+                                })
+                            }}>
+                                <option disabled selected>Select</option>
+                                <option>Continue Working</option>
+                                <option>Take Time Off</option>
+                                <option>Prefer not to answer</option>
+                            </select>
+
+                            <label htmlFor="spouse-length">How long?</label>
+                            <select name="spouse-length" required onChange={(e) => {
+                                this.setState({
+                                    spouse_length: e.target.value
+                                })
+                            }}>
+                                <option disabled selected>Select</option>
+                                <option>1/2 year</option>
+                                <option>1 year</option>
+                                <option>1 1/2 years</option>
+                                <option>2 years</option>
+                                <option>More than 2 years</option>
+                            </select>
+
+                        </div>
 
                         <label htmlFor="years-length">Years your income should provide after you pass?</label>
                         <input type="text" name="years-length" placeholder="200" onChange={(e) => {
@@ -314,33 +320,35 @@ class Home extends Component {
                             })
                         }}/>
 
-                        <label htmlFor="children-to-college">How many children going to college?</label>
-                        <select name="children-to-college" required onChange={(e) => {
-                            this.setState({
-                                children_to_college: e.target.value
-                            })
-                        }}>
-                            <option disabled selected>Select</option>
-                            <option>0</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>More than 3</option>
-                        </select>
+                        <div className="input-wrapper">
+                            <label htmlFor="children-to-college">How many children going to college?</label>
+                            <select name="children-to-college" required onChange={(e) => {
+                                this.setState({
+                                    children_to_college: e.target.value
+                                })
+                            }}>
+                                <option disabled selected>Select</option>
+                                <option>0</option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>More than 3</option>
+                            </select>
 
-                        <label htmlFor="type-of-college">What type of college?</label>
-                        <select name="type-of-college" required onChange={(e) => {
-                            this.setState({
-                                type_of_college: e.target.value
-                            })
-                        }}>
-                            <option disabled selected>Select</option>
-                            <option>Public University</option>
-                            <option>Private College</option>
-                            <option>Trade School</option>
-                            <option>Community College</option>
-                            <option>Other / Prefer not to answer</option>
-                        </select>
+                            <label htmlFor="type-of-college">What type of college?</label>
+                            <select name="type-of-college" required onChange={(e) => {
+                                this.setState({
+                                    type_of_college: e.target.value
+                                })
+                            }}>
+                                <option disabled selected>Select</option>
+                                <option>Public University</option>
+                                <option>Private College</option>
+                                <option>Trade School</option>
+                                <option>Community College</option>
+                                <option>Other / Prefer not to answer</option>
+                            </select>
+                        </div>
                     </section>
 
 
