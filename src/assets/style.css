@@ -130,6 +130,10 @@ label{
         font-size: 1.9em;
     }
 
+    li{
+        font-size: 18px;
+    }
+
 }
 
 .about-you::before{
@@ -183,6 +187,21 @@ h1{
 
 
 
+
+
+
+.overview-text{
+
+    margin: 2vw 7vw;
+}
+#calculator-title{
+    margin: 4vw;
+}
+
+
+
+
+
 .mobile{
     display:none;
 }
@@ -193,16 +212,6 @@ h1{
 
 .desktop label{
     padding:10px;
-}
-
-.center{
-    margin:auto;
-    width:100%;
-    text-align: left;
-}
-
-.text{
-    text-align: left;
 }
 
 .button{
@@ -229,4 +238,31 @@ h1{
         text-align: left;
         margin:auto;
     }
+}
+
+@media only screen and (max-width: 1000px) {
+
+    .input-wrapper{
+        flex-direction: column;
+    }
+
+    label{
+        margin-left: 5vw;
+    }
+
+    input, select{
+        max-width:50vw;
+        width: 65%;
+        margin-left: 5vw;
+    }
+
+    #calculator-title{
+        margin: 4vw;
+    }
+
+    .overview-text{
+        max-width: 90vw;
+        margin: 5vw 7vw;
+    }
+
 }

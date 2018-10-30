@@ -5,18 +5,36 @@ import PropTypes from "prop-types";
 
 class Results extends Component {
 
+    constructor(props){
+        super(props)
+        this.state = {
+
+            full_name: 1,
+            email: 1,
+            phone: 1,
+
+        }
+    }
+
     render() {
         return (
-            <div className="component center">
-                <div className="overview text">
+            <form className="component" onSubmit={(e) => {
+                e.preventDefault();
+                // this.submitInformation()
+                console.log(this.state);
+            }}>
+
+                <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
+
+                <div className="overview-text">
                     <h1>Lorem Ipsum Dolor Sit Amet, Consectetur Elit?</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
                 </div>
 
-                <div className="results-information">
+                <div className="results-information overview-text">
                     <h1>Generic Information You May Need</h1>
 
-                    <div className="center">
+                    <div>
                         {
                             this.props.location.state &&
                             <ol>
@@ -38,12 +56,7 @@ class Results extends Component {
                     </div>
                 </div>
 
-                <div>
-                    <form onSubmit={(e) => {
-                        e.preventDefault();
-                        this.submitInformation()
-                    }}/>
-
+                <div className="overview-text">
 
                     <h1>Want to know more? Contact us here:</h1>
                     <div className="customer-submit mobile">
@@ -51,17 +64,29 @@ class Results extends Component {
                        <div>
                            <label htmlFor="full-name">Full Name</label>
                            <br/>
-                           <input name="full-name" type="text" />
+                           <input name="full_name" type="text"  onChange={(e) => {
+                               this.setState({
+                                   full_name: e.target.value
+                               })
+                           }}/>
                         </div>
                         <div>
                             <label htmlFor="email">Email</label>
                             <br/>
-                            <input name="email" type="email" />
+                            <input name="email" type="email"  onChange={(e) => {
+                                this.setState({
+                                    email: e.target.value
+                                })
+                            }}/>
                         </div>
                         <div>
                             <label htmlFor="phone">Phone</label>
                             <br/>
-                            <input name="phone" type="tel" />
+                            <input name="phone" type="tel"  onChange={(e) => {
+                                this.setState({
+                                    phone: e.target.value
+                                })
+                            }}/>
                         </div>
 
                     </div>
@@ -69,21 +94,35 @@ class Results extends Component {
                     <div className="customer-submit desktop">
 
                         <label htmlFor="full-name">Full Name</label>
-                        <input name="full-name" type="text"/>
+                        <input name="full-name" type="text" onChange={(e) => {
+                            this.setState({
+                                full_name: e.target.value
+                            })
+                        }}/>
 
                         <label htmlFor="email">Email</label>
-                        <input name="email" type="email"/>
+                        <input name="email" type="email" onChange={(e) => {
+                            this.setState({
+                                email: e.target.value
+                            })
+                        }}/>
 
                         <label htmlFor="phone">Phone</label>
-                        <input name="phone" type="tel"/>
+                        <input name="phone" type="tel" onChange={(e) => {
+                            this.setState({
+                                phone: e.target.value
+                            })
+                        }}/>
 
                     </div>
 
                     <button className="button" type="submit">Contact Us</button>
 
+
                 </div>
 
-            </div>
+
+            </form>
         )
     }
 
