@@ -43,11 +43,13 @@ class Home extends Component {
             spouse_working: false,
             spouse_length: 1,
             years_provide: 1,
-            children_to_collge: 1,
+            children_to_college: 1,
             type_of_college: null
 
         }
     }
+
+
 
 
     submitInformation(){

@@ -29,11 +29,13 @@ form{
 }
 
 input, select{
+    margin-top: 4vh;
     border: .1vw solid #AAA;
     width: 22%;
     height: 2.5em;
     background-color: #FFF;
     font-family: Garamond, Serif;
+    -webkit-border-radius: 0px;
 }
 
 .about-you, .personal-assets, .current-policy, .immediate-needs, .long-term-needs{
@@ -58,7 +60,7 @@ input, select{
 label{
     font-size: 1em;
     color: #333;
-    margin-top: 1vh;
+    margin-top: 5vh;
 }
 
 
@@ -81,6 +83,10 @@ label{
 }
 
 @media only screen and (max-width: 700px) {
+
+    label, input, select{
+        margin-top: 1vh;
+    }
 
     .input-wrapper{
         flex-direction: column;
@@ -219,7 +225,7 @@ h1{
     margin:20px auto;
     padding:10px;
     width:10em;
-    background-color:#003a6b;
+    background-color:#3c6189;
     font-size: 20px;
 }
 
