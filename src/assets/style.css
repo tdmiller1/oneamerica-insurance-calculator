@@ -31,7 +31,7 @@ form{
 input, select{
     margin-top: 4vh;
     border: .1vw solid #AAA;
-    width: 22%;
+    width: 15%;
     height: 2.5em;
     background-color: #FFF;
     font-family: Garamond, Serif;
@@ -61,6 +61,8 @@ label{
     font-size: 1em;
     color: #333;
     margin-top: 5vh;
+    margin-right: 1em;
+    margin-left: 2em;
 }
 
 
@@ -101,13 +103,8 @@ label{
         margin-left: 5vw;
     }
 
-    #calculator-title{
-        margin: 10vw;
-    }
-
     .overview-text{
         max-width: 90vw;
-        margin: 10vw;
     }
 
 }
@@ -194,20 +191,6 @@ h1{
 
 
 
-
-
-.overview-text{
-
-    margin: 2vw 7vw;
-}
-#calculator-title{
-    margin: 4vw;
-}
-
-
-
-
-
 .mobile{
     display:none;
 }
@@ -262,13 +245,8 @@ h1{
         margin-left: 5vw;
     }
 
-    #calculator-title{
-        margin: 4vw;
-    }
-
     .overview-text{
         max-width: 90vw;
-        margin: 5vw 7vw;
     }
 
 }
