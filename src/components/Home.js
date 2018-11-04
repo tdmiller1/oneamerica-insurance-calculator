@@ -194,8 +194,8 @@ class Home extends Component {
                     <section className="personal-assets">
 
                         <h1>Personal Assets<img src={questionMark} className="question-mark"/>
-                            <p className="info-popup">Generic information about you and your spouse
-                                (if applicable). Income and Gender are required elements.</p>
+                            <p className="info-popup">Generic information about your current financial
+                                status. This section is not required, but helps make accurate calculations.</p>
                         </h1>
 
                         <div className="input-wrapper">
@@ -230,8 +230,8 @@ class Home extends Component {
                     <section className="current-policy">
 
                         <h1>Your Policy<img src={questionMark} className="question-mark"/>
-                            <p className="info-popup">Generic information about you and your spouse
-                                (if applicable). Income and Gender are required elements.</p>
+                            <p className="info-popup">Generic information about your current insurance
+                                policy. This section is not required, but helps make accurate calculations.</p>
                         </h1>
 
                         <div className="input-wrapper">
@@ -264,8 +264,8 @@ class Home extends Component {
                     <section className="immediate-needs">
 
                         <h1>Immediate Needs<img src={questionMark} className="question-mark"/>
-                            <p className="info-popup">Generic information about you and your spouse
-                                (if applicable). Income and Gender are required elements.</p>
+                            <p className="info-popup">Generic information about your current debt needs.
+                                This section is not required, but helps make accurate calculations.</p>
                         </h1>
 
                         <div className="immediate-needs-wrapper">
@@ -352,8 +352,8 @@ class Home extends Component {
                     <section className="long-term-needs">
 
                         <h1>Long Term Needs<img src={questionMark} className="question-mark"/>
-                            <p className="info-popup">Generic information about you and your spouse
-                                (if applicable). Income and Gender are required elements.</p>
+                            <p className="info-popup">Generic information about financial needs after
+                                you pass. This section is not required, but helps make accurate calculations.</p>
                         </h1>
 
                         <div className="input-wrapper">

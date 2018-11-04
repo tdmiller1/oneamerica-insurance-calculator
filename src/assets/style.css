@@ -242,9 +242,9 @@ label{
     }
 
     .about-you h1, .personal-assets h1, .current-policy h1, .immediate-needs h1, .long-term-needs h1{
-        padding: 2vw 4vw;
+        padding: 3vw 4vw;
         width: 80%;
-        font-size: 1.9em;
+        font-size: 1.5em;
     }
 
     li{
