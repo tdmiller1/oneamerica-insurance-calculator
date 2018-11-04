@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { withRouter, Switch, Route } from "react-router";
+import questionMark from "../assets/images/oneamerica-question.svg"
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { createBrowserHistory, createHashHistory, createMemoryHistory } from "history"
@@ -107,58 +108,81 @@ class Home extends Component {
 
                     <section className="about-you">
 
-                        <div className="input-wrapper">
-                            <label htmlFor="age">Age</label>
-                            <input type="text" name="age" placeholder="45" onChange={(e) => {
-                                this.setState({
-                                    age: e.target.value
-                                })
-                            }}/>
+                        <h1>About You<img src={questionMark} className="question-mark"/>
+                            <p className="info-popup">Generic information about you and your spouse
+                                (if applicable). Income and Gender are required elements.</p>
+                        </h1>
+
+                        <div className="about-you-wrapper">
+                            <div className="input-wrapper">
+
+                                <div className="label-input">
+                                    <label htmlFor="spouse-age">Spouse Age</label>
+                                    <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
+                                        this.setState({
+                                            spouse_age: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="spouse-income">Spouse Income</label>
+                                    <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
+                                        this.setState({
+                                            spouse_income: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="spouse-age">Num of Children</label>
+                                    <input type="text" name="spouse-age" placeholder="3" onChange={(e) => {
+                                        this.setState({
+                                            children: e.target.value
+                                        })
+                                    }}/>
+                                </div>
 
 
-                            <label htmlFor="income">Income</label>
-                            <input type="text" name="income" placeholder="37000" required onChange={(e) => {
-                                this.setState({
-                                    income: e.target.value
-                                })
-                            }}/>
-
-                            <label htmlFor="gender">Gender</label>
-                            <select name="gender" required onChange={(e) => {
-                                this.setState({
-                                    gender: e.target.value
-                                })
-                            }}>
-                                <option disabled selected>Select</option>
-                                <option>Male</option>
-                                <option>Female</option>
-                                <option>Prefer not to answer</option>
-                            </select>
-
-                        </div>
-                        <div className="input-wrapper">
-
-                            <label htmlFor="spouse-age">Spouse Age</label>
-                            <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
-                                this.setState({
-                                    spouse_age: e.target.value
-                                })
-                            }}/>
-
-                            <label htmlFor="spouse-income">Spouse Income</label>
-                            <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
-                                this.setState({
-                                    spouse_income: e.target.value
-                                })
-                            }}/>
+                            </div>
 
 
-                            <label htmlFor="spouse-age">Number of Children</label>
-                            <input type="text" name="spouse-age" placeholder="3" onChange={(e) => {
-                                this.setState({
-                                    children: e.target.value
-                                })
-                            }}/>
+                            <div className="input-wrapper">
+
+                                <div className="label-input">
+                                    <label htmlFor="age">Your Age</label>
+                                    <input type="text" name="age" placeholder="45" onChange={(e) => {
+                                        this.setState({
+                                            age: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="income">Your Income</label>
+                                    <input type="text" name="income" placeholder="37000" required onChange={(e) => {
+                                        this.setState({
+                                            income: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="gender">Gender</label>
+                                    <select name="gender" required onChange={(e) => {
+                                        this.setState({
+                                            gender: e.target.value
+                                        })
+                                    }}>
+                                        <option disabled selected>Select</option>
+                                        <option>Male</option>
+                                        <option>Female</option>
+                                        <option>Prefer not to answer</option>
+                                    </select>
+                                </div>
+
+
+                            </div>
                         </div>
 
                     </section>
@@ -168,6 +192,12 @@ class Home extends Component {
                     {/* PERSONAL ASSETS SECTION BEGINS */}
 
                     <section className="personal-assets">
+
+                        <h1>Personal Assets<img src={questionMark} className="question-mark"/>
+                            <p className="info-popup">Generic information about you and your spouse
+                                (if applicable). Income and Gender are required elements.</p>
+                        </h1>
+
                         <div className="input-wrapper">
                             <label htmlFor="savings">Savings</label>
                             <input type="text" name="savings" placeholder="15000" onChange={(e) => {
@@ -198,6 +228,12 @@ class Home extends Component {
 
 
                     <section className="current-policy">
+
+                        <h1>Your Policy<img src={questionMark} className="question-mark"/>
+                            <p className="info-popup">Generic information about you and your spouse
+                                (if applicable). Income and Gender are required elements.</p>
+                        </h1>
+
                         <div className="input-wrapper">
                             <label htmlFor="your-policy">Your Policy</label>
                             <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
@@ -207,7 +243,7 @@ class Home extends Component {
                             }}/>
 
                             <label htmlFor="offered-through-company">Offered Through Your Company?</label>
-                            <select name="offered-through-company" required onChange={(e) => {
+                            <select name="offered-through-company" id="offered-through-company" required onChange={(e) => {
                                 this.setState({
                                     offered_through_company: e.target.value
                                 })
@@ -227,56 +263,85 @@ class Home extends Component {
 
                     <section className="immediate-needs">
 
-                        <div className="input-wrapper">
-                            <label htmlFor="mortgage">Mortgage</label>
-                            <input type="text" name="mortgage" placeholder="40000" onChange={(e) => {
-                                this.setState({
-                                    mortgage: e.target.value
-                                })
-                            }}/>
+                        <h1>Immediate Needs<img src={questionMark} className="question-mark"/>
+                            <p className="info-popup">Generic information about you and your spouse
+                                (if applicable). Income and Gender are required elements.</p>
+                        </h1>
 
-                            <label htmlFor="student-loans">Student Loans</label>
-                            <input type="text" name="student-loans" placeholder="8000" onChange={(e) => {
-                                this.setState({
-                                    student_loans: e.target.value
-                                })
-                            }}/>
+                        <div className="immediate-needs-wrapper">
+                            <div className="input-wrapper">
 
-                            <label htmlFor="car-loans">Car Loans</label>
-                            <input type="text" name="car-loans" placeholder="5000" onChange={(e) => {
+                                <div className="label-input">
+                                    <label htmlFor="mortgage">Mortgage</label>
+                                    <input type="text" name="mortgage" placeholder="40000" onChange={(e) => {
+                                        this.setState({
+                                            mortgage: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="student-loans">Student Loans</label>
+                                    <input type="text" name="student-loans" placeholder="8000" onChange={(e) => {
+                                        this.setState({
+                                            student_loans: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="car-loans">Car Loans</label>
+                                    <input type="text" name="car-loans" placeholder="5000" onChange={(e) => {
+                                        this.setState({
+                                            car_loans: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                            </div>
+                            <div className="input-wrapper">
+
+                            <div className="label-input">
+                                    <label htmlFor="medical">Medicdal</label>
+                                    <input type="text" name="medical" placeholder="3000" onChange={(e) => {
+                                        this.setState({
+                                            medical: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+
+                                <div className="label-input">
+                                    <label htmlFor="credit-card">Credit Card</label>
+                                    <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
+                                        this.setState({
+                                            credit_card: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                                <div className="label-input">
+                                    <label htmlFor="other">Other</label>
+                                    <input type="text" name="other" placeholder="200" onChange={(e) => {
+                                        this.setState({
+                                            other: e.target.value
+                                        })
+                                    }}/>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <br/>
+
+                        <div className="label-input">
+                            <label htmlFor="final-expenses">Final Expenses (usually between 7,000 - 10,000)</label>
+                            <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
                                 this.setState({
-                                    car_loans: e.target.value
+                                    final_expenses: e.target.value
                                 })
                             }}/>
                         </div>
-                        <div className="input-wrapper">
-                            <label htmlFor="medical">Medicdal</label>
-                            <input type="text" name="medical" placeholder="3000" onChange={(e) => {
-                                this.setState({
-                                    medical: e.target.value
-                                })
-                            }}/>
-
-                            <label htmlFor="credit-card">Credit Card</label>
-                            <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
-                                this.setState({
-                                    credit_card: e.target.value
-                                })
-                            }}/>
-
-                            <label htmlFor="other">Other</label>
-                            <input type="text" name="other" placeholder="200" onChange={(e) => {
-                                this.setState({
-                                    other: e.target.value
-                                })
-                            }}/>
-                        </div>
-                        <label htmlFor="final-expenses">Final Expenses (usually between 7,000 - 10,000)</label>
-                        <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
-                            this.setState({
-                                final_expenses: e.target.value
-                            })
-                        }}/>
                     </section>
 
 
@@ -285,71 +350,91 @@ class Home extends Component {
 
 
                     <section className="long-term-needs">
+
+                        <h1>Long Term Needs<img src={questionMark} className="question-mark"/>
+                            <p className="info-popup">Generic information about you and your spouse
+                                (if applicable). Income and Gender are required elements.</p>
+                        </h1>
+
                         <div className="input-wrapper">
 
-                            <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
-                            <select name="spouse-working" required onChange={(e) => {
-                                this.setState({
-                                    spouse_working: e.target.value
-                                })
-                            }}>
-                                <option disabled selected>Select</option>
-                                <option>Continue Working</option>
-                                <option>Take Time Off</option>
-                                <option>Prefer not to answer</option>
-                            </select>
+                            <div className="label-input">
+                                <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
+                                <select name="spouse-working" required onChange={(e) => {
+                                    this.setState({
+                                        spouse_working: e.target.value
+                                    })
+                                }}>
+                                    <option disabled selected>Select</option>
+                                    <option>Continue Working</option>
+                                    <option>Take Time Off</option>
+                                    <option>Prefer not to answer</option>
+                                </select>
+                            </div>
 
-                            <label htmlFor="spouse-length">How long?</label>
-                            <select name="spouse-length" required onChange={(e) => {
-                                this.setState({
-                                    spouse_length: e.target.value
-                                })
-                            }}>
-                                <option disabled selected>Select</option>
-                                <option>1/2 year</option>
-                                <option>1 year</option>
-                                <option>1 1/2 years</option>
-                                <option>2 years</option>
-                                <option>More than 2 years</option>
-                            </select>
+                            <div className="label-input">
+                                <label htmlFor="spouse-length">How long?</label>
+                                <select name="spouse-length" required onChange={(e) => {
+                                    this.setState({
+                                        spouse_length: e.target.value
+                                    })
+                                }}>
+                                    <option disabled selected>Select</option>
+                                    <option>1/2 year</option>
+                                    <option>1 year</option>
+                                    <option>1 1/2 years</option>
+                                    <option>2 years</option>
+                                    <option>More than 2 years</option>
+                                </select>
+                            </div>
 
                         </div>
 
-                        <label htmlFor="years-length">Years your income should provide after you pass?</label>
-                        <input type="text" name="years-length" placeholder="200" onChange={(e) => {
-                            this.setState({
-                                years_provide: e.target.value
-                            })
-                        }}/>
+                        <div className="input-wrapper">
+                            <div className="label-input">
+                                <label htmlFor="years-length">Years your income should provide after you pass?</label>
+                                <input type="text" name="years-length" placeholder="200" onChange={(e) => {
+                                    this.setState({
+                                        years_provide: e.target.value
+                                    })
+                                }}/>
+                            </div>
+                        </div>
 
                         <div className="input-wrapper">
-                            <label htmlFor="children-to-college">How many children going to college?</label>
-                            <select name="children-to-college" required onChange={(e) => {
-                                this.setState({
-                                    children_to_college: e.target.value
-                                })
-                            }}>
-                                <option disabled selected>Select</option>
-                                <option>0</option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>More than 3</option>
-                            </select>
 
-                            <label htmlFor="type-of-college">What type of college?</label>
-                            <select name="type-of-college" required onChange={(e) => {
-                                this.setState({
-                                    type_of_college: e.target.value
-                                })
-                            }}>
-                                <option disabled selected>Select</option>
-                                <option>Public University</option>
-                                <option>Private College</option>
-                                <option>Trade School</option>
-                                <option>Community College</option>
-                                <option>Other / Prefer not to answer</option>
-                            </select>
+                            <div className="label-input">
+                                <label htmlFor="children-to-college">How many children going to college?</label>
+                                <select name="children-to-college" required onChange={(e) => {
+                                    this.setState({
+                                        children_to_college: e.target.value
+                                    })
+                                }}>
+                                    <option disabled selected>Select</option>
+                                    <option>0</option>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>More than 3</option>
+                                </select>
+                            </div>
+
+                            <div className="label-input">
+                                <label htmlFor="type-of-college">What type of college?</label>
+                                <select name="type-of-college" required onChange={(e) => {
+                                    this.setState({
+                                        type_of_college: e.target.value
+                                    })
+                                }}>
+                                    <option disabled selected>Select</option>
+                                    <option>Public University</option>
+                                    <option>Private College</option>
+                                    <option>Trade School</option>
+                                    <option>Community College</option>
+                                    <option>Other / Prefer not to answer</option>
+                                </select>
+                            </div>
+
                         </div>
                     </section>
 
