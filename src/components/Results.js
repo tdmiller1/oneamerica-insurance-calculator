@@ -89,6 +89,16 @@ class Results extends Component {
                             }}/>
                         </div>
 
+                        <div>
+                            <label htmlFor="location">Location</label>
+                            <br/>
+                            <input name="location" type="tel" onChange={(e) => {
+                                this.setState({
+                                    location: e.target.value
+                                })
+                            }}/>
+                        </div>
+
                     </div>
 
                     <div className="customer-submit desktop">
@@ -111,6 +121,13 @@ class Results extends Component {
                         <input name="phone" type="tel" onChange={(e) => {
                             this.setState({
                                 phone: e.target.value
+                            })
+                        }}/>
+
+                        <label htmlFor="location">Location</label>
+                        <input name="location" type="tel" onChange={(e) => {
+                            this.setState({
+                                location: e.target.value
                             })
                         }}/>
 
