@@ -2,22 +2,31 @@ import React, {Component} from 'react'
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 
-
 class Results extends Component {
 
-    constructor(props){
-        super(props)
-        this.state = {
-
+    state = {
+        customer: {
             full_name: 1,
             email: 1,
-            phone: 1,
-            location: 1
-
+            phone_number: 1,
+            location: 1,
+            einsurance: 1
         }
     }
 
+    addCustomer = _ =>{
+        const { customer } = this.state;
+        fetch(`http://10.12.18.10:4000/customers/add?
+        name=${customer.full_name}
+        &email=${customer.email}
+        &phone_number=${customer.phone_number}
+        &location=${customer.location}
+        &einsurance=${this.props.location.state.amount.slice(1)}`)
+            .catch(err => console.error(err))
+      }
+
     render() {
+        const { customer } = this.state;
         return (
             <div>
                 <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
@@ -29,8 +38,7 @@ class Results extends Component {
             
                 <form className="component" onSubmit={(e) => {
                     e.preventDefault();
-                    // this.submitInformation()
-                    console.log(this.state);
+                    this.addCustomer();
                 }}>
 
 
@@ -46,7 +54,6 @@ class Results extends Component {
                                     <li>Cost of insurance per month: {this.props.location.state.cost}</li>
                                     <li>Type of plan: {this.props.location.state.plan}</li>
                                 </ol>
-
                             }
                             {
                                 !this.props.location.state &&
@@ -65,18 +72,14 @@ class Results extends Component {
                                     <div className="label-input">
                                         <label htmlFor="full-name">Full Name</label>
                                         <input name="full_name" placeholder="Jane Doe" type="text"  onChange={(e) => {
-                                            this.setState({
-                                                full_name: e.target.value
-                                            })
+                                            this.setState({customer: {...customer, full_name: e.target.value }})
                                         }}/>
                                     </div>
 
                                     <div className="label-input">
                                         <label htmlFor="email">Email</label>
                                         <input name="email" placeholder="JaneDoe@email.com" type="email"  onChange={(e) => {
-                                            this.setState({
-                                                email: e.target.value
-                                            })
+                                            this.setState({customer: {...customer, email: e.target.value }})
                                         }}/>
                                     </div>
                                 </div>
@@ -84,18 +87,14 @@ class Results extends Component {
                                 <div className="input-wrapper">
                                     <div className="label-input">
                                         <label htmlFor="phone">Phone</label>
-                                        <input name="phone" placeholder="555-555-5555" type="tel"  onChange={(e) => {
-                                            this.setState({
-                                                phone: e.target.value
-                                            })
+                                        <input name="phone_number" placeholder="555-555-5555" type="text"  onChange={(e) => {
+                                            this.setState({customer: {...customer, phone_number: e.target.value }})
                                         }}/>
                                     </div>
                                     <div className="label-input">
                                         <label htmlFor="location">Location</label>
-                                        <input name="location" placeholder="Indianapolis, IN" type="tel" onChange={(e) => {
-                                            this.setState({
-                                                location: e.target.value
-                                            })
+                                        <input name="location" placeholder="Indianapolis, IN" type="text" onChange={(e) => {
+                                            this.setState({customer: {...customer, location: e.target.value }})
                                         }}/>
                                     </div>
 
