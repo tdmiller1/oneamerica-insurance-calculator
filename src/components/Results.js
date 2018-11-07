@@ -6,37 +6,46 @@ class Results extends Component {
 
     state = {
         customer: {
-            full_name: 1,
-            email: 1,
-            phone_number: 1,
-            location: 1,
+            full_name: undefined,
+            email: undefined,
+            phone_number: undefined,
+            location: undefined,
             einsurance: 1
         }
     }
 
     addCustomer = _ =>{
         const { customer } = this.state;
-        fetch(`http://10.12.18.10:4000/customers/add?
-        name=${customer.full_name}
-        &email=${customer.email}
-        &phone_number=${customer.phone_number}
-        &location=${customer.location}
-        &einsurance=${this.props.location.state.amount.slice(1)}`)
-            .catch(err => console.error(err))
+        fetch(`http://10.12.18.10:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount.slice(1)}`)
+        .then(response => {
+            switch(response.status){
+                case 200: 
+                    alert("Successfully submitted your information.")
+                    break;
+                case 400: 
+                    alert("Bad Request");
+                    break;
+                case 404: 
+                    alert("Not Found");
+                    break;
+            }
+        })    
+        .catch(err => console.error(err))
       }
 
     render() {
         const { customer } = this.state;
         return (
-            <div>
+            <div id="results-page">
                 <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
 
                 <div className="overview-text">
-                    <h1>Lorem Ipsum Dolor Sit Amet, Consectetur Elit?</h1>
+                    <h1>Lorem Ipsum Dolor Sit At, Consectetur Elit?</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
                 </div>
             
                 <form className="component" onSubmit={(e) => {
+                    console.log(this.state.customer);
                     e.preventDefault();
                     this.addCustomer();
                 }}>
@@ -71,7 +80,7 @@ class Results extends Component {
                                 <div className="input-wrapper">
                                     <div className="label-input">
                                         <label htmlFor="full-name">Full Name</label>
-                                        <input name="full_name" placeholder="Jane Doe" type="text"  onChange={(e) => {
+                                        <input required name="full_name" placeholder="Jane Doe" type="text"  onChange={(e) => {
                                             this.setState({customer: {...customer, full_name: e.target.value }})
                                         }}/>
                                     </div>
@@ -87,7 +96,7 @@ class Results extends Component {
                                 <div className="input-wrapper">
                                     <div className="label-input">
                                         <label htmlFor="phone">Phone</label>
-                                        <input name="phone_number" placeholder="555-555-5555" type="text"  onChange={(e) => {
+                                        <input required name="phone_number" placeholder="555-555-5555" type="text"  onChange={(e) => {
                                             this.setState({customer: {...customer, phone_number: e.target.value }})
                                         }}/>
                                     </div>
