@@ -335,7 +335,7 @@ class Home extends Component {
                         <br/>
 
                         <div className="label-input">
-                            <label htmlFor="final-expenses">Final Expenses (usually between 7,000 - 10,000)</label>
+                            <label htmlFor="final-expenses">Final Expenses (usually 7,000-10,000)</label>
                             <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
                                 this.setState({
                                     final_expenses: e.target.value
@@ -359,7 +359,7 @@ class Home extends Component {
                         <div className="input-wrapper">
 
                             <div className="label-input">
-                                <label htmlFor="spouse-working">Spouse continue working or take time off?</label>
+                                <label htmlFor="spouse-working">Spouse keep working or take time off?</label>
                                 <select name="spouse-working" required onChange={(e) => {
                                     this.setState({
                                         spouse_working: e.target.value
