@@ -349,18 +349,16 @@ label{
     content: "Long Term Needs";
 }
 
-input::placeholder{
+/* input::placeholder{
     padding-top: .2em;
     padding-left: .5em;
     color: #DDD;
     font-size: 1.3em;
-}
+} */
 
-select > option{
-    padding-top: .2em !important;
-    padding-left: .5em !important;
-    color: #DDD !important;
-    font-size: 1.3em !important;
+select, input{
+    padding-left:8px;
+    font-size: .8em;
 }
 
 .calculate{
