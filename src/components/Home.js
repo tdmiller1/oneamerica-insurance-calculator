@@ -90,6 +90,7 @@ class Home extends Component {
 
     render() {
         return (
+            <div className="temporary-site-wrapper">
             <div className="home-page">
 
                 <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
@@ -334,14 +335,14 @@ class Home extends Component {
 
                         <br/>
 
-                        <div className="label-input">
-                            <label htmlFor="final-expenses">Final Expenses (usually 7,000-10,000)</label>
-                            <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
-                                this.setState({
-                                    final_expenses: e.target.value
-                                })
-                            }}/>
-                        </div>
+                            <div className="label-input final-expenses">
+                                <label htmlFor="final-expenses">Final Expenses (usually 7,000-10,000)</label>
+                                <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
+                                    this.setState({
+                                        final_expenses: e.target.value
+                                    })
+                                }}/>
+                            </div>
                     </section>
 
 
@@ -446,6 +447,7 @@ class Home extends Component {
 
                 </form>
 
+            </div>
             </div>
         )
     }

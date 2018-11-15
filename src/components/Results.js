@@ -36,6 +36,7 @@ class Results extends Component {
     render() {
         const { customer } = this.state;
         return (
+            <div className="temporary-site-wrapper">
             <div id="results-page">
                 <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
 
@@ -114,6 +115,7 @@ class Results extends Component {
                     <button className="contact-us-button" type="submit">Contact Us</button>
 
                 </form>
+            </div>
             </div>
         )
     }
