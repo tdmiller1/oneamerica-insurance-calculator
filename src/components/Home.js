@@ -11,9 +11,6 @@ class Home extends Component {
         super(props)
         this.state = {
 
-            //IMPORTANT: these will all be the national average, not 0. for now they are 0 because
-            //I don't know the actual numbers
-
             //about you information
             age: 1,
             spouse_age: 1,
@@ -39,13 +36,16 @@ class Home extends Component {
             credit_card: 1,
             other: 1,
             final_expenses: 1,
+            total_expenses: 0,
 
             //long term needs
             spouse_working: false,
             spouse_length: 1,
             years_provide: 1,
             children_to_college: 1,
-            type_of_college: null
+            type_of_college: null,
+
+            total_insurance_needs: 1
 
         }
     }
@@ -55,29 +55,27 @@ class Home extends Component {
 
     submitInformation(){
 
-        console.log(this.state)
+        this.setState({
+            total_expenses: (this.state.medical + this.state.mortgage +
+                this.state.student_loans + this.state.car_loans +
+                this.state.credit_card + this.state.other)
+        }, () => {
+            console.log(this.state)
 
-        if(this.validation()){
-            this.calculate();
-            this.props.history.push({
-                pathname: '/results',
-                state: {
-                    type: "Life Insurance",
-                    cost: 200000,
-                    amount: "$300",
-                    plan: "Plan C"
-                }
-            })
-        }
-        else {
-            //this will eventually be some kind of form state
-        }
+            if(this.validation()){
+                this.calculate();
+            }
+            else {
+                //this will eventually be some kind of form state
+            }
+        })
+
     }
 
     validation(){
         console.log("Begin form validation.");
         if(this.state.gender !== "Male" && this.state.gender !== "Female" && this.state.gender !== "Prefer not to answer"){
-            alert("Please select a gender.")
+            alert("Please fill out the following information: Gender")
         }
         return ((this.state.income !== -1) && (this.state.gender !== null));
     }
@@ -85,6 +83,23 @@ class Home extends Component {
     calculate(){
         console.log("Begin Calculation")
 
+        this.setState({
+            total_insurance_needs:  (this.state.savings + this.state.checkings +
+                                    this.state.retirement + this.state.current_policy +
+                                    this.state.total_expenses + this.state.final_expenses +
+                                    (this.state.income * this.state.years_provide) +
+                                    (this.state.children_to_college * 38000))
+        }, () => {
+            this.props.history.push({
+                pathname: '/results',
+                state: {
+                    type: "Life Insurance",
+                    cost: 200000,
+                    amount: this.state.total_insurance_needs,
+                    plan: "Plan C"
+                }
+            })
+        })
         //this is where the oneAmerica algorithm will go
     }
 
@@ -97,7 +112,7 @@ class Home extends Component {
 
                 <div className="overview-text">
                     <h1>Do You Know How Much Life Insurance YOU Need?</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <p>Welcome to the OneAmerica life insurance Calculator. If you're curious about how much life insurance you might need, you've come to the right place. Below, please fill out as much information as you can about yourself. Not all information is required, but the more you can provide, the better our website can calculate just how much, and what type, insurance you and your family will need.</p><p>On the following page, you will be able, if you like, to submit some basic information to one of our representatives so that we can assist you in receiving just the right insurance plan for your specific needs! </p>
                 </div>
 
                 <form onSubmit={(e) => {
@@ -121,7 +136,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-age">Spouse Age</label>
                                     <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
                                         this.setState({
-                                            spouse_age: e.target.value
+                                            spouse_age: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -130,7 +145,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-income">Spouse Income</label>
                                     <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
                                         this.setState({
-                                            spouse_income: e.target.value
+                                            spouse_income: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -139,7 +154,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-age">Num of Children</label>
                                     <input type="text" name="spouse-age" placeholder="3" onChange={(e) => {
                                         this.setState({
-                                            children: e.target.value
+                                            children: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -154,7 +169,7 @@ class Home extends Component {
                                     <label htmlFor="age">Your Age</label>
                                     <input type="text" name="age" placeholder="45" onChange={(e) => {
                                         this.setState({
-                                            age: e.target.value
+                                            age: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -163,7 +178,7 @@ class Home extends Component {
                                     <label htmlFor="income">Your Income</label>
                                     <input type="text" name="income" placeholder="37000" required onChange={(e) => {
                                         this.setState({
-                                            income: e.target.value
+                                            income: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -203,21 +218,21 @@ class Home extends Component {
                             <label htmlFor="savings">Savings</label>
                             <input type="text" name="savings" placeholder="15000" onChange={(e) => {
                                 this.setState({
-                                    savings: e.target.value
+                                    savings: parseInt(e.target.value)
                                 })
                             }}/>
 
                             <label htmlFor="checking">Checking</label>
                             <input type="text" name="checking" placeholder="7000" onChange={(e) => {
                                 this.setState({
-                                    checking: e.target.value
+                                    checking: parseInt(e.target.value)
                                 })
                             }}/>
 
                             <label htmlFor="retirement">Retirement</label>
                             <input type="text" name="retirement" placeholder="70000" onChange={(e) => {
                                 this.setState({
-                                    age: e.target.value
+                                    age: parseInt(e.target.value)
                                 })
                             }}/>
                         </div>
@@ -239,7 +254,7 @@ class Home extends Component {
                             <label htmlFor="your-policy">Your Policy</label>
                             <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
                                 this.setState({
-                                    current_policy: e.target.value
+                                    current_policy: parseInt(e.target.value)
                                 })
                             }}/>
 
@@ -276,7 +291,7 @@ class Home extends Component {
                                     <label htmlFor="mortgage">Mortgage</label>
                                     <input type="text" name="mortgage" placeholder="40000" onChange={(e) => {
                                         this.setState({
-                                            mortgage: e.target.value
+                                            mortgage: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -285,7 +300,7 @@ class Home extends Component {
                                     <label htmlFor="student-loans">Student Loans</label>
                                     <input type="text" name="student-loans" placeholder="8000" onChange={(e) => {
                                         this.setState({
-                                            student_loans: e.target.value
+                                            student_loans: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -294,7 +309,7 @@ class Home extends Component {
                                     <label htmlFor="car-loans">Car Loans</label>
                                     <input type="text" name="car-loans" placeholder="5000" onChange={(e) => {
                                         this.setState({
-                                            car_loans: e.target.value
+                                            car_loans: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -303,10 +318,10 @@ class Home extends Component {
                             <div className="input-wrapper">
 
                             <div className="label-input">
-                                    <label htmlFor="medical">Medicdal</label>
+                                    <label htmlFor="medical">Medical</label>
                                     <input type="text" name="medical" placeholder="3000" onChange={(e) => {
                                         this.setState({
-                                            medical: e.target.value
+                                            medical: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -316,7 +331,7 @@ class Home extends Component {
                                     <label htmlFor="credit-card">Credit Card</label>
                                     <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
                                         this.setState({
-                                            credit_card: e.target.value
+                                            credit_card: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -325,7 +340,7 @@ class Home extends Component {
                                     <label htmlFor="other">Other</label>
                                     <input type="text" name="other" placeholder="200" onChange={(e) => {
                                         this.setState({
-                                            other: e.target.value
+                                            other: parseInt(e.target.value)
                                         })
                                     }}/>
                                 </div>
@@ -339,7 +354,7 @@ class Home extends Component {
                                 <label htmlFor="final-expenses">Final Expenses (usually 7,000-10,000)</label>
                                 <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
                                     this.setState({
-                                        final_expenses: e.target.value
+                                        final_expenses: parseInt(e.target.value)
                                     })
                                 }}/>
                             </div>
@@ -396,7 +411,7 @@ class Home extends Component {
                                 <label htmlFor="years-length">Years your income should provide after you pass?</label>
                                 <input type="text" name="years-length" placeholder="200" onChange={(e) => {
                                     this.setState({
-                                        years_provide: e.target.value
+                                        years_provide: parseInt(e.target.value)
                                     })
                                 }}/>
                             </div>
@@ -408,7 +423,7 @@ class Home extends Component {
                                 <label htmlFor="children-to-college">How many children going to college?</label>
                                 <select name="children-to-college" required onChange={(e) => {
                                     this.setState({
-                                        children_to_college: e.target.value
+                                        children_to_college: parseInt(e.target.value)
                                     })
                                 }}>
                                     <option disabled selected>Select</option>

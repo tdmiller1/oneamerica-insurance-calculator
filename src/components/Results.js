@@ -41,8 +41,8 @@ class Results extends Component {
                 <h3 id="calculator-title">LIFE INSURANCE CALCULATOR</h3>
 
                 <div className="overview-text">
-                    <h1>Lorem Ipsum Dolor Sit At, Consectetur Elit?</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+                    <h1>OneAmerica Insurance Calculator</h1>
+                    <p>Below is just a small amount of information that should help you to know more about your current insurance needs. Not sure what these numbers mean, or do they seem intimidating? Please fill out your information in the form below, and we will connect you with one of our fantasitc representatives who can explain more, and help you get started in achieving your insurance needs.</p>
                 </div>
             
                 <form className="component" onSubmit={(e) => {
