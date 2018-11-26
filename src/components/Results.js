@@ -11,16 +11,21 @@ class Results extends Component {
             phone_number: undefined,
             location: undefined,
             einsurance: 1
-        }
+        },
+        submitted:false
     }
 
     addCustomer = _ =>{
         const { customer } = this.state;
-        fetch(`http://10.12.18.10:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount.slice(1)}`)
+        fetch(`http://10.12.18.10:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount}`)
         .then(response => {
             switch(response.status){
                 case 200: 
                     alert("Successfully submitted your information.")
+                    this.setState({
+                        submitted:true
+                    })
+                    console.log(this.state);
                     break;
                 case 400: 
                     alert("Bad Request");
@@ -34,6 +39,8 @@ class Results extends Component {
       }
 
     render() {
+        
+        console.log(this.state);
         const { customer } = this.state;
         return (
             <div className="temporary-site-wrapper">
@@ -111,8 +118,7 @@ class Results extends Component {
                                 </div>
                         </div>
                     </div>
-
-                    <button className="contact-us-button" type="submit">Contact Us</button>
+                    <button className="contact-us-button" disabled={this.state.submitted} type="submit">Contact Us</button>
 
                 </form>
             </div>

@@ -393,3 +393,16 @@ select, input{
     display:flex;
     justify-content: center;
 }
+
+.contact-us-button:disabled{
+    width: 15em;
+    height: 3em;
+    border-radius: 0;
+    background-color: #838f9a;
+    color: white;
+    font-size: .9em;
+    font-weight: bolder;
+    margin: 1em auto;
+    display:flex;
+    justify-content: center;
+}
