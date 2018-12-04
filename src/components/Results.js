@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
+import Success from "../components/Success";
+import Failure from "../components/Success";
+
 
 class Results extends Component {
 
@@ -12,28 +15,23 @@ class Results extends Component {
             location: undefined,
             einsurance: 1
         },
-        submitted:false
+        success:false,
+        failure:false
     }
 
     addCustomer = _ =>{
         const { customer } = this.state;
+
         fetch(`http://10.12.18.10:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount}`)
         .then(response => {
             switch(response.status){
-                case 200: 
-                    alert("Successfully submitted your information.")
-                    this.setState({
-                        submitted:true
-                    })
-                    console.log(this.state);
+                case 200:
+                    this.setState({success: true})
                     break;
-                case 400: 
-                    alert("Bad Request");
-                    break;
-                case 404: 
-                    alert("Not Found");
-                    break;
+                default:
+                    this.setState({failure: true})
             }
+            console.log(response);
         })    
         .catch(err => console.error(err))
       }
@@ -55,7 +53,7 @@ class Results extends Component {
                 <form className="component" onSubmit={(e) => {
                     console.log(this.state.customer);
                     e.preventDefault();
-                    this.addCustomer();
+                     return this.addCustomer();
                 }}>
 
 
@@ -118,9 +116,16 @@ class Results extends Component {
                                 </div>
                         </div>
                     </div>
-                    <button className="contact-us-button" disabled={this.state.submitted} type="submit">Contact Us</button>
-
-                </form>
+                    <button className="contact-us-button" disabled={this.state.success} type="submit">Contact Us</button>
+                        {
+                            this.state.submitted &&
+                            <Success />
+                        }
+                        {
+                            this.state.failure &&
+                            <Failure />
+                        }
+                    </form>
             </div>
             </div>
         )
