@@ -33,8 +33,9 @@ class Results extends Component {
             }
             console.log(response);
         })
-        .catch(err => console.error(err))
-        this.setState({failure:true})
+        .catch(err => {
+            this.setState({failure: true})
+        })
       }
 
     render() {
