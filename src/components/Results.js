@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import { withRouter } from "react-router";
 import PropTypes from "prop-types";
 import Success from "../components/Success";
-import Failure from "../components/Success";
+import Failure from "../components/Failure";
 
 
 class Results extends Component {
@@ -32,8 +32,9 @@ class Results extends Component {
                     this.setState({failure: true})
             }
             console.log(response);
-        })    
+        })
         .catch(err => console.error(err))
+        this.setState({failure:true})
       }
 
     render() {
@@ -118,7 +119,7 @@ class Results extends Component {
                     </div>
                     <button className="contact-us-button" disabled={this.state.success} type="submit">Contact Us</button>
                         {
-                            this.state.submitted &&
+                            this.state.success &&
                             <Success />
                         }
                         {
