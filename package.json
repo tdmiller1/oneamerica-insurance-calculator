@@ -2,8 +2,13 @@
   "name": "oneamerica-insurance-calculator",
   "version": "0.1.0",
   "private": true,
+  "main": "src/scripts/server.js",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
     "history": "^4.7.2",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.9",
     "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
