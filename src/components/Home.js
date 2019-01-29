@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import { withRouter, Switch, Route } from "react-router";
+import { withRouter } from "react-router";
 import questionMark from "../assets/images/oneamerica-question.svg"
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { createBrowserHistory, createHashHistory, createMemoryHistory } from "history"
+// import { Link } from 'react-router-dom';
+// import PropTypes from 'prop-types';
+// import { createBrowserHistory, createHashHistory, createMemoryHistory } from "history"
 
 class Home extends Component {
 
@@ -124,7 +124,7 @@ class Home extends Component {
 
                     <section className="about-you">
 
-                        <h1>About You<img src={questionMark} className="question-mark"/>
+                        <h1>About You<img alt="" src={questionMark} className="question-mark"/>
                             <p className="info-popup">Generic information about you and your spouse
                                 (if applicable). Income and Gender are required elements.</p>
                         </h1>
@@ -136,7 +136,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-age">Spouse Age</label>
                                     <input type="text" name="spouse-age" placeholder="43" onChange={(e) => {
                                         this.setState({
-                                            spouse_age: parseInt(e.target.value)
+                                            spouse_age: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -145,7 +145,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-income">Spouse Income</label>
                                     <input type="text" name="spouse-income" placeholder="34000" onChange={(e) => {
                                         this.setState({
-                                            spouse_income: parseInt(e.target.value)
+                                            spouse_income: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -154,7 +154,7 @@ class Home extends Component {
                                     <label htmlFor="spouse-age">Num of Children</label>
                                     <input type="text" name="spouse-age" placeholder="3" onChange={(e) => {
                                         this.setState({
-                                            children: parseInt(e.target.value)
+                                            children: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -169,7 +169,7 @@ class Home extends Component {
                                     <label htmlFor="age">Your Age</label>
                                     <input type="text" name="age" placeholder="45" onChange={(e) => {
                                         this.setState({
-                                            age: parseInt(e.target.value)
+                                            age: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -178,7 +178,7 @@ class Home extends Component {
                                     <label htmlFor="income">Your Income</label>
                                     <input type="text" name="income" placeholder="37000" required onChange={(e) => {
                                         this.setState({
-                                            income: parseInt(e.target.value)
+                                            income: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -209,7 +209,7 @@ class Home extends Component {
 
                     <section className="personal-assets">
 
-                        <h1>Personal Assets<img src={questionMark} className="question-mark"/>
+                        <h1>Personal Assets<img alt="" src={questionMark} className="question-mark"/>
                             <p className="info-popup">Generic information about your current financial
                                 status. This section is not required, but helps make accurate calculations.</p>
                         </h1>
@@ -218,21 +218,21 @@ class Home extends Component {
                             <label htmlFor="savings">Savings</label>
                             <input type="text" name="savings" placeholder="15000" onChange={(e) => {
                                 this.setState({
-                                    savings: parseInt(e.target.value)
+                                    savings: parseInt(e.target.value,10)
                                 })
                             }}/>
 
                             <label htmlFor="checking">Checking</label>
                             <input type="text" name="checking" placeholder="7000" onChange={(e) => {
                                 this.setState({
-                                    checking: parseInt(e.target.value)
+                                    checking: parseInt(e.target.value,10)
                                 })
                             }}/>
 
                             <label htmlFor="retirement">Retirement</label>
                             <input type="text" name="retirement" placeholder="70000" onChange={(e) => {
                                 this.setState({
-                                    age: parseInt(e.target.value)
+                                    age: parseInt(e.target.value,10)
                                 })
                             }}/>
                         </div>
@@ -245,7 +245,7 @@ class Home extends Component {
 
                     <section className="current-policy">
 
-                        <h1>Your Policy<img src={questionMark} className="question-mark"/>
+                        <h1>Your Policy<img alt="" src={questionMark} className="question-mark"/>
                             <p className="info-popup">Generic information about your current insurance
                                 policy. This section is not required, but helps make accurate calculations.</p>
                         </h1>
@@ -254,7 +254,7 @@ class Home extends Component {
                             <label htmlFor="your-policy">Your Policy</label>
                             <input type="text" name="your-policy" placeholder="200000" onChange={(e) => {
                                 this.setState({
-                                    current_policy: parseInt(e.target.value)
+                                    current_policy: parseInt(e.target.value,10)
                                 })
                             }}/>
 
@@ -279,7 +279,7 @@ class Home extends Component {
 
                     <section className="immediate-needs">
 
-                        <h1>Immediate Needs<img src={questionMark} className="question-mark"/>
+                        <h1>Immediate Needs<img alt="" src={questionMark} className="question-mark"/>
                             <p className="info-popup">Generic information about your current debt needs.
                                 This section is not required, but helps make accurate calculations.</p>
                         </h1>
@@ -291,7 +291,7 @@ class Home extends Component {
                                     <label htmlFor="mortgage">Mortgage</label>
                                     <input type="text" name="mortgage" placeholder="40000" onChange={(e) => {
                                         this.setState({
-                                            mortgage: parseInt(e.target.value)
+                                            mortgage: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -300,7 +300,7 @@ class Home extends Component {
                                     <label htmlFor="student-loans">Student Loans</label>
                                     <input type="text" name="student-loans" placeholder="8000" onChange={(e) => {
                                         this.setState({
-                                            student_loans: parseInt(e.target.value)
+                                            student_loans: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -309,7 +309,7 @@ class Home extends Component {
                                     <label htmlFor="car-loans">Car Loans</label>
                                     <input type="text" name="car-loans" placeholder="5000" onChange={(e) => {
                                         this.setState({
-                                            car_loans: parseInt(e.target.value)
+                                            car_loans: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -321,7 +321,7 @@ class Home extends Component {
                                     <label htmlFor="medical">Medical</label>
                                     <input type="text" name="medical" placeholder="3000" onChange={(e) => {
                                         this.setState({
-                                            medical: parseInt(e.target.value)
+                                            medical: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -331,7 +331,7 @@ class Home extends Component {
                                     <label htmlFor="credit-card">Credit Card</label>
                                     <input type="text" name="credit-card" placeholder="1000" onChange={(e) => {
                                         this.setState({
-                                            credit_card: parseInt(e.target.value)
+                                            credit_card: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -340,7 +340,7 @@ class Home extends Component {
                                     <label htmlFor="other">Other</label>
                                     <input type="text" name="other" placeholder="200" onChange={(e) => {
                                         this.setState({
-                                            other: parseInt(e.target.value)
+                                            other: parseInt(e.target.value,10)
                                         })
                                     }}/>
                                 </div>
@@ -354,7 +354,7 @@ class Home extends Component {
                                 <label htmlFor="final-expenses">Final Expenses (usually 7,000-10,000)</label>
                                 <input type="text" name="final-expenses" placeholder="8500" onChange={(e) => {
                                     this.setState({
-                                        final_expenses: parseInt(e.target.value)
+                                        final_expenses: parseInt(e.target.value,10)
                                     })
                                 }}/>
                             </div>
@@ -367,7 +367,7 @@ class Home extends Component {
 
                     <section className="long-term-needs">
 
-                        <h1>Long Term Needs<img src={questionMark} className="question-mark"/>
+                        <h1>Long Term Needs<img alt="" src={questionMark} className="question-mark"/>
                             <p className="info-popup">Generic information about financial needs after
                                 you pass. This section is not required, but helps make accurate calculations.</p>
                         </h1>
@@ -411,7 +411,7 @@ class Home extends Component {
                                 <label htmlFor="years-length">Years your income should provide after you pass?</label>
                                 <input type="text" name="years-length" placeholder="200" onChange={(e) => {
                                     this.setState({
-                                        years_provide: parseInt(e.target.value)
+                                        years_provide: parseInt(e.target.value,10)
                                     })
                                 }}/>
                             </div>
@@ -423,7 +423,7 @@ class Home extends Component {
                                 <label htmlFor="children-to-college">How many children going to college?</label>
                                 <select name="children-to-college" required onChange={(e) => {
                                     this.setState({
-                                        children_to_college: parseInt(e.target.value)
+                                        children_to_college: parseInt(e.target.value,10)
                                     })
                                 }}>
                                     <option disabled selected>Select</option>
