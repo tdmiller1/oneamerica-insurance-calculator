@@ -1,6 +1,5 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
-import PropTypes from "prop-types";
 import Success from "../components/Success";
 import Failure from "../components/Failure";
 
@@ -21,8 +20,7 @@ class Results extends Component {
 
     addCustomer = _ =>{
         const { customer } = this.state;
-
-        fetch(`http://10.12.18.10:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount}`)
+        fetch(`http://localhost:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount}`)
         .then(response => {
             switch(response.status){
                 case 200:
@@ -31,7 +29,6 @@ class Results extends Component {
                 default:
                     this.setState({failure: true})
             }
-            console.log(response);
         })
         .catch(err => {
             this.setState({failure: true})
@@ -111,7 +108,7 @@ class Results extends Component {
                                     <div className="label-input">
                                         <label htmlFor="location">Zip Code</label>
                                         <input name="location" maxLength="5" placeholder="47304" type="text" onChange={(e) => {
-                                            this.setState({customer: {...customer, location: parseInt(e.target.value) }})
+                                            this.setState({customer: {...customer, location: parseInt(e.target.value,10) }})
                                         }}/>
                                     </div>
 

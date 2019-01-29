@@ -1,0 +1,96 @@
+.client_card{
+    margin:0px 10%;
+}
+#gray_row{
+    background-color:lightgray;
+}
+p{
+    padding:8px;
+    margin:0px;
+    color:gray;
+}
+h4{
+    color:gray;
+}
+span{
+    color:black;
+    font-weight: 1000;
+}
+.row{
+    float:left;
+}
+#timestamp{
+    text-align: right;
+}
+.parent{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.child{
+    padding:10px;
+}
+#search-bar{
+    width:50%;
+    margin-right:10px;
+    padding:0px 0px 0px 5px;
+}
+#search-button{
+    height:50%;
+    margin-top:7px;
+}
+h1{
+    margin:0px;
+    color:white;
+}
+#header{
+    background-color:#003a6b;
+    padding:15px;
+    display: flex;
+    flex-direction: row;
+}
+#spacer{
+    width:50%;
+}
+#search-area{
+    background-color:lightgray;
+    color:white;
+    padding-bottom:20px;
+}
+#line{
+    margin:0px;
+    padding:25px 15px 5px 15px;
+    border-bottom: 2px solid white;
+    width:75%;
+    border-right:0px;
+    border-left:0px;
+    border-top:0px;
+    margin-left:12.5%;
+}
+#card-header{
+    display: flex;
+    flex-direction: row;
+}
+#name-field{
+    float:left;
+}
+#checkbox{
+    float:right;
+    width:20px;
+    height:20px;
+    margin-top:20px;
+}
+#spacer25{
+    width:35%;
+}
+#filter-wrapper{
+    position: absolute;
+    padding:0px;
+    margin:5%;
+    height:90%;
+    width:90%;
+    background-color:rgb(255, 251, 251);
+}
+#margin{
+    margin:30px;
+}
