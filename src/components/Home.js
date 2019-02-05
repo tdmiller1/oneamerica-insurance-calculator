@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import '../assets/style.css';
 import { withRouter } from "react-router";
 import questionMark from "../assets/images/oneamerica-question.svg"
 // import { Link } from 'react-router-dom';

@@ -8,6 +8,7 @@ $ npm install
 ```
 ### To start nodejs server
 ```bash
+$ npm install -g nodemon
 $ nodemon start
 ```
 

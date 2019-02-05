@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, {Component} from 'react';
+import "../assets/dashboard.css"
 class CustomerCard extends Component {
-
 
     selectedChange = _ => {
         var customer = {Name: this.props.name, Email: this.props.email, 
@@ -15,10 +15,8 @@ class CustomerCard extends Component {
             <button onClick={this.selectedChange}>"checkbox placeholder"</button>
                 <div id="card-header">
                     <h4 id="name-field">Name: <span>{this.props.name}</span></h4>
-                    {/* <div id="spacer25"></div> */}
-                    <input type="checkbox"/>
+                    <input id="checkbox" type="checkbox"/>
                 </div>
-                
                 <div id="floatLeft">
                     <p id="gray_row">Email: <span>{this.props.email}</span></p>
                     <p>Location: <span>{this.props.location}</span></p>

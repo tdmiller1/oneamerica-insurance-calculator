@@ -1,96 +1,169 @@
-.client_card{
-    margin:0px 10%;
+
+@media only screen and (max-width: 980px) {
+
+    .client_card{
+        margin:0px 10%;
+    }
+    #gray_row{
+        background-color:lightgray;
+    }
+    p{
+        padding:8px;
+        font-size:15.5px;
+        margin:0px;
+        color:gray;
+    }
+    h4{
+        color:gray;
+    }
+    span{
+        color:black;
+        font-weight: 600;
+    }
+    .row{
+        float:left;
+    }
+    #timestamp{
+        text-align: right;
+    }
+    .parent{
+        display:flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+    .child{
+        padding:10px;
+    }
+    h1{
+        margin:0px;
+        color:white;
+    }
+    #header{
+        background-color:#003a6b;
+        padding:15px;
+        display: flex;
+        flex-direction: row;
+    }
+    #spacer{
+        width:50%;
+    }
+    #search-area{
+        background-color:lightgray;
+        color:white;
+        padding-bottom:20px;
+    }
+    #line{
+        margin:0px;
+        padding:25px 15px 5px 15px;
+        border-bottom: 2px solid white;
+        width:75%;
+        border-right:0px;
+        border-left:0px;
+        border-top:0px;
+        margin-left:12.5%;
+    }
+    #card-header{
+        display: flex;
+        flex-direction: row;
+    }
+    #name-field{
+        float:left;
+    }
+    #spacer25{
+        width:35%;
+    }
+    #filter-wrapper{
+        position: absolute;
+        padding:0px;
+        margin:5%;
+        height:90%;
+        width:90%;
+        background-color:rgb(255, 251, 251);
+    }
+    #margin{
+        margin:30px;
+    }
+
 }
-#gray_row{
-    background-color:lightgray;
-}
-p{
-    padding:8px;
-    margin:0px;
-    color:gray;
-}
-h4{
-    color:gray;
-}
-span{
-    color:black;
-    font-weight: 1000;
-}
-.row{
-    float:left;
-}
-#timestamp{
-    text-align: right;
-}
-.parent{
-    display:flex;
-    flex-direction: row;
-    justify-content: center;
-}
-.child{
-    padding:10px;
-}
-#search-bar{
-    width:50%;
-    margin-right:10px;
-    padding:0px 0px 0px 5px;
-}
-#search-button{
-    height:50%;
-    margin-top:7px;
-}
-h1{
-    margin:0px;
-    color:white;
-}
+
 #header{
     background-color:#003a6b;
     padding:15px;
     display: flex;
     flex-direction: row;
 }
-#spacer{
-    width:50%;
+#dashboard-sidepanel{
+    width:300px;
+    background-color:#d4d4d4;
+    border-right:2px solid #949292;
+    padding:0px 20px;
 }
-#search-area{
-    background-color:lightgray;
-    color:white;
-    padding-bottom:20px;
+#dashboard-content{
+    padding:0px 20px;
+    width:80%;
 }
-#line{
+
+#dashboard-desktop{
+    flex-direction: row;
+    display:flex;
+    min-height: 100vh;
+}
+#search-bar{
+    width:70%;
+    height:40px;
+    padding:0px 0px 0px 5px;
     margin:0px;
-    padding:25px 15px 5px 15px;
-    border-bottom: 2px solid white;
-    width:75%;
-    border-right:0px;
-    border-left:0px;
-    border-top:0px;
-    margin-left:12.5%;
 }
-#card-header{
-    display: flex;
+#search-button{
+    height:40px;
+    width:40px;
+}
+.parent{
+    display:flex;
     flex-direction: row;
 }
-#name-field{
-    float:left;
+.child{
+    margin-right:10px;
 }
+
+
 #checkbox{
     float:right;
     width:20px;
     height:20px;
     margin-top:20px;
 }
-#spacer25{
-    width:35%;
+
+tr #checkbox{
+    margin: 10px 10px;
 }
-#filter-wrapper{
-    position: absolute;
-    padding:0px;
-    margin:5%;
-    height:90%;
-    width:90%;
-    background-color:rgb(255, 251, 251);
+
+.column{
+    display:flex;
+    flex-direction: column;
 }
-#margin{
-    margin:30px;
+
+#label{
+    margin-top:20px;
+}
+.row{
+    display:flex;
+    flex-direction: row;
+}
+
+tr:nth-child(even){
+    background-color:#bebebe;
+}
+table{
+    width:100%;
+    border-spacing:0px;
+    text-align: left;
+}
+
+td, th{
+    padding:0px 5px;
+}
+
+.floatRight{
+    float:right;
 }

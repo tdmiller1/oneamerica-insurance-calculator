@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
+// import '../assets/style.css';
 import Success from "../components/Success";
 import Failure from "../components/Failure";
 
