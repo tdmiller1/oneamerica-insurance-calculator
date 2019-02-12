@@ -5,7 +5,6 @@ const app = express();
 
 const SELECT_ALL = 'SELECT * FROM customer';
 
-
 connection = mysql.createConnection({
     host:'10.12.18.10',
     user:'Noonja',
@@ -74,6 +73,102 @@ app.get('/delete/name', (req, res) => {
             return res.send(err);
         }else{
             console.log('------Customer Server DELETE------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by timestamp DESC
+app.get('/filter/timestamp', (req, res) => {
+    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer ORDER BY Time DESC;`;
+    connection.query(FILTER_TIMESTAMP, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by timestamp Like Day
+app.get('/filter/timestamp/day', (req, res) => {
+    const {currentDay} = req.query;
+    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer Where Time Like "%${currentDay}%";`;
+    connection.query(FILTER_TIMESTAMP, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by timestamp Range
+app.get('/filter/timestamp/range', (req, res) => {
+    const {upperBound, lowerBound} = req.query;
+    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer where Time >= '${lowerBound}' and Time < '${upperBound}'`;
+    connection.query(FILTER_TIMESTAMP, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by Insurance Needs Range
+app.get('/filter/einsurance/range', (req, res) => {
+    const {upperBound, lowerBound} = req.query;
+    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer where EInsurance >= ${lowerBound} and EInsurance < ${upperBound}`;
+    connection.query(FILTER_INSURANCE, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+
+//Filter by Insurance Needs ASC or DSC
+app.get('/filter/einsurance/order', (req, res) => {
+    const { order } = req.query;
+    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer ORDER BY EInsurance ${order}`;
+    connection.query(FILTER_INSURANCE, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by Location States
+app.get('/filter/location/state', (req, res) => {
+    const { state } = req.query;
+    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%${state}"`;
+    connection.query(FILTER_INSURANCE, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
             return res.json({
                 data: results
             });
