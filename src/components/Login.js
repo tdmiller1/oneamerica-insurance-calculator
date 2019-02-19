@@ -10,11 +10,23 @@ class Login extends Component {
     state = {
         email:"",
         password:"",
+        login:{},
         isAuthenticated:false
     }
 
     loginButton = _ => {
-        if(this.state.email == "test@gmail.com" && this.state.password== "1234"){
+
+        fetch(`http://localhost:4000/username?username=${this.state.email}`)
+        .then(response => response.json())
+        .then(response => {
+            // this.state.setState({login:response.data})
+            console.log(response.data[0])
+        })
+        .catch(err => {
+            this.setState({failure: true})
+        })
+        
+        if(this.state.email == "test@gmdail.com" && this.state.password== "1234"){
         this.setState({
             email:"",password:""
         }
@@ -31,15 +43,20 @@ class Login extends Component {
         console.log("Wrong password")
     }
     }
+
+    createNewUser = _ => {
+
+    }
+
     render(){
 
         return (
             <div>
                 <body id="body">
                         <div id="login_fields">
-                            <img id="logo" src={logo} alt="Barclay's Logo" title="Barclay's Logo" />
+                            <img id="logo" src={logo} alt="OneAmerica Logo" title="Barclay's Logo" />
                             <h4>Admin Panel Login</h4>
-
+                            <div id="login-page-vspacer"></div>
                             <div id="login-page-input">
                                 <div id="textleft">
                                     <label>Username</label>
@@ -60,7 +77,7 @@ class Login extends Component {
                                 <div id="login_button">
                                     <input type="button" id="loginbutton" onClick={this.loginButton} value="Login" />
                                 </div>
-                                <h4>Create New User</h4>
+                                <h4 id="login-page-create-user" onClick={this.createNewUser()}>Create New User</h4>
                             </div>
                         </div>
                         <div>
