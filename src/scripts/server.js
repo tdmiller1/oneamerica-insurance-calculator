@@ -67,7 +67,7 @@ app.get('/query/name', (req, res) => {
 //Delete customer by Name
 app.get('/delete/name', (req, res) => {
     const {name} = req.query;
-    const DELETE_NAME_QUERY = `DELETE FROM customer WHERE Name= "${name}"`;
+    const DELETE_NAME_QUERY = `DELETE FROM customer WHERE Name = "${name}"`;
     connection.query(DELETE_NAME_QUERY, (err, results) => {
         if(err){
             return res.send(err);
@@ -79,6 +79,23 @@ app.get('/delete/name', (req, res) => {
         }
     });
 });
+
+//Delete customer by Email
+app.get('/delete/email', (req, res) => {
+    const {email} = req.query;
+    const DELETE_NAME_QUERY = `DELETE FROM customer WHERE Email = "${email}"`;
+    connection.query(DELETE_NAME_QUERY, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server DELETE------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
 
 //Filter by timestamp DESC
 app.get('/filter/timestamp', (req, res) => {
@@ -175,6 +192,56 @@ app.get('/filter/location/state', (req, res) => {
         }
     });
 });
+
+
+// Login Table
+//Get all Usernames lol
+app.get('/usernames', (req, res) => {
+    const SELECT_USERNAMES = `SELECT * FROM oneamerica.OA_CREDENTIALS`;
+    connection.query(SELECT_USERNAMES, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Login Server GET ALL------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Get all Username
+app.get('/username', (req, res) => {
+    const { username } = req.query;
+    const SELECT_USERNAMES = `SELECT * FROM oneamerica.OA_CREDENTIALS WHERE username = "${username}"`;
+    connection.query(SELECT_USERNAMES, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Login Server GET ALL------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Get all Usernames lol
+app.get('/test', (req, res) => {
+    const { query } = req.query;
+    const SELECT_USERNAMES = `${query}`;
+    connection.query(SELECT_USERNAMES, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Login Server GET ALL------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
 
 //Start Server
 app.listen(4000, () => {

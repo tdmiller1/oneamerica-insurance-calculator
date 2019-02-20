@@ -1,17 +1,19 @@
 import React, {Component} from 'react'
 import { withRouter } from "react-router";
-import Dashboard from "./Dashboard";
 import logo from "../assets/images/oneamerica_logo.png"
 import "../assets/login.css"
 
 
 class Login extends Component {
 
-    state = {
-        email:"",
-        password:"",
-        login:{},
-        isAuthenticated:false
+    constructor(props){
+        super(props)
+        this.state = {
+            email:"",
+            password:"",
+            attempt:{},
+            isAuthenticated:true
+        }
     }
 
     loginButton = _ => {
@@ -19,29 +21,21 @@ class Login extends Component {
         fetch(`http://localhost:4000/username?username=${this.state.email}`)
         .then(response => response.json())
         .then(response => {
-            // this.state.setState({login:response.data})
-            console.log(response.data[0])
+            if(response.data[0]){
+                this.setState({ attempt: response.data[0] })
+                this.authenticate();
+            }else{
+                this.setState({ isAuthenticated: false});
+            }
         })
-        .catch(err => {
-            this.setState({failure: true})
-        })
-        
-        if(this.state.email == "test@gmdail.com" && this.state.password== "1234"){
-        this.setState({
-            email:"",password:""
-        }
-        , () => {
-            this.props.history.push({
-                pathname: '/dashboard',
-                isAuthenticated:true,
-                state: {
-                    isAuthenticated:true
-                }
-            })
-        })
-    }else{
-        console.log("Wrong password")
     }
+    
+    authenticate = _ => {
+        if(this.state.password === this.state.attempt.password){
+            this.props.history.push('/dashboard')
+        }else{
+            this.setState({ isAuthenticated: false })
+        }
     }
 
     createNewUser = _ => {
@@ -58,12 +52,19 @@ class Login extends Component {
                             <h4>Admin Panel Login</h4>
                             <div id="login-page-vspacer"></div>
                             <div id="login-page-input">
+                                {
+                                    !this.state.isAuthenticated &&
+                                    <div>
+                                        Wrong password or username
+                                    </div>
+                                }
                                 <div id="textleft">
                                     <label>Username</label>
                                 </div>
                                 <input id="input" type="text" name="password" onChange={(e) => {
                                     this.setState({
-                                        email: e.target.value
+                                        email: e.target.value,
+                                        isAuthenticated: true
                                         })
                                     }}/><br/>
                                 <div id="textleft">
@@ -71,17 +72,20 @@ class Login extends Component {
                                 </div>
                                 <input id="input" type="password" name="password" onChange={(e) => {
                                     this.setState({
-                                        password: e.target.value
+                                        password: e.target.value,
+                                        isAuthenticated: true
                                         })
                                     }}/>
                                 <div id="login_button">
-                                    <input type="button" id="loginbutton" onClick={this.loginButton} value="Login" />
+                                    <input 
+                                        type="button" 
+                                        id="loginbutton" 
+                                        onClick={this.loginButton}
+                                        value="Login" 
+                                    />
                                 </div>
                                 <h4 id="login-page-create-user" onClick={this.createNewUser()}>Create New User</h4>
                             </div>
-                        </div>
-                        <div>
-                            <p id="copyright">Copyright &copy; DTM Sports</p>
                         </div>
                 </body>
             </div>
