@@ -1,8 +1,15 @@
-
-@media only screen and (max-width: 980px) {
+@media only screen and (max-width: 1040px) {
 
     .client_card{
-        margin:0px 10%;
+        margin:0px 8%;
+        -webkit-box-shadow: 3px 3px 3px 3px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+        -moz-box-shadow:    3px 3px 3px 3px #ccc;  /* Firefox 3.5 - 3.6 */
+        box-shadow:         3px 3px 3px 3px #ccc;
+        margin-top:10px;
+        margin-bottom:10px;
+        padding:7px;
+        border-radius:10px;
+        
     }
     #gray_row{
         background-color:lightgray;
@@ -38,14 +45,13 @@
         margin:0px;
         color:white;
     }
-    #header{
+    #dashboard-header{
         background-color:#003a6b;
         padding:15px;
-        display: flex;
-        flex-direction: row;
+        overflow: hidden;
     }
-    #spacer{
-        width:50%;
+    #header-right{
+        float:right;
     }
     #search-area{
         background-color:lightgray;
@@ -61,10 +67,6 @@
         border-left:0px;
         border-top:0px;
         margin-left:12.5%;
-    }
-    #card-header{
-        display: flex;
-        flex-direction: row;
     }
     #name-field{
         float:left;
@@ -84,6 +86,35 @@
         margin:30px;
     }
 
+    #card-header{
+        overflow: hidden;
+    }
+
+    #card-header h4{
+        float:left;
+    }
+
+    #card-header-right input{
+        float:right;
+    }
+
+    #dashboard-header{
+        overflow: hidden;
+    }
+
+    #dashboard-header h1{
+        float:left;
+    }
+
+    #header-right button{
+        float:right;
+    }
+
+}
+
+#filter-button{
+    width: 35px;
+    height: 35px;
 }
 
 #header{
@@ -91,16 +122,18 @@
     padding:15px;
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 #dashboard-sidepanel{
     width:300px;
+    min-width: 200px;
     background-color:#d4d4d4;
     border-right:2px solid #949292;
     padding:0px 20px;
 }
 #dashboard-content{
     padding:0px 20px;
-    width:80%;
+    width:100%;
 }
 
 #dashboard-desktop{
@@ -117,6 +150,9 @@
 #search-button{
     height:40px;
     width:40px;
+    margin:0px;
+    padding:0px;
+    border-width:0px;
 }
 .parent{
     display:flex;
@@ -126,12 +162,11 @@
     margin-right:10px;
 }
 
-
 #checkbox{
     float:right;
     width:20px;
     height:20px;
-    margin-top:20px;
+    margin-top:10px;
 }
 
 tr #checkbox{
@@ -144,7 +179,7 @@ tr #checkbox{
 }
 
 #label{
-    margin-top:20px;
+    margin-top:10px;
 }
 .row{
     display:flex;
@@ -164,6 +199,38 @@ td, th{
     padding:0px 5px;
 }
 
-.floatRight{
+#card-checkbox{
     float:right;
+    width:20px;
+    height:20px;
+    margin-top:25px;
+
+}
+
+#textButton:hover{
+    cursor: pointer;
+}
+
+.floatLeft{
+    overflow: hidden;
+}
+
+.floatLeft h3{
+    color:#003a6b;
+    padding:0px 15px;
+    float:left;
+}
+
+.floatRight{
+    float:right
+}
+
+#dashboard-data-header{
+    margin-bottom:25px;
+}
+
+#dashboard-time{
+    text-align:center;
+    margin:0px;
+    font-size:20px;
 }

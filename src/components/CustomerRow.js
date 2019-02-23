@@ -12,7 +12,7 @@ class CustomerRow extends Component {
     render() {
         return(
             <tr>
-                <input id="checkbox" type="checkbox"/>
+                <td><input id="checkbox" onClick={this.selectedChange} type="checkbox"/></td>
                 <td>{this.props.name}</td>
                 <td>{this.props.email}</td>
                 <td>{this.props.phone}</td>

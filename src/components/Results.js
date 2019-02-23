@@ -107,9 +107,9 @@ class Results extends Component {
                                         }}/>
                                     </div>
                                     <div className="label-input">
-                                        <label htmlFor="location">Zip Code</label>
-                                        <input name="location" maxLength="5" placeholder="47304" type="text" onChange={(e) => {
-                                            this.setState({customer: {...customer, location: parseInt(e.target.value,10) }})
+                                        <label htmlFor="location">Location</label>
+                                        <input name="location" placeholder="Indianapolis, IN" type="text" onChange={(e) => {
+                                            this.setState({customer: {...customer, location: e.target.value }})
                                         }}/>
                                     </div>
 

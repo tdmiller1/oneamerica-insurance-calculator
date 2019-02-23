@@ -146,8 +146,8 @@ app.get('/filter/timestamp/range', (req, res) => {
 
 //Filter by Insurance Needs Range
 app.get('/filter/einsurance/range', (req, res) => {
-    const {upperBound, lowerBound} = req.query;
-    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer where EInsurance >= ${lowerBound} and EInsurance < ${upperBound}`;
+    const {lower, upper} = req.query;
+    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer where EInsurance >= ${lower} and EInsurance < ${upper}`;
     connection.query(FILTER_INSURANCE, (err, results) => {
         if(err){
             return res.send(err);
@@ -193,6 +193,92 @@ app.get('/filter/location/state', (req, res) => {
     });
 });
 
+//Filter by Location Region
+app.get('/filter/location/region', (req, res) => {
+    const { region } = req.query;
+    var query = ""
+    switch(region){
+        case "midwest":
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IO" OR Location LIKE "%MN" OR Location LIKE "%WI"`;
+            break;
+        case "northeast":
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CO" OR Location LIKE "%NJ" OR Location LIKE "%MA"`;
+            break;
+        case "west":
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%CA" OR Location LIKE "%WA" OR Location LIKE "%OR" OR Location LIKE "%MT" OR Location LIKE "%ID" OR Location LIKE "%NV" OR Location LIKE "%AZ" OR Location LIKE "%NM" OR Location LIKE "%CO" OR Location LIKE "%WY" OR Location LIKE "%UT" OR Location LIKE "%AK" OR Location LIKE "%HI"`;
+            break;
+        case "south":
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS" OR Location LIKE "%DE"`;
+            break;
+    }
+    connection.query(query, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+//Filter by Location Region
+app.get('/filter/all', (req, res) => {
+    var { query, location, insurance_upper, insurance_lower, time_upper, time_lower } = req.query;
+    
+    query = `SELECT * FROM oneamerica.customer`;
+    if(insurance_lower == undefined){
+        insurance_lower = 0
+    }
+    if(insurance_upper == undefined){
+        insurance_upper = 1000000
+    }
+    if(time_lower == undefined){
+        time_lower = "2017-01-01"
+    }
+    if(time_upper == undefined){
+        time_upper = "2019-02-22"
+    }
+
+    var locationString = ""
+    
+    switch(location){
+        case "midwest":
+            locationString = locationString + '(Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IO" OR Location LIKE "%MN" OR Location LIKE "%WI")'
+            break;
+        case "northeast":
+            locationString = locationString + '(Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CO" OR Location LIKE "%NJ" OR Location LIKE "%MA")'
+            break;
+        case "west":
+            locationString = locationString + '(Location LIKE "%CA" OR Location LIKE "%WA" OR Location LIKE "%OR" OR Location LIKE "%MT" OR Location LIKE "%ID" OR Location LIKE "%NV" OR Location LIKE "%AZ" OR Location LIKE "%NM" OR Location LIKE "%CO" OR Location LIKE "%WY" OR Location LIKE "%UT" OR Location LIKE "%AK" OR Location LIKE "%HI")'    
+            break;
+        case "south":
+            locationString = locationString + '(Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS" OR Location LIKE "%DE")'
+            break;
+        default:
+            break;
+    }
+    query = `SELECT * FROM oneamerica.customer 
+            WHERE ${locationString}
+            AND (einsurance >= ${insurance_lower} AND einsurance < ${insurance_upper})
+            AND (time >= "${time_lower}" AND time < "${time_upper}")`;
+
+    connection.query(query, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Customer Server FILTER------')
+            return res.json({
+                data: results,
+                query: query
+            });
+        }
+    });
+});
+
+
+
 
 // Login Table
 //Get all Usernames lol
@@ -236,7 +322,8 @@ app.get('/test', (req, res) => {
         }else{
             console.log('------Login Server GET ALL------')
             return res.json({
-                data: results
+                data: results,
+                query: query
             });
         }
     });
