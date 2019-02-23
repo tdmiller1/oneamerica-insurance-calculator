@@ -14,6 +14,7 @@ class Dashboard extends Component {
             this.state = {
             customers:[],
             search:"",
+            filterPopup: false,
             filter:{
                 location:false,
                 insurance:false,
@@ -42,7 +43,7 @@ class Dashboard extends Component {
             selected:[],
             isAuthenticated:true,
             width:window.innerWidth,
-            date:""
+            date:new Date()
         }
     }
 
@@ -86,7 +87,7 @@ class Dashboard extends Component {
         var isInList = false
         if(selectedCustomers.length > 0){
             selectedCustomers.forEach(function(element){
-                if(element.Email.toLowerCase() == customer.Email.toLowerCase()){
+                if(element.Email.toLowerCase() === customer.Email.toLowerCase()){
                     isInList = true;
                 }else{
                     newSelectedCustomers.push(element)
@@ -129,11 +130,7 @@ class Dashboard extends Component {
         this.setState({width:window.innerWidth})
     }
 
-    componentDidMount(){    
-        var date = new Date();
-        var stringDate = (date.getMonth()+1) + "/" + date.getDate() + "/" + date.getFullYear();
-        this.setState({date: stringDate})
-    
+    componentDidMount(){
         this.pullCustomers();
     }
 
@@ -147,8 +144,12 @@ class Dashboard extends Component {
 
     toggleFilter(){
         this.setState({
-            filter: !this.state.filter
+            filterPopup: !this.state.filterPopup
         })
+    }
+
+    timestamp(){
+        console.log("test")
     }
 
     deleteSelected(){
@@ -164,29 +165,33 @@ class Dashboard extends Component {
         console.log("CLEAR")
     }
 
-    insuranceNeedsFilterCustomers(){
-        var customerList = []
-        const tierValues = {
-            tier1:[20000,40000],
-            tier2:[40000,60000],
-            tier3:[60000,80000],
-            tier4:[80000,90000],
-            tier5:[90000,10000]
+    timestampFilter(time){
+        var newTimestampFilter = this.state.timestampFilter
+        switch(time){
+            case "day":
+                newTimestampFilter["day"] = !this.state.timestampFilter.day
+                break;
+            case "week":
+                newTimestampFilter["week"] = !this.state.timestampFilter.week
+                break;
+            case "month":
+                newTimestampFilter["month"] = !this.state.timestampFilter.month
+                break;
+            case "year":
+                newTimestampFilter["year"] = !this.state.timestampFilter.year
+                break;
+            default:
+                break;
         }
-        for(var tier in this.state.insuranceNeedsFilter){
-            if(this.state.insuranceNeedsFilter[tier]){
-                fetch(`http://localhost:4000/filter/einsurance/range?lower=${tierValues[tier][0]}&upper=${tierValues[tier][1]}`)
-                .then(response => response.json())
-                .then(response => {
-                    response.data.forEach(function(element){
-                        customerList.push(element)
-                    })  
-                    this.setState({
-                        customers: customerList
-                    })
-                })
-            }
-        }   
+
+        this.setState({timestampFilter: newTimestampFilter})
+        this.pullCustomers();
+        this.filterFunction();
+        if(this.state.timestampFilter.day || this.state.timestampFilter.week || this.state.timestampFilter.month || this.state.timestampFilter.year){
+        }else{
+            this.pullCustomers();
+            this.filterFunction();
+        }
     }
 
     insuranceNeedsFilter(tier){
@@ -212,33 +217,13 @@ class Dashboard extends Component {
         }
 
         this.setState({insuranceNeedsFilter: newInsuranceNeedsFilter})
+        this.pullCustomers();
+        this.filterFunction();
 
         if(this.state.insuranceNeedsFilter.tier1 || this.state.insuranceNeedsFilter.tier2 || this.state.insuranceNeedsFilter.tier3 || this.state.insuranceNeedsFilter.tier4 || this.state.insuranceNeedsFilter.tier5){
-            this.filterFunction();
-            var newFilter = this.state.filter
-            newFilter["insurance"] = true;
-            this.setState({filter:newFilter})
         }else{
             this.pullCustomers();
-        }
-    }
-
-    locationFilterCustomers(){
-        var customerList = []
-
-        for(var region in this.state.locationFilter){
-            if(this.state.locationFilter[region]){
-                fetch(`http://localhost:4000/filter/location/region?region=${region}`)
-                .then(response => response.json())
-                .then(response => {
-                    response.data.forEach(function(element){
-                        customerList.push(element)
-                    })  
-                    this.setState({
-                        customers: customerList
-                    })
-                })
-            }
+            this.filterFunction();
         }
     }
 
@@ -262,149 +247,146 @@ class Dashboard extends Component {
         }
 
         this.setState({locationFilter: newLocationFilter})
-
+        this.pullCustomers();
+        this.filterFunction();
         if(this.state.locationFilter.northeast || this.state.locationFilter.west || this.state.locationFilter.midwest || this.state.locationFilter.south){
-            var newFilter = this.state.filter;
-            newFilter["location"] = true;
-            this.setState({filter:newFilter})
-            this.filterFunction();
         }else{
             this.pullCustomers();
+            this.filterFunction();
         }
     }
 
-    filterFunction(){
-        // Get ready for some shit
-        var query = {
-            region:[],
-            insurnace:[],
-            timestamp:[]
+    compare = (list) =>{
+        var tempList = []
+        var customers = this.state.customers
+        if(list.length > 0 ){
+            for(var customer in customers){
+                for(var index in list){
+                    if(customers[customer].Email === list[index].Email){
+                        tempList.push(list[index])
+                    }
+                }
+            }
         }
+        this.setState({customers: tempList})
+    }
+
+    filterFunction(){
+        var locationList = []
+        var promises = []
         for(var region in this.state.locationFilter){
             if(this.state.locationFilter[region]){
-                if(query["region"]){
-                    var regionList = query["region"]
-                    regionList.push(region)
-                    query["region"] = regionList
-                }else{
-                    query["region"] = [region]
-                }
-            }
-        }
-        for(var insurance in this.state.insuranceNeedsFilter){
-            if(this.state.insuranceNeedsFilter[insurance]){
-                if(query["insurance"]){
-                    var insurnaceList = query["insurance"]
-                    insurnaceList.push(insurance)
-                    query["insurance"] = insurnaceList
-                }else{
-                    query["insurance"] = [insurance]
-                }
-            }
-        }
-        for(var time in this.state.timestampFilter){
-            if(this.state.timestampFilter[time]){
-                query["timestamp"] = time
-            }
-        }
-
-        console.log(query)
-
-        var queryString = ""
-
-        for(var region in query.region){
-            // console.log(query.region[region])
-
-        }
-
-        var test = {
-            location:["midwest","south"],
-            insurance:["tier1"],
-            time:["2019"]
-        }
-
-        console.log(test)
-
-        var locationString = ""
-        locationString = Object.keys(test.location).map(key => key + '=' + test.location[key]).join('&');
-        
-        var insuranceString = ""
-        insuranceString = Object.keys(test.insurance).map(key => key + '=' + test.insurance[key]).join('&');
-        
-        var timeString = ""
-        timeString = Object.keys(test.time).map(key => key + '=' + test.time[key]).join('&');
-
-        console.log(locationString + '&' + insuranceString + '&' + timeString)
-
-        // /filter/all?location=midwest&insurance_lower=50000&insurance_upper=100000&time_upper=2019-02-06
-
-        //TECHNICALLY IT LOOPS AT COSTANT TIME OKAY SO IT'S NOT THAT BIG OF A DEAL
-        
-
-
-    //     SELECT * FROM oneamerica.customer WHERE (Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IO" OR Location LIKE "%MN" OR Location LIKE "%WI")
-    // AND EInsurance >= 50000
-    // AND Time >= "2019-02-05"
-        var newMasterCustomerList = []
-        // No filters checked - INSURANCE - REGION - TIME
-        /*if(this.state.filter.location){
-            var customerList1 = []
-            for(var region in this.state.locationFilter){
-                if(this.state.locationFilter[region]){
-                    fetch(`http://localhost:4000/filter/location/region?region=${region}`)
-                    .then(response => response.json())
-                    .then(response => {
-                        response.data.forEach(function(element){
-                            for(var customer in newMasterCustomerList){
-                                if(customer.email == element.email){
-                                    customerList1.push(element);
-                                }
-                            }
-                        })
+                console.log("location")
+                const promise = fetch(`http://localhost:4000/filter/location/region?region=${region}`)
+                .then(response => response.json())
+                .then(response => {
+                    response.data.forEach(function(element){
+                        locationList.push(element)
                     })
-                }
+                })
+                promises.push(promise)
             }
-            newMasterCustomerList = customerList1;
         }
-        if(this.state.filter.insurance){
-            var customerList = []
-            const tierValues = {
-                tier1:[20000,40000],
-                tier2:[40000,60000],
-                tier3:[60000,80000],
-                tier4:[80000,90000],
-                tier5:[90000,10000]
-            }
-            for(var tier in this.state.insuranceNeedsFilter){
-                if(this.state.insuranceNeedsFilter[tier]){
-                    fetch(`http://localhost:4000/filter/einsurance/range?lower=${tierValues[tier][0]}&upper=${tierValues[tier][1]}`)
-                    .then(response => response.json())
-                    .then(response => {
-                        response.data.forEach(function(element){
-                            for(var customer in newMasterCustomerList){
-                                if(customer.email == element.email){
-                                    customerList.push(element)
-                                }
-                            }
-                        })
+
+        Promise.all(promises).then(response => {
+            this.compare(locationList);
+        })
+
+
+        var insuranceList = []
+        const tierValues = {
+            tier1:[20000,40000],
+            tier2:[40001,60000],
+            tier3:[60001,80000],
+            tier4:[80001,90000],
+            tier5:[90001,1000000]
+        }
+
+        var promises = []
+        for(var tier in this.state.insuranceNeedsFilter){
+            if(this.state.insuranceNeedsFilter[tier]){
+                console.log("Tier")
+                const promise = fetch(`http://localhost:4000/filter/einsurance/range?lower=${tierValues[tier][0]}&upper=${tierValues[tier][1]}`)
+                .then(response => response.json())
+                .then(response => {
+                    response.data.forEach(function(element){
+                        insuranceList.push(element)
                     })
-                }
+                })
+                promises.push(promise)
             }
-            newMasterCustomerList = customerList
-        }
-        if(this.state.filter.time){
-
         }
 
-        this.setState({
-            customers: newMasterCustomerList
-        })*/
-        // INSURANCE checked - now location
-        // INSURANCE checked - now time
-        // LOCATION checked - now insurance
-        // LOCATION checked - now time
-        // TIME checked - now location
-        // TIME checked - now insurance
+        Promise.all(promises).then(response => {
+            this.compare(insuranceList);
+        })
+
+
+        // TODO Needs Refactored
+        var timeList = []
+        var tempDate = new Date();
+        var today = tempDate.toISOString();
+        tempDate.setDate(tempDate.getDate() - 1)
+
+        var dayAgo = tempDate.toISOString();
+        tempDate = new Date();
+        tempDate.setDate(tempDate.getDate() - 7)
+
+        var weekAgo = tempDate.toISOString();
+        tempDate = new Date();
+        tempDate.setMonth(tempDate.getMonth() - 1)
+
+        var monthAgo = tempDate.toISOString();
+        tempDate = new Date();
+        tempDate.setFullYear(tempDate.getFullYear() - 1)
+        var yearAgo = tempDate.toISOString();
+        const timeTierValues = {
+            day:[dayAgo,today],
+            week:[weekAgo,today],
+            month:[monthAgo,today],
+            year:[yearAgo,today]
+        }
+
+        var promises = []
+        for(var tier in this.state.timestampFilter){
+            if(this.state.timestampFilter[tier]){
+                console.log(timeTierValues[tier])
+                const promise = fetch(`http://localhost:4000/filter/timestamp/range?lower=${timeTierValues[tier][0]}&upper=${timeTierValues[tier][1]}`)
+                .then(response => response.json())
+                .then(response => {
+                    response.data.forEach(function(element){
+                        timeList.push(element)
+                    })
+                })
+                promises.push(promise)
+            }
+        }
+
+        Promise.all(promises).then(response => {
+            this.compare(timeList);
+        })
+    }
+
+    mobileFilter(filter){
+        console.log(filter)
+        switch(filter){
+            case "day":
+            case "week":
+            case "year":
+            case "month":
+                this.timestampFilter(filter);
+            case "midwest":
+            case "northeast":
+            case "west":
+            case "south":
+                this.locationFilter(filter);
+            case "tier1":
+            case "tier2":
+            case "tier3":
+            case "tier4":
+            case "tier5":
+                this.insuranceNeedsFilter(filter);
+        }
     }
 
     render() {
@@ -429,20 +411,24 @@ class Dashboard extends Component {
                     <button className="child" id="search-button"
                     onClick={(e) => {changeSearch(search);
                         this.setState({search:""})}}>
-                            <img src={searchIcon}></img>
+                            <img src={searchIcon} alt="Search-Icon"></img>
                         </button>
                 </div>
             )
         }
-        if (this.state.isAuthenticated){
-            if(isMobile){
+        if(isMobile){
             return (
                 <div>
-                    {this.state.filter && 
+                    {this.state.filterPopup && 
                         <Filter
-                            closePopup={this.toggleFilter.bind(this)}
-                        />
+                        locationFilter={this.state.locationFilter}
+                        timestampFilter={this.state.timestampFilter}
+                        insuranceNeedsFilter={this.state.insuranceNeedsFilter}
+                        closePopup={this.toggleFilter.bind(this)}
+                        mobileFilter={this.mobileFilter.bind(this)} 
+                    />
                     }
+                    
                     <div id="dashboard-header">
                         <h1>User Data</h1>
                         <div id="header-right">
@@ -451,7 +437,7 @@ class Dashboard extends Component {
                     </div>
                     <div id="search-area">
                         <hr id="line"></hr>
-                        <p id="dashboard-time">{this.state.date}</p>
+                        <p id="dashboard-time">{(this.state.date.getMonth()+1) + "/" + this.state.date.getDate() + "/" + this.state.date.getFullYear()}</p>
                         <div className="floatLeft">
                             <h3 onClick={() => this.deleteSelected()}  className="floatLeft">Delete Selected</h3>
                             <h3 onClick={() => this.clearSelected()}  className="floatLeft">Clear Selected</h3>
@@ -467,11 +453,15 @@ class Dashboard extends Component {
 
                     <div>
                         <div>
-                            {customers.map(this.renderCustomers)}
+                        {
+                            this.state.customers.length ? (
+                            customers.map(this.renderCustomers)) : (<div>No Customers to show for the filter</div>)
+                        }
                         </div>
                     </div>
                 </div>
-            )}else{
+            )
+        }else{
                 return(
                     <div id="dashboard-desktop">
                         <div id="dashboard-sidepanel">
@@ -493,19 +483,19 @@ class Dashboard extends Component {
                                 <h3>Location</h3>
                                 <div className="row">
                                 {/* onClick={(e) => this.locationFilter("northeast")} */}
-                                    <input id="checkbox" onChange={(e) => this.locationFilter("northeast")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.locationFilter["northeast"]} onChange={(e) => this.locationFilter("northeast")} type="checkbox"/>
                                     <label id="label">Northeast</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.locationFilter("midwest")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.locationFilter["midwest"]} onChange={(e) => this.locationFilter("midwest")} type="checkbox"/>
                                     <label id="label">Midwest</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.locationFilter("west")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.locationFilter["west"]} onChange={(e) => this.locationFilter("west")} type="checkbox"/>
                                     <label id="label">West</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.locationFilter("south")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.locationFilter["south"]} onChange={(e) => this.locationFilter("south")} type="checkbox"/>
                                     <label id="label">South</label>
                                 </div>
                             </div>
@@ -513,23 +503,23 @@ class Dashboard extends Component {
                             <div className="column">
                                 <h3>Insurance Needs</h3>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.insuranceNeedsFilter("tier1")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.insuranceNeedsFilter["tier1"]} onChange={(e) => this.insuranceNeedsFilter("tier1")} type="checkbox"/>
                                     <label id="label">$20,000 - $40,000</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.insuranceNeedsFilter("tier2")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.insuranceNeedsFilter["tier2"]} onChange={(e) => this.insuranceNeedsFilter("tier2")} type="checkbox"/>
                                     <label id="label">$40,000 - $60,000</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.insuranceNeedsFilter("tier3")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.insuranceNeedsFilter["tier3"]} onChange={(e) => this.insuranceNeedsFilter("tier3")} type="checkbox"/>
                                     <label id="label">$60,000 - $80,000</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.insuranceNeedsFilter("tier4")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.insuranceNeedsFilter["tier4"]} onChange={(e) => this.insuranceNeedsFilter("tier4")} type="checkbox"/>
                                     <label id="label">$80,000 - $90,000</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" onChange={(e) => this.insuranceNeedsFilter("tier5")} type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.insuranceNeedsFilter["tier5"]} onChange={(e) => this.insuranceNeedsFilter("tier5")} type="checkbox"/>
                                     <label id="label">$90,000 - $100,000</label>
                                 </div>
                             </div>
@@ -537,19 +527,19 @@ class Dashboard extends Component {
                             <div className="column">
                                 <h3>Timestamp</h3>
                                 <div className="row">
-                                    <input id="checkbox" type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.timestampFilter["day"]} onChange={(e) => this.timestampFilter("day")} type="checkbox"/>
                                     <label id="label">Last Day</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.timestampFilter["week"]} onChange={(e) => this.timestampFilter("week")} type="checkbox"/>
                                     <label id="label">Last Week</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.timestampFilter["month"]} onChange={(e) => this.timestampFilter("month")} type="checkbox"/>
                                     <label id="label">Last Month</label>
                                 </div>
                                 <div className="row">
-                                    <input id="checkbox" type="checkbox"/>
+                                    <input id="checkbox" checked={this.state.timestampFilter["year"]} onChange={(e) => this.timestampFilter("year")} type="checkbox"/>
                                     <label id="label">Last Year</label>
                                 </div>
                             </div>
@@ -564,35 +554,34 @@ class Dashboard extends Component {
                                 <h3 id="textButton" onClick={() => this.deleteSelected()}  className="child">Delete Selected</h3>
                                 <h3 id="textButton" onClick={() => this.clearSelected()}  className="child">Clear Selected</h3>
                                 <div className="floatRight">
-                                    <p>Current Date: {this.state.date}</p>
+                                    <p>Current Date: {(this.state.date.getMonth()+1) + "/" + this.state.date.getDate() + "/" + this.state.date.getFullYear()}</p>
                                 </div>
                             </div>
-
-                            <table>
-                                <thead>
-                                    <tr>
-                                        <th></th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Location</th>
-                                        <th>EInsurance</th>
-                                        <th>Time</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {customers.map(this.renderRows)}
-                                </tbody>
-                            </table>
+                            {
+                                this.state.customers.length ? (
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Location</th>
+                                            <th>EInsurance</th>
+                                            <th>Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            customers.map(this.renderRows)
+                                        }
+                                    </tbody>
+                                </table>) : (<div>No potential customers match the current filter</div>)
+                            }
                         </div>
                     </div>
                 )
             }
-        }else{
-            return(
-                <div>No Auth</div>
-            )
-        }
     }
 
     
