@@ -9,7 +9,7 @@ class Filter extends Component {
     render() {
         return(
             <div id="filter-wrapper">
-            <button onClick={this.props.closePopup}>X</button>
+            <button className="floatRight" onClick={this.props.closePopup}>X</button>
                 <div id="margin" className="column">
                     FILTERS
                     <h3>Location</h3>
@@ -69,7 +69,7 @@ class Filter extends Component {
                         <label id="label">$90,000 - $100,000</label>
                     </div>
                 </div>
-                <button>Clear All Filters</button>
+                <button className="dashboard-button" onClick={this.props.clearSelected}>Clear All Filters</button>
             </div>
         )
     }

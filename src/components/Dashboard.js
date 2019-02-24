@@ -5,6 +5,7 @@ import CustomerRow from "./CustomerRow";
 import "../assets/dashboard.css";
 import Filter from "./Filter";
 import searchIcon from "../assets/images/oa-search-bar.svg";
+import filterIcon from "../assets/images/oneamerica-filter.svg";
 
 class Dashboard extends Component {
     // isMobile = window.innerWidth <= 500;
@@ -148,10 +149,6 @@ class Dashboard extends Component {
         })
     }
 
-    timestamp(){
-        console.log("test")
-    }
-
     deleteSelected(){
         this.state.selected.forEach(function(element){
             fetch(`http://localhost:4000/delete/email?email=${element.Email}`)
@@ -162,7 +159,30 @@ class Dashboard extends Component {
     }
 
     clearSelected(){
-        console.log("CLEAR")
+        this.setState({
+            locationFilter:{
+                northeast:false,
+                south:false,
+                midwest:false,
+                west:false
+            },
+            insuranceNeedsFilter:{
+                tier1:false,
+                tier2:false,
+                tier3:false,
+                tier4:false,
+                tier5:false
+            },
+            timestampFilter:{
+                day:false,
+                week:false,
+                month:false,
+                year:false
+            },
+            selected:[]
+        })
+        this.filterFunction();
+        this.pullCustomers();
     }
 
     timestampFilter(time){
@@ -425,6 +445,7 @@ class Dashboard extends Component {
                         timestampFilter={this.state.timestampFilter}
                         insuranceNeedsFilter={this.state.insuranceNeedsFilter}
                         closePopup={this.toggleFilter.bind(this)}
+                        clearSelected={this.clearSelected.bind(this)}
                         mobileFilter={this.mobileFilter.bind(this)} 
                     />
                     }
@@ -432,15 +453,17 @@ class Dashboard extends Component {
                     <div id="dashboard-header">
                         <h1>User Data</h1>
                         <div id="header-right">
-                            <button id="filter-button" onClick={this.toggleFilter.bind(this)}></button>
+                            <button id="filter-button" onClick={this.toggleFilter.bind(this)}>
+                                <img id="filter-button" src={filterIcon}/>
+                            </button>
                         </div>
                     </div>
                     <div id="search-area">
                         <hr id="line"></hr>
                         <p id="dashboard-time">{(this.state.date.getMonth()+1) + "/" + this.state.date.getDate() + "/" + this.state.date.getFullYear()}</p>
-                        <div className="floatLeft">
-                            <h3 onClick={() => this.deleteSelected()}  className="floatLeft">Delete Selected</h3>
-                            <h3 onClick={() => this.clearSelected()}  className="floatLeft">Clear Selected</h3>
+                        <div className="floatCenter">
+                            <h3 id="textButton" onClick={() => this.deleteSelected()}>Delete Selected</h3>
+                            <h3 id="textButton" onClick={() => this.clearSelected()}>Clear Selected</h3>
                         </div>
                         { this.state.search }
                         <SearchButton 

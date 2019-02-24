@@ -75,7 +75,7 @@
         width:35%;
     }
     #filter-wrapper{
-        position: absolute;
+        position: fixed;
         padding:0px;
         margin:5%;
         height:90%;
@@ -112,9 +112,33 @@
 
 }
 
+.dashboard-button{
+    width: 13em;
+    height: 2.5em;
+    border-radius: 0;
+    background-color: #5f92be;
+    color: white;
+    font-size: .9em;
+    font-weight: bolder;
+    margin: 0px auto 1em auto;
+    display:flex;
+    justify-content: center;
+}
+
+.floatCenter{
+    display:flex;
+    justify-content: center;
+}
+.floatCenter h3{
+    color:#003a6b;
+    padding:0px 15px;
+}
+
 #filter-button{
     width: 35px;
     height: 35px;
+    padding:0px;
+    border:0px;
 }
 
 #header{
@@ -168,6 +192,7 @@
     height:20px;
     margin-top:10px;
 }
+
 
 tr #checkbox{
     margin: 10px 10px;

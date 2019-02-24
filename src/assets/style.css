@@ -406,3 +406,9 @@ select, input{
     display:flex;
     justify-content: center;
 }
+
+/* HACKED */
+input[type="checkbox"]:checked{
+    outline:7px solid #00346a;
+    outline-offset: -10px;
+}
