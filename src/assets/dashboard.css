@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1040px) {
+@media only screen and (max-width: 1023px) {
 
     .client_card{
         margin:0px 8%;
@@ -214,6 +214,25 @@ tr #checkbox{
 tr:nth-child(even){
     background-color:#bebebe;
 }
+
+#table-wrapper{
+    position:relative;
+}
+
+#table-scroll{
+    height: calc(100vh - 200px);
+    overflow:auto;  
+    margin-top:20px;
+}
+
+#table-wrapper table{
+    width:100%;
+}
+
+#table-wrapper table * {
+    color:black;
+}
+
 table{
     width:100%;
     border-spacing:0px;

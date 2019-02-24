@@ -153,7 +153,7 @@ class Dashboard extends Component {
         this.state.selected.forEach(function(element){
             fetch(`http://localhost:4000/delete/email?email=${element.Email}`)
         })
-        
+        this.clearSelected();
         this.pullCustomers();
         
     }
@@ -412,7 +412,7 @@ class Dashboard extends Component {
     render() {
         const {customers} = this.state;
         const { width } = this.state;
-        const isMobile = width <= 1040;
+        const isMobile = width <= 1023;
         const SearchButton = ({search, changeSearch}) => {
             return (
                 <div className="parent">
@@ -580,27 +580,31 @@ class Dashboard extends Component {
                                     <p>Current Date: {(this.state.date.getMonth()+1) + "/" + this.state.date.getDate() + "/" + this.state.date.getFullYear()}</p>
                                 </div>
                             </div>
-                            {
-                                this.state.customers.length ? (
-                                <table>
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>Name</th>
-                                            <th>Email</th>
-                                            <th>Phone</th>
-                                            <th>Location</th>
-                                            <th>EInsurance</th>
-                                            <th>Time</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            customers.map(this.renderRows)
-                                        }
-                                    </tbody>
-                                </table>) : (<div>No potential customers match the current filter</div>)
-                            }
+                            <div id="table-wrapper">
+                                <div id="table-scroll">
+                                    {
+                                        this.state.customers.length ? (
+                                        <table>
+                                            <thead>
+                                                <tr>
+                                                    <th></th>
+                                                    <th><span className="text">Name</span></th>
+                                                    <th><span className="text">Email</span></th>
+                                                    <th><span className="text">Phone</span></th>
+                                                    <th><span className="text">Location</span></th>
+                                                    <th><span className="text">EInsurance</span></th>
+                                                    <th><span className="text">Time</span></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    customers.map(this.renderRows)
+                                                }
+                                            </tbody>
+                                        </table>) : (<div>No potential customers match the current filter</div>)
+                                    }
+                                </div>
+                            </div>
                         </div>
                     </div>
                 )
