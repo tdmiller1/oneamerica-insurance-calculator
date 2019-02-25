@@ -411,4 +411,7 @@ select, input{
 input[type="checkbox"]:checked{
     outline:7px solid #00346a;
     outline-offset: -10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
