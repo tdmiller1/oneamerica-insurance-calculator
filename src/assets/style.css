@@ -1,4 +1,4 @@
- .temporary-site-wrapper{
+.temporary-site-wrapper{
     background-image: url("images/Asset 1.png");
     background-size: cover;
     background-repeat: no-repeat;
@@ -88,6 +88,7 @@ h1{
         width:60%;
         display: flex;
         flex-direction: column;
+        padding-bottom:300px;
         justify-items: center;
     }
     
@@ -209,12 +210,28 @@ label{
     margin-left: 2em;
 }
 
+@media only screen and (max-width: 380px) {
+    #results-page{
+        /* padding-bottom: */
+    }
+    .home-page{
+        padding-top:100px !important;
+        padding-bottom:1850px !important;
+    }
+    /* For Mockup Design */
+    .temporary-site-wrapper{
+        background-image: url("images/Asset 5.png") !important;
+        background-color:red;
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+}
 
 @media only screen and (max-width: 980px) {
     /* For Mockup Design */
     
     .temporary-site-wrapper{
-        background-image: url("images/Asset 3.png");
+        background-image: url("images/Asset_4.png");
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -222,6 +239,7 @@ label{
         
     #results-page, .home-page{
         padding-top: 15%;
+        padding-bottom:700px;
         margin:0px auto;
         width:60%;
         display: flex;
@@ -256,6 +274,7 @@ label{
         display: flex;
         flex-direction: column;
         justify-items: center;
+        padding-bottom:300px;
     }
 
     
@@ -301,6 +320,7 @@ label{
         width:100%;
         display: flex;
         flex-direction: column;
+        padding-bottom:300px;
         justify-items: center;
     }
 
@@ -334,6 +354,7 @@ label{
         display: flex;
         flex-direction: column;
         justify-items: center;
+        padding-bottom:300px;
     }
 
 }

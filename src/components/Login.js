@@ -70,7 +70,12 @@ class Login extends Component {
                                 <div id="textleft">
                                     <label>Password</label>
                                 </div>
-                                <input id="input" type="password" name="password" onChange={(e) => {
+                                <input id="input" type="password" name="password" 
+                                onKeyPress={(e) => { 
+                                    if(e.key === 'Enter'){
+                                        this.loginButton();
+                                    }}}
+                                onChange={(e) => {
                                     this.setState({
                                         password: e.target.value,
                                         isAuthenticated: true
