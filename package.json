@@ -17,12 +17,18 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-scripts": "1.1.5",
-    "webpack-dev-server": "^3.1.14"
+    "concurrently": "4.1.0"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "client": "react-scripts start",
+    "server": "node src/scripts/server.js",
+    "start": "concurrently \"npm run client\" \"npm run server\"",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "jest": "^24.4.0",
+    "webpack-dev-server": "^3.2.1"
   }
 }
