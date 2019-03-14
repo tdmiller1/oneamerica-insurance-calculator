@@ -273,10 +273,6 @@ tr:nth-child(even){
     width:100%;
 }
 
-#table-wrapper table * {
-    color:black;
-}
-
 table{
     width:100%;
     border-spacing:0px;
@@ -285,6 +281,20 @@ table{
 
 td, th{
     padding:0px 5px;
+}
+
+tbody td{
+    font-family: "Open Sans", sans-serif;
+    font-weight: bold;
+    color: #4a4a4a;
+    font-size: 12px;
+}
+
+th span{
+    font-family: "Open Sans", sans-serif;
+    font-weight: 100;
+    color: #949494;
+    font-size: 14px;
 }
 
 #card-checkbox{
