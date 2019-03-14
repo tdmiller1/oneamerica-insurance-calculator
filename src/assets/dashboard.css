@@ -318,6 +318,7 @@ th span{
     float:left;
     font-family: "Open Sans", sans-serif;
     font-size: 15px;
+    margin-top: 0;
 }
 
 .floatRight{
@@ -325,7 +326,12 @@ th span{
     font-family: "Open Sans", sans-serif;
     font-weight: 100;
     color: #a2a2a2;
-    font-style: italic;}
+    font-style: italic;
+}
+
+.floatRight p{
+    margin-top: 0;
+}
 
 #dashboard-data-header{
     margin-bottom:25px;
