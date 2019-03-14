@@ -166,12 +166,12 @@
     padding:0px 20px;
 }
 
-#dashboard-sidepanel h1{
+#dashboard-sidepanel h1, #dashboard-content h1{
     font-family: "Open Sans", sans-serif;
     color: #484848;
     font-weight: 100;
     margin-bottom: 0;
-    margin-top: 15%;
+    margin-top: 35px;
 }
 
 #dashboard-sidepanel h3 {
@@ -220,14 +220,14 @@
     flex-direction: row;
 }
 .child{
-    margin-right:10px;
+    margin-right:20px;
 }
 
 #checkbox{
     -webkit-appearance: none;
     float:right;
-    width:20px;
-    height:20px;
+    width:15px;
+    height:15px;
     margin-top:10px;
 }
 
@@ -242,15 +242,17 @@ tr #checkbox{
 }
 
 #label{
-    margin-top: 10px;
+    margin-top: 4%;
     font-family: "Open Sans", sans-serif;
     font-size: 14px;
     font-weight: bold;
     color: #8e8e8e;
+    margin-left: 1em;
 }
 .row{
     display:flex;
     flex-direction: row;
+    margin-left: 1.5em;
 }
 
 tr:nth-child(even){
@@ -303,13 +305,17 @@ td, th{
 
 .floatLeft h3{
     color:#003a6b;
-    padding:0px 15px;
     float:left;
+    font-family: "Open Sans", sans-serif;
+    font-size: 15px;
 }
 
 .floatRight{
-    float:right
-}
+    float: right;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 100;
+    color: #a2a2a2;
+    font-style: italic;}
 
 #dashboard-data-header{
     margin-bottom:25px;
