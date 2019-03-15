@@ -253,19 +253,23 @@ class Dashboard extends Component {
         this.filterFunction();
     }
 
-    async compare(list){
-        var tempList = []
+    compare(list){
+        var tempList = {}
         var customers = this.state.customers
         if(list.length > 0 ){
             for(var customer in customers){
                 for(var index in list){
                     if(customers[customer].Email === list[index].Email){
-                        tempList.push(list[index])
+                        tempList[list[index].Email] = list[index]
                     }
                 }
             }   
         }
-        this.setState({customers: tempList})
+        var arr = []
+        for(var i in tempList){
+            arr.push(tempList[i])
+        }
+        this.setState({customers: arr})
     }
 
     async filterFunction(){
