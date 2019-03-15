@@ -7,6 +7,8 @@ import Filter from "./Filter";
 import searchIcon from "../assets/images/oa-search-bar.svg";
 import filterIcon from "../assets/images/oneamerica-filter.svg";
 
+import axios from 'axios';
+
 class Dashboard extends Component {
     // isMobile = window.innerWidth <= 500;
 
@@ -21,7 +23,6 @@ class Dashboard extends Component {
                 insurance:false,
                 time:false
             },
-            currentFilter:[],
             locationFilter:{
                 northeast:false,
                 south:false,
@@ -44,38 +45,25 @@ class Dashboard extends Component {
             selected:[],
             isAuthenticated:true,
             width:window.innerWidth,
-            date:new Date()
+            date:new Date(),
+            host:null
         }
     }
 
-    pullCustomers = _ =>{
-        fetch(`http://localhost:4000/customers`)
-        .then(response => response.json() )
-        .then(response => {
-            this.setState({ customers: response.data })
-            this.saveData()
-        })
+    async pullCustomers(){
+        var url = this.state.host + '/customers'
+        const response = await axios.get(url)
+        this.setState({ customers: response.data.data })
 
     }
 
     searchCustomers = (search) =>{
-        //Online Version
-        fetch(`http://localhost:4000/query/name?name=${search}`)
-        .then(response => response.json() )
-        .then(response => this.setState({ customers: response.data }))
-        .then(err => console.log(err))
-
-        //Session Storage Version
-        // var search = this.state.search
-        // var person = []
-        // var customers = JSON.parse(sessionStorage.getItem("customers"))
-        // customers.forEach(function(element){
-        //     if(element.Name.toLowerCase().includes(search.toLowerCase())){
-        //         person.push(element)
-        //     }
-        // })
-        // this.setState({customers: person})
-        
+        var url = this.state.host + '/customers/search'
+        axios.get(url,{
+            params:{
+                name:search
+            }
+        }).then(response => this.setState({ customers: response.data.data }))
     }
 
     saveData = _ => {
@@ -136,6 +124,11 @@ class Dashboard extends Component {
     }
 
     componentWillMount(){
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+        } else {
+            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+        }
         window.addEventListener('resize', this.handleWindowSizeChange);
     }
 
@@ -149,13 +142,17 @@ class Dashboard extends Component {
         })
     }
 
-    deleteSelected(){
-        this.state.selected.forEach(function(element){
-            fetch(`http://localhost:4000/delete/email?email=${element.Email}`)
-        })
+    async deleteSelected(){
+
+        for(var element in this.state.selected){
+            var url = this.state.host + '/customers/customers'
+            await axios.delete(url,{
+                data: {
+                    email: this.state.selected[element].Email
+                }
+            })
+        }
         this.clearSelected();
-        this.pullCustomers();
-        
     }
 
     clearSelected(){
@@ -182,7 +179,6 @@ class Dashboard extends Component {
             selected:[]
         })
         this.filterFunction();
-        this.pullCustomers();
     }
 
     timestampFilter(time){
@@ -205,13 +201,7 @@ class Dashboard extends Component {
         }
 
         this.setState({timestampFilter: newTimestampFilter})
-        this.pullCustomers();
         this.filterFunction();
-        if(this.state.timestampFilter.day || this.state.timestampFilter.week || this.state.timestampFilter.month || this.state.timestampFilter.year){
-        }else{
-            this.pullCustomers();
-            this.filterFunction();
-        }
     }
 
     insuranceNeedsFilter(tier){
@@ -237,14 +227,7 @@ class Dashboard extends Component {
         }
 
         this.setState({insuranceNeedsFilter: newInsuranceNeedsFilter})
-        this.pullCustomers();
         this.filterFunction();
-
-        if(this.state.insuranceNeedsFilter.tier1 || this.state.insuranceNeedsFilter.tier2 || this.state.insuranceNeedsFilter.tier3 || this.state.insuranceNeedsFilter.tier4 || this.state.insuranceNeedsFilter.tier5){
-        }else{
-            this.pullCustomers();
-            this.filterFunction();
-        }
     }
 
     locationFilter(region){
@@ -267,16 +250,10 @@ class Dashboard extends Component {
         }
 
         this.setState({locationFilter: newLocationFilter})
-        this.pullCustomers();
         this.filterFunction();
-        if(this.state.locationFilter.northeast || this.state.locationFilter.west || this.state.locationFilter.midwest || this.state.locationFilter.south){
-        }else{
-            this.pullCustomers();
-            this.filterFunction();
-        }
     }
 
-    compare = (list) =>{
+    async compare(list){
         var tempList = []
         var customers = this.state.customers
         if(list.length > 0 ){
@@ -286,32 +263,39 @@ class Dashboard extends Component {
                         tempList.push(list[index])
                     }
                 }
-            }
+            }   
         }
         this.setState({customers: tempList})
     }
 
-    filterFunction(){
+    async filterFunction(){
+        await this.pullCustomers();
+
         var locationList = []
-        var promises = []
+        var locationPromises = []
         for(var region in this.state.locationFilter){
             if(this.state.locationFilter[region]){
-                console.log("location")
-                const promise = fetch(`http://localhost:4000/filter/location/region?region=${region}`)
-                .then(response => response.json())
+                var url = this.state.host + '/filters/location'
+                const promise = axios.get(url,{
+                    params:{
+                        region:region
+                    }
+                })
                 .then(response => {
-                    response.data.forEach(function(element){
-                        locationList.push(element)
+                    response.data.data.forEach(function(customer){
+                        locationList.push(customer)
                     })
                 })
-                promises.push(promise)
+                
+                locationPromises.push(promise)
             }
         }
 
-        Promise.all(promises).then(response => {
-            this.compare(locationList);
-        })
-
+        if(locationPromises.length > 0){
+            Promise.all(locationPromises).then(response => {
+                this.compare(locationList)
+            })
+        }
 
         var insuranceList = []
         const tierValues = {
@@ -322,24 +306,29 @@ class Dashboard extends Component {
             tier5:[90001,1000000]
         }
 
-        var promises = []
+        var insurancePromises = []
         for(var tier in this.state.insuranceNeedsFilter){
             if(this.state.insuranceNeedsFilter[tier]){
-                console.log("Tier")
-                const promise = fetch(`http://localhost:4000/filter/einsurance/range?lower=${tierValues[tier][0]}&upper=${tierValues[tier][1]}`)
-                .then(response => response.json())
+                var urlInsurance = this.state.host + '/filters/einsurance'
+                const promise = axios.get(urlInsurance,{
+                    params:{
+                        lower:tierValues[tier][0],
+                        upper:tierValues[tier][1]
+                    }
+                })
                 .then(response => {
-                    response.data.forEach(function(element){
+                    response.data.data.forEach(function(element){
                         insuranceList.push(element)
                     })
                 })
-                promises.push(promise)
+                insurancePromises.push(promise)
             }
         }
-
-        Promise.all(promises).then(response => {
-            this.compare(insuranceList);
-        })
+        if(insurancePromises.length > 0){
+            Promise.all(insurancePromises).then(response => {
+                this.compare(insuranceList);
+            })
+        }
 
 
         // TODO Needs Refactored
@@ -367,45 +356,56 @@ class Dashboard extends Component {
             year:[yearAgo,today]
         }
 
-        var promises = []
-        for(var tier in this.state.timestampFilter){
-            if(this.state.timestampFilter[tier]){
-                console.log(timeTierValues[tier])
-                const promise = fetch(`http://localhost:4000/filter/timestamp/range?lower=${timeTierValues[tier][0]}&upper=${timeTierValues[tier][1]}`)
-                .then(response => response.json())
+        var timePromises = []
+        for(var timeTier in this.state.timestampFilter){
+            if(this.state.timestampFilter[timeTier]){
+                console.log(timeTierValues[timeTier])
+                var urlTimestamp = this.state.host + '/filters/timestamp'
+                const promise =  axios.get(urlTimestamp,{
+                    params:{
+                        lower: timeTierValues[timeTier][0],
+                        upper: timeTierValues[timeTier][1]
+                    }
+                })
                 .then(response => {
-                    response.data.forEach(function(element){
+                    response.data.data.forEach(function(element){
                         timeList.push(element)
                     })
                 })
-                promises.push(promise)
+                timePromises.push(promise)
             }
         }
 
-        Promise.all(promises).then(response => {
-            this.compare(timeList);
-        })
+        if(timePromises.length > 0){
+            Promise.all(timePromises).then(response => {
+                this.compare(timeList);
+            })
+        }
     }
 
     mobileFilter(filter){
-        console.log(filter)
         switch(filter){
             case "day":
             case "week":
             case "year":
             case "month":
                 this.timestampFilter(filter);
+                break;
             case "midwest":
             case "northeast":
             case "west":
             case "south":
                 this.locationFilter(filter);
+                break;
             case "tier1":
             case "tier2":
             case "tier3":
             case "tier4":
             case "tier5":
                 this.insuranceNeedsFilter(filter);
+                break;
+            default:
+                break;
         }
     }
 
@@ -451,10 +451,10 @@ class Dashboard extends Component {
                     }
                     
                     <div id="dashboard-header">
-                        <h1>User Data</h1>
+                        <h1 id="dashboard-user-data">User Data</h1>
                         <div id="header-right">
                             <button id="filter-button" onClick={this.toggleFilter.bind(this)}>
-                                <img id="filter-button" src={filterIcon}/>
+                                <img id="filter-button" alt="filer_button" src={filterIcon}/>
                             </button>
                         </div>
                     </div>
@@ -505,7 +505,6 @@ class Dashboard extends Component {
                             <div className="column">
                                 <h3>Location</h3>
                                 <div className="row">
-                                {/* onClick={(e) => this.locationFilter("northeast")} */}
                                     <input id="checkbox" checked={this.state.locationFilter["northeast"]} onChange={(e) => this.locationFilter("northeast")} type="checkbox"/>
                                     <label id="label">Northeast</label>
                                 </div>

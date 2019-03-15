@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import "../assets/dashboard.css"
+import "../assets/dashboard.css";
+import moment from "moment";
 class CustomerCard extends Component {
 
     state = {
@@ -10,6 +11,11 @@ class CustomerCard extends Component {
         var customer = {Name: this.props.name, Email: this.props.email, Location: this.props.location, EInsurance: this.props.einsurance, Phone_Number: this.props.phone, TIME: this.props.time}
 
         this.props.onSelectCustomer(customer);
+    }
+
+    parseDate(){
+        var date = moment(this.props.time).format('DD-MMM-YYYY HH:mm');
+        return date
     }
 
     render() {
@@ -27,7 +33,7 @@ class CustomerCard extends Component {
                     <p>Location: <span>{this.props.location}</span></p>
                     <p id="gray_row">Insurance Needs: <span>{this.props.einsurance}</span></p>
                     <p>Phone: <span>{this.props.phone}</span></p>
-                    <p id="timestamp"><i>Timestamp: <strong>{this.props.time}</strong></i></p>
+                    <p id="timestamp"><i>Timestamp: <strong>{this.parseDate()}</strong></i></p>
                 </div>
             </div>
         )

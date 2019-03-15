@@ -186,12 +186,12 @@ class Home extends Component {
 
                                 <div className="label-input">
                                     <label htmlFor="gender">Gender</label>
-                                    <select name="gender" required onChange={(e) => {
+                                    <select value={"Select"} name="gender" required onChange={(e) => {
                                         this.setState({
                                             gender: e.target.value
                                         })
                                     }}>
-                                        <option disabled selected>Select</option>
+                                        <option disabled>Select</option>
                                         <option>Male</option>
                                         <option>Female</option>
                                         <option>Prefer not to answer</option>
@@ -260,12 +260,12 @@ class Home extends Component {
                             }}/>
 
                             <label htmlFor="offered-through-company">Offered Through Your Company?</label>
-                            <select name="offered-through-company" id="offered-through-company" required onChange={(e) => {
+                            <select defaultValue={"Select"} name="offered-through-company" id="offered-through-company" required onChange={(e) => {
                                 this.setState({
                                     offered_through_company: e.target.value
                                 })
                             }}>
-                                <option disabled selected>Select</option>
+                                <option disabled >Select</option>
                                 <option>Yes</option>
                                 <option>No</option>
                                 <option>Prefer not to answer</option>
@@ -377,12 +377,12 @@ class Home extends Component {
 
                             <div className="label-input">
                                 <label htmlFor="spouse-working">Spouse keep working or take time off?</label>
-                                <select name="spouse-working" required onChange={(e) => {
+                                <select defaultValue={"Select"} name="spouse-working" required onChange={(e) => {
                                     this.setState({
                                         spouse_working: e.target.value
                                     })
                                 }}>
-                                    <option disabled selected>Select</option>
+                                    <option disabled >Select</option>
                                     <option>Continue Working</option>
                                     <option>Take Time Off</option>
                                     <option>Prefer not to answer</option>
@@ -391,12 +391,12 @@ class Home extends Component {
 
                             <div className="label-input">
                                 <label htmlFor="spouse-length">How long?</label>
-                                <select name="spouse-length" required onChange={(e) => {
+                                <select defaultValue={"Select"} name="spouse-length" required onChange={(e) => {
                                     this.setState({
                                         spouse_length: e.target.value
                                     })
                                 }}>
-                                    <option disabled selected>Select</option>
+                                    <option disabled >Select</option>
                                     <option>1/2 year</option>
                                     <option>1 year</option>
                                     <option>1 1/2 years</option>
@@ -422,12 +422,12 @@ class Home extends Component {
 
                             <div className="label-input">
                                 <label htmlFor="children-to-college">How many children going to college?</label>
-                                <select name="children-to-college" required onChange={(e) => {
+                                <select defaultValue={"Select"} name="children-to-college" required onChange={(e) => {
                                     this.setState({
                                         children_to_college: parseInt(e.target.value,10)
                                     })
                                 }}>
-                                    <option disabled selected>Select</option>
+                                    <option disabled >Select</option>
                                     <option>0</option>
                                     <option>1</option>
                                     <option>2</option>
@@ -438,12 +438,12 @@ class Home extends Component {
 
                             <div className="label-input">
                                 <label htmlFor="type-of-college">What type of college?</label>
-                                <select name="type-of-college" required onChange={(e) => {
+                                <select defaultValue={"Select"} name="type-of-college" required onChange={(e) => {
                                     this.setState({
                                         type_of_college: e.target.value
                                     })
                                 }}>
-                                    <option disabled selected>Select</option>
+                                    <option disabled >Select</option>
                                     <option>Public University</option>
                                     <option>Private College</option>
                                     <option>Trade School</option>

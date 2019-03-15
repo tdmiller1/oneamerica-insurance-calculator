@@ -1,18 +1,18 @@
 # OneAmerica-Insurance-Calculator
-CS495 - Software Engineering - OneAmerica Insurance Calculator Website
+CS498 - Software Engineering - OneAmerica Insurance Calculator Website
 
 
 ### Install Node Modules
 ```bash
 $ npm install
 ```
-### To start nodejs server
+
+### To start both react js server and node server
 ```bash
-$ npm install -g nodemon
-$ nodemon start
+$ npm run dev
 ```
 
-### To start react js server
+### To start production build
 ```bash
 $ npm start
 ```

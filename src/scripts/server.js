@@ -203,13 +203,13 @@ app.get('/filter/location/region', (req, res) => {
             query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IO" OR Location LIKE "%MN" OR Location LIKE "%WI"`;
             break;
         case "northeast":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CO" OR Location LIKE "%NJ" OR Location LIKE "%MA"`;
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CO" OR Location LIKE "%NJ" OR Location LIKE "%MA"  OR Location LIKE "%DE"`;
             break;
         case "west":
             query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%CA" OR Location LIKE "%WA" OR Location LIKE "%OR" OR Location LIKE "%MT" OR Location LIKE "%ID" OR Location LIKE "%NV" OR Location LIKE "%AZ" OR Location LIKE "%NM" OR Location LIKE "%CO" OR Location LIKE "%WY" OR Location LIKE "%UT" OR Location LIKE "%AK" OR Location LIKE "%HI"`;
             break;
         case "south":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS" OR Location LIKE "%DE"`;
+            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS"`;
             break;
     }
     connection.query(query, (err, results) => {

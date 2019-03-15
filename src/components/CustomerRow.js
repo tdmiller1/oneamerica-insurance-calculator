@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import "../assets/dashboard.css"
+import moment from "moment";
 class CustomerRow extends Component {
 
     selectedChange = _ => {
@@ -7,6 +8,11 @@ class CustomerRow extends Component {
         Location: this.props.location, EInsurance: this.props.einsurance, 
     Phone_Number: this.props.phone, TIME: this.props.time}
         this.props.onSelectCustomer(customer)
+    }
+
+    parseDate(){
+        var date = moment(this.props.time).format('DD-MMM-YYYY HH:mm');
+        return date
     }
 
     render() {
@@ -18,7 +24,7 @@ class CustomerRow extends Component {
                 <td>{this.props.phone}</td>
                 <td>{this.props.location}</td>
                 <td>{this.props.einsurance}</td>
-                <td>{this.props.time}</td>
+                <td>{this.parseDate()}</td>
             </tr>
         )
     }

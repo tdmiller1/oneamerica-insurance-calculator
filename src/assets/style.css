@@ -216,12 +216,11 @@ label{
     }
     .home-page{
         padding-top:100px !important;
-        padding-bottom:1850px !important;
+        padding-bottom:1950px !important;
     }
     /* For Mockup Design */
     .temporary-site-wrapper{
         background-image: url("images/Asset 5.png") !important;
-        background-color:red;
         background-size: cover;
         background-repeat: no-repeat;
     }
@@ -396,7 +395,7 @@ select, input{
     height: 3em;
     border-radius: 0;
     background-color: #5f92be;
-    color: white;
+    /* color: white; */
     font-size: .9em;
     font-weight: bolder;
     margin: 1em auto;

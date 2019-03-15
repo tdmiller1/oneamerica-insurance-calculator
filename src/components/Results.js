@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 // import '../assets/style.css';
 import Success from "../components/Success";
 import Failure from "../components/Failure";
+import axios from "axios";
 
 
 class Results extends Component {
@@ -16,13 +17,29 @@ class Results extends Component {
             einsurance: 1
         },
         success:false,
-        failure:false
+        failure:false,
+        host:null
+    }
+
+    componentWillMount(){
+        if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+        } else {
+            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+        }
     }
 
     addCustomer = _ =>{
         const { customer } = this.state;
-        fetch(`http://localhost:4000/customers/add?full_name=${customer.full_name}&email=${customer.email}&phone_number=${customer.phone_number}&location=${customer.location}&einsurance=${this.props.location.state.amount}`)
-        .then(response => {
+        var url = this.state.host + '/customers/add'
+        axios.post(url,{
+            name: customer.full_name,
+            email: customer.email,
+            phone_number: customer.phone_number,
+            location: customer.location,
+            einsurance: customer.einsurance,
+            time:null
+        }).then(response => {
             switch(response.status){
                 case 200:
                     this.setState({success: true})
