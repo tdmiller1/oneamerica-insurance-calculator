@@ -164,6 +164,7 @@
     background-color:#ededed;
     border-right:2px solid #949292;
     padding:0px 20px;
+    padding-bottom: 5%;
 }
 
 #dashboard-sidepanel h1, #dashboard-content h1{
@@ -172,6 +173,7 @@
     font-weight: 100;
     margin-bottom: 0;
     margin-top: 35px;
+    font-size: 28px;
 }
 
 #dashboard-sidepanel h3 {
@@ -217,6 +219,7 @@
 }
 .parent{
     display:flex;
+    margin-top: 15%;
     flex-direction: row;
 }
 .child{
@@ -256,7 +259,7 @@ tr #checkbox{
 }
 
 tr:nth-child(even){
-    background-color:#bebebe;
+    background-color:#f0f0f0;
 }
 
 #table-wrapper{
@@ -342,3 +345,21 @@ th span{
     margin:0px;
     font-size:20px;
 }
+
+.sorting-arrows{
+    display: flex;
+    flex-direction: column;
+}
+
+.sorting-arrows span{
+    font-size: 10px;
+}
+
+.table-heading{
+    /*display: flex;*/
+}
+
+/*th{*/
+    /*display: flex;*/
+    /*flex-direction: row;*/
+/*}*/
