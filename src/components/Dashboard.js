@@ -145,7 +145,7 @@ class Dashboard extends Component {
     async deleteSelected(){
 
         for(var element in this.state.selected){
-            var url = this.state.host + '/customers/customers'
+            var url = this.state.host + '/customers'
             await axios.delete(url,{
                 data: {
                     email: this.state.selected[element].Email

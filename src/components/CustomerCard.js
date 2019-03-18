@@ -18,6 +18,24 @@ class CustomerCard extends Component {
         return date
     }
 
+    formatNumber = function (number) {
+        var splitNum;
+        number = Math.abs(number);
+        number = number.toFixed(2);
+        splitNum = number.split('.');
+        splitNum[0] = splitNum[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return "$" + splitNum.join(".");
+    }
+
+    formatPhoneNumber(phoneNumberString) {
+        var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        }
+        return null
+    }
+
     render() {
         return(
             <div className="client_card">
@@ -31,8 +49,8 @@ class CustomerCard extends Component {
                 <div id="floatLeft">
                     <p id="gray_row">Email: <span>{this.props.email}</span></p>
                     <p>Location: <span>{this.props.location}</span></p>
-                    <p id="gray_row">Insurance Needs: <span>{this.props.einsurance}</span></p>
-                    <p>Phone: <span>{this.props.phone}</span></p>
+                    <p id="gray_row">Insurance Needs: <span>{this.formatNumber(this.props.einsurance)}</span></p>
+                    <p>Phone: <span>{this.formatPhoneNumber(this.props.phone)}</span></p>
                     <p id="timestamp"><i>Timestamp: <strong>{this.parseDate()}</strong></i></p>
                 </div>
             </div>

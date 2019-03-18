@@ -15,15 +15,34 @@ class CustomerRow extends Component {
         return date
     }
 
+    formatNumber = function (number) {
+        var splitNum;
+        number = Math.abs(number);
+        number = number.toFixed(2);
+        splitNum = number.split('.');
+        splitNum[0] = splitNum[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        return "$" + splitNum.join(".");
+    }
+
+    formatPhoneNumber(phoneNumberString) {
+        var cleaned = ('' + phoneNumberString).replace(/\D/g, '')
+        var match = cleaned.match(/^(\d{3})(\d{3})(\d{4})$/)
+        if (match) {
+            return '(' + match[1] + ') ' + match[2] + '-' + match[3]
+        }
+        return null
+    }
+     
+
     render() {
         return(
             <tr>
                 <td><input id="checkbox" onClick={this.selectedChange} type="checkbox"/></td>
                 <td>{this.props.name}</td>
                 <td>{this.props.email}</td>
-                <td>{this.props.phone}</td>
+                <td>{this.formatPhoneNumber(this.props.phone)}</td>
                 <td>{this.props.location}</td>
-                <td>{this.props.einsurance}</td>
+                <td>{this.formatNumber(this.props.einsurance)}</td>
                 <td>{this.parseDate()}</td>
             </tr>
         )
