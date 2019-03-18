@@ -14,7 +14,7 @@ class Results extends Component {
             email: undefined,
             phone_number: undefined,
             location: undefined,
-            einsurance: 1
+            einsurance: this.props.location.state.amount
         },
         success:false,
         failure:false,
@@ -23,7 +23,7 @@ class Results extends Component {
 
     componentWillMount(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+            this.setState({host: "http://localhost:4000"})
         } else {
             this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
         }

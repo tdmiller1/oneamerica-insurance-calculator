@@ -63,7 +63,7 @@ class Dashboard extends Component {
             params:{
                 name:search
             }
-        }).then(response => this.setState({ customers: response.data.data }))
+        }).then(response => this.compare(response.data.data))
     }
 
     saveData = _ => {
@@ -125,7 +125,7 @@ class Dashboard extends Component {
 
     componentWillMount(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
-            this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
+            this.setState({host: "http://localhost:4000"})
         } else {
             this.setState({host: "https://oneamerica-nodemon.herokuapp.com"})
         }
@@ -303,7 +303,7 @@ class Dashboard extends Component {
 
         var insuranceList = []
         const tierValues = {
-            tier1:[20000,40000],
+            tier1:[0,40000],
             tier2:[40001,60000],
             tier3:[60001,80000],
             tier4:[80001,90000],
@@ -389,23 +389,13 @@ class Dashboard extends Component {
 
     mobileFilter(filter){
         switch(filter){
-            case "day":
-            case "week":
-            case "year":
-            case "month":
+            case "day" ||"week" || "year" || "month":
                 this.timestampFilter(filter);
                 break;
-            case "midwest":
-            case "northeast":
-            case "west":
-            case "south":
+            case "midwest" || "northeast" || "west" || "south":
                 this.locationFilter(filter);
                 break;
-            case "tier1":
-            case "tier2":
-            case "tier3":
-            case "tier4":
-            case "tier5":
+            case "tier1" || "tier2" || "tier3" || "tier4" || "tier5":
                 this.insuranceNeedsFilter(filter);
                 break;
             default:

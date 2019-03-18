@@ -186,7 +186,7 @@ class Home extends Component {
 
                                 <div className="label-input">
                                     <label htmlFor="gender">Gender</label>
-                                    <select value={"Select"} name="gender" required onChange={(e) => {
+                                    <select defaultValue={"Select"} name="gender" required onChange={(e) => {
                                         this.setState({
                                             gender: e.target.value
                                         })

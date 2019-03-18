@@ -2,153 +2,88 @@ const express = require('express');
 const cors = require('cors');
 const mysql = require('mysql');
 const app = express();
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended:true }))
 const SELECT_ALL = 'SELECT * FROM customer';
 
-connection = mysql.createConnection({
-    host:'10.12.18.10',
-    user:'Noonja',
-    password:'Chair5000',
-    database:'oneamerica'
+var fs = require('fs');
+configPath = './config.json'
+var dbConfig = JSON.parse(fs.readFileSync(configPath, 'UTF-8'))
+
+var connection = mysql.createConnection({ 
+  host: dbConfig["host"],
+  database: dbConfig["database"],
+  user: dbConfig["user"],
+  password: dbConfig["password"]
 });
 
 app.use(cors());
 
-//Landing Page
-app.get('/', (req, res) => {
-    res.send("landing")
+/* GET users listing. */
+app.get('/customers', function(req, res, next) {
+    connection.query('SELECT * FROM customer', function (err, rows, fields){
+        if (err) throw err
+        res.send({data: rows});
+    })
 });
 
-//Get all Customers
-app.get('/customers', (req, res) => {
+app.get('/customers/search', function(req, res, next) {
+    const SEARCH_QUERY = "SELECT * FROM customer WHERE Name LIKE '%"+req.query.name+"%'"
+    console.log(req)
+    connection.query(SEARCH_QUERY, function (err, rows, fields){
+        if (err) throw err
 
-    connection.query(SELECT_ALL, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server GET ALL------')
-            return res.json({
-                data: results
-            });
-        }
-    });
+        res.send({data: rows, sql: SEARCH_QUERY});
+    })
 });
 
-//Add Customer
-app.get('/customers/add', (req, res) => {
-    const {full_name, email, phone_number, location, einsurance, time} = req.query;
-    console.log(res);
-    const INSERT_PRODUCTS_QUERY = `INSERT INTO customer (name, email, phone_number, location, einsurance,time) VALUES('${full_name}', '${email}', '${phone_number}', '${location}', ${einsurance}, CURRENT_TIMESTAMP)`;
+app.post('/customers/add',function(req,res){
+    console.log(req.body)
+    const INSERT_PRODUCTS_QUERY = "INSERT INTO customer (name, email, phone_number, location, einsurance,time) VALUES('" 
+    + req.body.name + "','" + req.body.email + "','" + req.body.phone_number + "','" + req.body.location + "','" + req.body.einsurance + "',CURRENT_TIMESTAMP)";
     connection.query(INSERT_PRODUCTS_QUERY, (err, results) => {
         if(err){
+            console.log("SQL ERR: " + err)
             return res.send(err);
         }else{
-            return res.send('successfully added');
+            return res.json(results);
         }
     })
 })
 
-//Get Customer by LIKE Name
-app.get('/query/name', (req, res) => {
-    const {name} = req.query;
-    const SELECT_ALL_NAME_QUERY = `SELECT * FROM customer WHERE Name like '%${name}%'`;
-    connection.query(SELECT_ALL_NAME_QUERY, (err, results) => {
+app.delete('/customers',function(req, res){
+    const DELETE_EMAIL_QUERY = "DELETE FROM customer WHERE Email = '" + req.body.email + "'";
+    connection.query(DELETE_EMAIL_QUERY, (err, results) => {
         if(err){
             return res.send(err);
         }else{
-            console.log('------Customer Server SEARCH LIKE NAME------')
-            return res.json({
-                data: results
-            });
+            return res.send(results)
         }
     });
-});
+})
 
-//Delete customer by Name
-app.get('/delete/name', (req, res) => {
-    const {name} = req.query;
-    const DELETE_NAME_QUERY = `DELETE FROM customer WHERE Name = "${name}"`;
-    connection.query(DELETE_NAME_QUERY, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server DELETE------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Delete customer by Email
-app.get('/delete/email', (req, res) => {
-    const {email} = req.query;
-    const DELETE_NAME_QUERY = `DELETE FROM customer WHERE Email = "${email}"`;
-    connection.query(DELETE_NAME_QUERY, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server DELETE------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-
-//Filter by timestamp DESC
-app.get('/filter/timestamp', (req, res) => {
-    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer ORDER BY Time DESC;`;
-    connection.query(FILTER_TIMESTAMP, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Filter by timestamp Like Day
-app.get('/filter/timestamp/day', (req, res) => {
-    const {currentDay} = req.query;
-    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer Where Time Like "%${currentDay}%";`;
-    connection.query(FILTER_TIMESTAMP, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Filter by timestamp Range
-app.get('/filter/timestamp/range', (req, res) => {
+app.get('/filters/timestamp', function(req,res,next){
     const {upper, lower} = req.query;
-    const FILTER_TIMESTAMP = `SELECT * FROM oneamerica.customer where Time >= '${lower}' and Time < '${upper}'`;
-    connection.query(FILTER_TIMESTAMP, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results,
-                query: FILTER_TIMESTAMP
-            });
-        }
+        const FILTER_TIMESTAMP = `SELECT * FROM customer where Time >= '${lower}' and Time < '${upper}'`;
+        connection.query(FILTER_TIMESTAMP, (err, results) => {
+            if(err){
+                return res.send(err);
+            }else{
+                console.log('------Customer Server FILTER------')
+                return res.json({
+                    data: results,
+                    query: FILTER_TIMESTAMP
+                });
+            }
     });
 });
 
-//Filter by Insurance Needs Range
-app.get('/filter/einsurance/range', (req, res) => {
-    const {lower, upper} = req.query;
-    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer where EInsurance >= ${lower} and EInsurance <= ${upper}`;
+    
+app.get('/filters/einsurance', function(req, res, next) {
+    const {lower, upper} = req.query
+    const FILTER_INSURANCE = `SELECT * FROM customer where EInsurance >= ${lower} and EInsurance <= ${upper}`;
     connection.query(FILTER_INSURANCE, (err, results) => {
         if(err){
             return res.send(err);
@@ -162,54 +97,22 @@ app.get('/filter/einsurance/range', (req, res) => {
 });
 
 
-//Filter by Insurance Needs ASC or DSC
-app.get('/filter/einsurance/order', (req, res) => {
-    const { order } = req.query;
-    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer ORDER BY EInsurance ${order}`;
-    connection.query(FILTER_INSURANCE, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Filter by Location States
-app.get('/filter/location/state', (req, res) => {
-    const { state } = req.query;
-    const FILTER_INSURANCE = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%${state}"`;
-    connection.query(FILTER_INSURANCE, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Filter by Location Region
-app.get('/filter/location/region', (req, res) => {
-    const { region } = req.query;
+app.get('/filters/location', function(req, res, next) {
+    const region = req.query.region
     var query = ""
+    console.log(region)
     switch(region){
         case "midwest":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IO" OR Location LIKE "%MN" OR Location LIKE "%WI"`;
+            query = `SELECT * FROM customer WHERE Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IA" OR Location LIKE "%MN" OR Location LIKE "%WI"`;
             break;
         case "northeast":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CO" OR Location LIKE "%NJ" OR Location LIKE "%MA"  OR Location LIKE "%DE"`;
+            query = `SELECT * FROM customer WHERE Location LIKE "%ME" OR Location LIKE "%VT" OR Location LIKE "%NH" OR Location LIKE "%RI" OR Location LIKE "%PA" OR Location LIKE "%NY" OR Location LIKE "%CT" OR Location LIKE "%NJ" OR Location LIKE "%MA"`;
             break;
         case "west":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%CA" OR Location LIKE "%WA" OR Location LIKE "%OR" OR Location LIKE "%MT" OR Location LIKE "%ID" OR Location LIKE "%NV" OR Location LIKE "%AZ" OR Location LIKE "%NM" OR Location LIKE "%CO" OR Location LIKE "%WY" OR Location LIKE "%UT" OR Location LIKE "%AK" OR Location LIKE "%HI"`;
+            query = `SELECT * FROM customer WHERE Location LIKE "%CA" OR Location LIKE "%WA" OR Location LIKE "%OR" OR Location LIKE "%MT" OR Location LIKE "%ID" OR Location LIKE "%NV" OR Location LIKE "%AZ" OR Location LIKE "%NM" OR Location LIKE "%CO" OR Location LIKE "%WY" OR Location LIKE "%UT" OR Location LIKE "%AK" OR Location LIKE "%HI"`;
             break;
         case "south":
-            query = `SELECT * FROM oneamerica.customer WHERE Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS"`;
+            query = `SELECT * FROM customer WHERE Location LIKE "%TX" OR Location LIKE "%OK" OR Location LIKE "%LA" OR Location LIKE "%AL" OR Location LIKE "%AR" OR  Location LIKE "%GA" OR Location LIKE "%SC" OR Location LIKE "%NC" OR Location LIKE "%VA" OR Location LIKE "%MD" OR Location LIKE "%WV" OR Location LIKE "%KY" OR Location LIKE "%TN" OR Location LIKE "%FL" OR Location LIKE "%MS" OR Location LIKE "%DE" OR Location LIKE "%DC"`;
             break;
     }
     connection.query(query, (err, results) => {
@@ -217,64 +120,56 @@ app.get('/filter/location/region', (req, res) => {
             return res.send(err);
         }else{
             console.log('------Customer Server FILTER------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-
-
-// Login Table
-//Get all Usernames lol
-app.get('/usernames', (req, res) => {
-    const SELECT_USERNAMES = `SELECT * FROM oneamerica.OA_CREDENTIALS`;
-    connection.query(SELECT_USERNAMES, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Login Server GET ALL------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Get all Username
-app.get('/username', (req, res) => {
-    const { username } = req.query;
-    const SELECT_USERNAMES = `SELECT * FROM oneamerica.OA_CREDENTIALS WHERE username = "${username}"`;
-    connection.query(SELECT_USERNAMES, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Login Server GET ALL------')
-            return res.json({
-                data: results
-            });
-        }
-    });
-});
-
-//Get all Usernames lol
-app.get('/test', (req, res) => {
-    const { query } = req.query;
-    const SELECT_USERNAMES = `${query}`;
-    connection.query(SELECT_USERNAMES, (err, results) => {
-        if(err){
-            return res.send(err);
-        }else{
-            console.log('------Login Server GET ALL------')
-            return res.json({
+            return res.send({
                 data: results,
-                query: query
+                sql:query
             });
         }
     });
 });
 
+app.get('/users/', function(req, res, next) {
+    const SELECT_USERNAMES = `SELECT * FROM oa_credentials`;
+    connection.query(SELECT_USERNAMES, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Login Server GET ALL------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+app.get('/users/username', function(req, res, next) {
+  const { username } = req.query;
+    const SELECT_USERNAMES = `SELECT * FROM oa_credentials WHERE username = "${username}"`;
+    connection.query(SELECT_USERNAMES, (err, results) => {
+        if(err){
+            return res.send(err);
+        }else{
+            console.log('------Login Server GET ALL------')
+            return res.json({
+                data: results
+            });
+        }
+    });
+});
+
+app.post('/users/add',function(req,res){
+    console.log(req)
+    // const SELECT_USERNAMES = "SELECT * FROM oa_credentials WHERE username = '" + req.body.username + "'";
+    const INSERT_USER_QUERY = "INSERT INTO oa_credentials (username, password) VALUES('"+ req.body.username + "','" + req.body.password + "')";
+    connection.query(INSERT_USER_QUERY, (err, results) => {
+        if(err){
+            console.log("SQL ERR: " + err)
+            return res.send(err);
+        }else{
+            return res.json(results);
+        }
+    })
+})
 
 //Start Server
 app.listen(4000, () => {
