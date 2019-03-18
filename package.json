@@ -21,13 +21,14 @@
     "axios": "^0.18.0",
     "moment": "^2.24.0",
     "fs": "^0.0.1-security",
-    "body-parser": "^1.18.3"
+    "body-parser": "^1.18.3",
+    "serve":"^10.1.2"
   },
   "scripts": {
     "client": "react-scripts start",
     "server": "nodemon src/scripts/server.js",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
-    "start": "npm run dev",
+    "start": "serve -s build",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
