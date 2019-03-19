@@ -294,6 +294,7 @@ tbody td{
 }
 
 th span{
+    display: flex;
     font-family: "Open Sans", sans-serif;
     font-weight: 100;
     color: #949494;
@@ -347,19 +348,14 @@ th span{
 }
 
 .sorting-arrows{
+    padding-left: 10%;
     display: flex;
+    cursor: pointer;
     flex-direction: column;
+    padding-bottom: 5%;
+    transform: translate(-20%,-10%);
 }
 
 .sorting-arrows span{
     font-size: 10px;
 }
-
-.table-heading{
-    /*display: flex;*/
-}
-
-/*th{*/
-    /*display: flex;*/
-    /*flex-direction: row;*/
-/*}*/
