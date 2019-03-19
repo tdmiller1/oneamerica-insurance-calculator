@@ -7,6 +7,8 @@ import Filter from "./Filter";
 import searchIcon from "../assets/images/oa-search-bar.svg";
 import filterIcon from "../assets/images/oneamerica-filter.svg";
 
+import Moment from 'moment';
+
 import axios from 'axios';
 
 class Dashboard extends Component {
@@ -55,6 +57,69 @@ class Dashboard extends Component {
         const response = await axios.get(url)
         this.setState({ customers: response.data.data })
 
+    }
+
+    sortCustomersName = (order) =>{
+        var data = this.state.customers
+        data.sort(function (a,b){
+            return a.Name.localeCompare(b.Name);
+        })
+        if (order === "ASC") {
+            this.setState({customers: data})
+        }
+        else {
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
+    }
+
+    sortCustomersDate = (order) =>{
+        var data = this.state.customers
+        data.sort(function (a,b){
+            return new Moment(a.Time).format('YYYYMMDDhhmm') - new Moment(b.Time).format('YYYYMMDDhhmm')
+        })
+        if (order === "ASC") {
+            this.setState({customers: data})
+        }
+        else {
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
+    }
+
+    sortCustomersPhone = (order) =>{
+        //clean the phone numbers
+        var data = this.state.customers
+        data.forEach(function(d) {
+            d.Phone_Number.replace(/-/g, "")
+        })
+        //sort
+        data.sort(function(a,b){
+            return a.Phone_Number.localeCompare(b.Phone_Number);
+        })
+        if (order === "ASC") {
+            this.setState({customers: data})
+        }
+        else {
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
+    }
+
+
+    sortCustomersEmail = (order) =>{
+        var data = this.state.customers
+        console.log(data[0])
+        data.sort(function (a,b){
+            return a.Email.localeCompare(b.Email);
+        })
+        if (order === "ASC") {
+            this.setState({customers: data})
+        }
+        else {
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
     }
 
     searchCustomers = (search) =>{
@@ -588,24 +653,24 @@ class Dashboard extends Component {
                                                     <th className="table-heading">
                                                         <span className="text">Name
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersName("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersName("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
                                                     <th className="table-heading">
                                                         <span className="text">Email
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersEmail("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersEmail("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
                                                     <th className="table-heading">
                                                         <span className="text">Phone
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersPhone("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersPhone("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
@@ -628,8 +693,8 @@ class Dashboard extends Component {
                                                     <th className="table-heading">
                                                         <span className="text">Time
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersDate("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersDate("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
