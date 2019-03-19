@@ -22,7 +22,8 @@
     "moment": "^2.24.0",
     "fs": "^0.0.1-security",
     "body-parser": "^1.18.3",
-    "serve":"^10.1.2"
+    "serve":"^10.1.2",
+    "react-loader-spinner": "2.3.0"
   },
   "scripts": {
     "client": "react-scripts start",

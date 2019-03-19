@@ -6,7 +6,7 @@ import "../assets/dashboard.css";
 import Filter from "./Filter";
 import searchIcon from "../assets/images/oa-search-bar.svg";
 import filterIcon from "../assets/images/oneamerica-filter.svg";
-
+import Loader from "react-loader-spinner";
 import Moment from 'moment';
 
 import axios from 'axios';
@@ -48,13 +48,16 @@ class Dashboard extends Component {
             isAuthenticated:true,
             width:window.innerWidth,
             date:new Date(),
-            host:null
+            host:null,
+            isLoading:false
         }
     }
 
     async pullCustomers(){
         var url = this.state.host + '/customers'
+        this.setState({isLoading:true})
         const response = await axios.get(url)
+        if(response){this.setState({isLoading:false})}
         this.setState({ customers: response.data.data })
 
     }
@@ -405,9 +408,11 @@ class Dashboard extends Component {
             arr.push(tempList[i])
         }
         this.setState({customers: arr})
+        this.setState({isLoading:false})
     }
 
     async filterFunction(){
+        this.setState({isLoading:true})
         await this.pullCustomers();
 
         var locationList = []
@@ -544,7 +549,15 @@ class Dashboard extends Component {
         const isMobile = width <= 1023;
         const SearchButton = ({search, changeSearch}) => {
             return (
+                
                 <div className="parent">
+                    {
+                        this.state.isLoading && (
+                            <div className="loading">
+                            <Loader type="ThreeDots" color="#somecolor" height={80} width={80}></Loader>
+                            <h3>Loading</h3>
+                        </div>)  
+                    }
                     <input className="child" id="search-bar" type="search"
                         onChange={(e) => {
                             search = e.target.value
@@ -699,11 +712,6 @@ class Dashboard extends Component {
                         
                         <div id="dashboard-content">
                             <h1>User Data</h1>
-                            {/*<div className="sorting-arrows">*/}
-                                {/*<span>&#9650;</span>*/}
-                                {/*<span>&#9660;</span>*/}
-                            {/*</div>*/}
-
                             <hr id="line"></hr>
                             <div id="dashboard-data-header" className="floatLeft">
                                 <h3 id="textButton" onClick={() => this.deleteSelected()}  className="child">Delete Selected</h3>
