@@ -299,6 +299,7 @@ th span{
     font-weight: 100;
     color: #949494;
     font-size: 14px;
+    align-items: center;
 }
 
 #card-checkbox{
@@ -353,9 +354,14 @@ th span{
     cursor: pointer;
     flex-direction: column;
     padding-bottom: 5%;
-    transform: translate(-20%,-10%);
+    transform: translate(-20%,15%);
 }
 
 .sorting-arrows span{
     font-size: 10px;
+}
+
+.customer-date{
+    color: #a2a2a2;
+    font-weight: 100;
 }
