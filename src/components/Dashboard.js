@@ -59,10 +59,17 @@ class Dashboard extends Component {
 
     }
 
+    // =========================== Sort ASC and DESC ============================ //
     sortCustomersName = (order) =>{
         var data = this.state.customers
         data.sort(function (a,b){
-            return a.Name.localeCompare(b.Name);
+            //resolve tiebreakers by timestamp
+            if (a.Name === b.Name) {
+                return new Moment(b.Time).format('YYYYMMDDhhmm') - new Moment(a.Time).format('YYYYMMDDhhmm')
+            }
+            else {
+                return a.Name.localeCompare(b.Name);
+            }
         })
         if (order === "ASC") {
             this.setState({customers: data})
@@ -76,7 +83,7 @@ class Dashboard extends Component {
     sortCustomersDate = (order) =>{
         var data = this.state.customers
         data.sort(function (a,b){
-            return new Moment(a.Time).format('YYYYMMDDhhmm') - new Moment(b.Time).format('YYYYMMDDhhmm')
+            return new Moment(b.Time).format('YYYYMMDDhhmm') - new Moment(a.Time).format('YYYYMMDDhhmm')
         })
         if (order === "ASC") {
             this.setState({customers: data})
@@ -95,23 +102,35 @@ class Dashboard extends Component {
         })
         //sort
         data.sort(function(a,b){
-            return a.Phone_Number.localeCompare(b.Phone_Number);
+            //resolve same-location ties by comparing names
+            if (a.Phone_Number === b.Phone_Number) {
+                return a.Name.localeCompare(b.Name)
+            }
+            else {
+                return a.Phone_Number.localeCompare(b.Phone_Number);
+            }
+
         })
         if (order === "ASC") {
-            this.setState({customers: data})
-        }
-        else {
             var temp = data.reverse()
             this.setState({customers: temp})
+        }
+        else {
+            this.setState({customers: data})
         }
     }
 
 
     sortCustomersEmail = (order) =>{
         var data = this.state.customers
-        console.log(data[0])
         data.sort(function (a,b){
-            return a.Email.localeCompare(b.Email);
+            //because a same email most probably means the same person, check timestamp for a tiebreaker
+            if (a.Email === b.Email) {
+                return new Moment(b.Time).format('YYYYMMDDhhmm') - new Moment(a.Time).format('YYYYMMDDhhmm')
+            }
+            else {
+                return a.Email.localeCompare(b.Email);
+            }
         })
         if (order === "ASC") {
             this.setState({customers: data})
@@ -121,6 +140,57 @@ class Dashboard extends Component {
             this.setState({customers: temp})
         }
     }
+
+    sortCustomersLocation = (order) =>{
+        //reformat the Location of each customer to be ST, City to make it sort by State -> City
+        var data = this.state.customers 
+        data.forEach(function(d) {
+            var loc = d.Location.substr(d.Location.indexOf(',') + 1, d.Location.length) + ", " + d.Location.substr(0, d.Location.indexOf(','))
+            d.Location = loc
+        })
+        data.sort(function (a,b){
+            //resolve same-location ties by comparing names
+            if (a.Location === b.Location) {
+                return a.Name.localeCompare(b.Name)
+            }
+            else {
+                return a.Location.localeCompare(b.Location)
+            }
+        })
+        //return Location to print format
+        data.forEach(function(d) {
+            var loc = d.Location.substr(d.Location.indexOf(',') + 1, d.Location.length) + ", " + d.Location.substr(0, d.Location.indexOf(','))
+            d.Location = loc
+        })
+        if (order === "ASC") {
+            this.setState({customers: data})
+        }
+        else {
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
+    }
+
+    sortCustomersInsurance = (order) => {
+        var data = this.state.customers
+        data.sort(function (a,b){
+            if (a.EInsurance === b.EInsurance) {
+                return a.Name.localeCompare(b.Name)
+            }
+            else {
+                return b.EInsurance - a.EInsurance
+            }
+        })
+        if (order === "ASC") { //Highest Insurance needs at the top
+            this.setState({customers: data})
+        }
+        else { //Lowest Insurance needs at the top
+            var temp = data.reverse()
+            this.setState({customers: temp})
+        }
+    }
+    // =========================== End of Sort ASC and DESC ============================ //
+    
 
     searchCustomers = (search) =>{
         var url = this.state.host + '/customers/search'
@@ -677,16 +747,16 @@ class Dashboard extends Component {
                                                     <th className="table-heading">
                                                         <span className="text">Location
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersLocation("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersLocation("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
                                                     <th className="table-heading">
                                                         <span className="text">Insurance
                                                             <div className="sorting-arrows">
-                                                                <span>&#9650;</span>
-                                                                <span>&#9660;</span>
+                                                                <span onClick={() => this.sortCustomersInsurance("ASC")}>&#9650;</span>
+                                                                <span onClick={() => this.sortCustomersInsurance("DESC")}>&#9660;</span>
                                                             </div>
                                                         </span>
                                                     </th>
