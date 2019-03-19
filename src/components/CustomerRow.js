@@ -43,7 +43,7 @@ class CustomerRow extends Component {
                 <td>{this.formatPhoneNumber(this.props.phone)}</td>
                 <td>{this.props.location}</td>
                 <td>{this.formatNumber(this.props.einsurance)}</td>
-                <td>{this.parseDate()}</td>
+                <td className="customer-date">{this.parseDate()}</td>
             </tr>
         )
     }

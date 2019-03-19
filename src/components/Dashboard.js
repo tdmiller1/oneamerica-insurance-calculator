@@ -560,11 +560,15 @@ class Dashboard extends Component {
                                 </div>
                             </div>
 
-                            <hr id="line"></hr>
                         </div>
                         
                         <div id="dashboard-content">
                             <h1>User Data</h1>
+                            {/*<div className="sorting-arrows">*/}
+                                {/*<span>&#9650;</span>*/}
+                                {/*<span>&#9660;</span>*/}
+                            {/*</div>*/}
+
                             <hr id="line"></hr>
                             <div id="dashboard-data-header" className="floatLeft">
                                 <h3 id="textButton" onClick={() => this.deleteSelected()}  className="child">Delete Selected</h3>
@@ -581,12 +585,54 @@ class Dashboard extends Component {
                                             <thead>
                                                 <tr>
                                                     <th></th>
-                                                    <th><span className="text">Name</span></th>
-                                                    <th><span className="text">Email</span></th>
-                                                    <th><span className="text">Phone</span></th>
-                                                    <th><span className="text">Location</span></th>
-                                                    <th><span className="text">EInsurance</span></th>
-                                                    <th><span className="text">Time</span></th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Name
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Email
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Phone
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Location
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Insurance
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
+                                                    <th className="table-heading">
+                                                        <span className="text">Time
+                                                            <div className="sorting-arrows">
+                                                                <span>&#9650;</span>
+                                                                <span>&#9660;</span>
+                                                            </div>
+                                                        </span>
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
