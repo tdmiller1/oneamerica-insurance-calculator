@@ -5,6 +5,7 @@ import Home from "./components/Home"
 import Results from "./components/Results"
 import Login from "./components/Login"
 import Dashboard from './components/Dashboard';
+import CreateUser from './components/CreateUser';
 
 class App extends Component {
 
@@ -16,6 +17,7 @@ class App extends Component {
                     <Route exact path="/results" component={Results}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route exact path="/createuser" component={CreateUser}/>
                 </Switch>
             </div>
             );
