@@ -100,7 +100,7 @@ class Login extends Component {
                                     value="Login" 
                                 />
                             </div>
-                            <h4 id="login-page-create-user" onClick={() => this.createNewUser()}>Create New User</h4>
+                            <h4 id="login-page-create-user" onClick={() => this.props.history.push('/createuser')}>Create New User</h4>
                         </div>
                     </div>
                 </div>
