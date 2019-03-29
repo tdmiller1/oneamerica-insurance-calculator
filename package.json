@@ -22,7 +22,7 @@
     "moment": "^2.24.0",
     "fs": "^0.0.1-security",
     "body-parser": "^1.18.3",
-    "serve":"^10.1.2",
+    "serve": "^10.1.2",
     "react-loader-spinner": "2.3.0"
   },
   "scripts": {
@@ -36,6 +36,8 @@
   },
   "devDependencies": {
     "jest": "^24.4.0",
-    "webpack-dev-server": "^3.2.1"
+    "webpack-dev-server": "^3.2.1",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.11.2"
   }
 }
