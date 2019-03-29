@@ -80,6 +80,15 @@ h1{
 
 @media screen and (min-width: 980px) {
 
+
+    #results-location-input{
+        width:100%;
+    }
+
+    #results-location-select{
+        width:100%
+    }
+
     /* For Mockup Design */
     #results-page, .home-page{
         padding-top: 15%;
@@ -227,6 +236,15 @@ label{
 }
 
 @media only screen and (max-width: 980px) {
+
+    #results-location-input{
+        width:100%;
+    }
+
+    #results-location-select{
+        width:100%
+    }
+
     /* For Mockup Design */
     
     .temporary-site-wrapper{
@@ -434,4 +452,16 @@ input[type="checkbox"]:checked{
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
+}
+
+#results-location-input{
+    width:80%;
+}
+
+#results-location-select{
+    width:20%
+}
+
+#results-label-input-location{
+
 }
