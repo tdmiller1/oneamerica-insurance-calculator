@@ -13,7 +13,8 @@ class Login extends Component {
             password:"",
             attempt:{},
             isAuthenticated:true,
-            host:null
+            host:null,
+            hidden:true
         }
     }
 
@@ -50,6 +51,11 @@ class Login extends Component {
         }
     }
 
+
+    toggleHide = _ => {
+        this.setState({hidden: !this.state.hidden})
+    }
+
     createNewUser = _ => {
     }
 
@@ -81,7 +87,8 @@ class Login extends Component {
                             <div id="textleft">
                                 <label>Password</label>
                             </div>
-                            <input className="login-input" type="password" name="password" 
+                            <input className="login-input" 
+                            type={ this.state.hidden ? "password" : "text" } name="password" 
                             onKeyPress={(e) => { 
                                 if(e.key === 'Enter'){
                                     this.loginButton();
@@ -92,9 +99,16 @@ class Login extends Component {
                                     isAuthenticated: true
                                     })
                                 }}/>
+                            <div id="showPassword">
+                                <label>
+                                    Show Password
+                                </label>
+                                <input id="checkbox" type="checkbox" onClick={this.toggleHide} />
+                            </div>
                             <div id="login_button">
                                 <input 
                                     type="button" 
+                                    className="login-input"
                                     id="loginbutton" 
                                     onClick={this.loginButton}
                                     value="Login" 
