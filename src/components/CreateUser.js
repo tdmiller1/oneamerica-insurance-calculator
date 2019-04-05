@@ -3,6 +3,9 @@ import { withRouter } from "react-router";
 import logo from "../assets/images/oneamerica_logo.png"
 import "../assets/login.css"
 import axios from "axios";
+import sha256 from 'js-sha256';
+
+var globalPassword = ""
 
 class CreateUser extends Component {
 
@@ -19,7 +22,7 @@ class CreateUser extends Component {
             host:null
         }
     }
-
+    
     componentWillMount(){
         if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
             this.setState({host: "http://localhost:4000"})
@@ -28,11 +31,11 @@ class CreateUser extends Component {
         }
     }
 
-    createUserButton = _ => {
+    createUserButton = (password) => {
         var url = this.state.host + '/users/add'
         axios.post(url, {
             username: this.state.username,
-            password: this.state.password
+            password: password
         }).then(response => {
             switch(response.status){
                 case 200:
@@ -44,7 +47,7 @@ class CreateUser extends Component {
         })
     }
     
-    authenticate = _ => {
+    authenticate = (password) => {
         var url = this.state.host + '/users/username'
         axios.get(url,{
             params:{
@@ -55,7 +58,7 @@ class CreateUser extends Component {
             if(response.data.data[0]){
                 this.setState({isSameUserName: true})
             }else{
-                this.createUserButton();
+                this.createUserButton(password);
             }
         })
         if(this.state.success === true){
@@ -64,7 +67,7 @@ class CreateUser extends Component {
     }
 
     render(){
-
+        var password = "";
         return (
             <div>
                 <div id="body">
@@ -99,8 +102,9 @@ class CreateUser extends Component {
                             <input className="login-input" type="password" name="password"
                             onChange={(e) => {
                                 this.setState({
-                                    password: e.target.value
+                                    password: sha256(e.target.value)
                                     })
+                                    globalPassword = e.target.value
                                 }}></input>
                             <div id="textleft">
                                 <label>Confirm Password</label>
@@ -112,7 +116,7 @@ class CreateUser extends Component {
                                 }}}
                             onChange={(e) => {
                                 this.setState({
-                                    confirm: e.target.value
+                                    confirm: sha256(e.target.value)
                                     })
                                 }}/>
                             <div id="login_button">
@@ -122,7 +126,7 @@ class CreateUser extends Component {
                                     onClick={ () => {
                                         if(this.state.confirm === this.state.password){
                                             this.setState({isValid: true})
-                                            this.authenticate()
+                                            this.authenticate(globalPassword)
                                         }
                                         else{
                                             this.setState({isValid: false})

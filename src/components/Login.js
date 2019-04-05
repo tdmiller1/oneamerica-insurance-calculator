@@ -3,6 +3,7 @@ import { withRouter } from "react-router";
 import logo from "../assets/images/oneamerica_logo.png"
 import "../assets/login.css"
 import axios from "axios";
+import sha256 from 'js-sha256';
 
 class Login extends Component {
 
@@ -11,7 +12,7 @@ class Login extends Component {
         this.state = {
             email:"",
             password:"",
-            attempt:{},
+            attempt:"",
             isAuthenticated:true,
             host:null,
             hidden:true
@@ -33,9 +34,8 @@ class Login extends Component {
                 username:this.state.email
             }
         }).then(response => {
-            console.log(response.data.data)
             if(response.data.data[0]){
-                this.setState({ attempt: response.data.data[0] })
+                this.setState({ attempt: sha256(response.data.data[0].password) })
                 this.authenticate();
             }else{
                 this.setState({ isAuthenticated: false});
@@ -44,7 +44,7 @@ class Login extends Component {
     }
     
     authenticate = _ => {
-        if(this.state.password === this.state.attempt.password){
+        if(this.state.password === this.state.attempt){
             this.props.history.push('/dashboard')
         }else{
             this.setState({ isAuthenticated: false })
@@ -95,7 +95,7 @@ class Login extends Component {
                                 }}}
                             onChange={(e) => {
                                 this.setState({
-                                    password: e.target.value,
+                                    password: sha256(e.target.value),
                                     isAuthenticated: true
                                     })
                                 }}/>
