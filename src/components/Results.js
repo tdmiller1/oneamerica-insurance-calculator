@@ -130,17 +130,17 @@ class Results extends Component {
                                         }}/>
                                     </div>
                                     <div style={margin} className="label-input" id="results-label-input-location">
-                                        <label htmlFor="location">Location</label>
-                                        <div style={test}>
+                                        <label htmlFor="location">City</label>
+                                        <div className="city-state">
                                         <input id="results-location-input" required name="location" placeholder="Indianapolis" type="text"  onChange={(e) => {
                                             this.setState({customer: {...customer, location: e.target.value }})
                                         }}/>
+                                        <label htmlFor="location" id="results-label-input-state">State</label>
                                         <select id="results-location-select" defaultValue={"Select"} name="locationAbreviation" required onChange={(e) => {
                                             this.setState({
                                                 customer: {...customer, abbreviation: e.target.value}
                                             })
                                         }}>
-                                            <option disabled>Select</option>
                                             <option value="AL">AL</option>
                                             <option value="AK">AK</option>
                                             <option value="AZ">AZ</option>
