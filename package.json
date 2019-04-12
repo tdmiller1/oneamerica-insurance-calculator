@@ -5,30 +5,25 @@
   "main": "src/scripts/server.js",
   "dependencies": {
     "axios": "^0.18.0",
-    "body-parser": "^1.18.3",
+    "braces": "^3.0.1",
     "concurrently": "4.1.0",
-    "cors": "^2.8.5",
-    "express": "^4.16.4",
-    "fs": "^0.0.1-security",
-    "history": "^4.7.2",
+    "fs": "0.0.2",
+    "history": "^4.9.0",
     "js-sha256": "^0.9.0",
     "merge": "^1.2.1",
     "moment": "^2.24.0",
-    "mysql": "^2.16.0",
-    "nodemon": "^1.18.9",
-    "npm": "^6.7.0",
-    "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-loader-spinner": "^2.3.0",
-    "react-router": "^4.3.1",
-    "react-router-dom": "^4.3.1",
-    "react-scripts": "1.1.5",
+    "react-router": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^2.1.8",
     "serve": "^11.0.0"
   },
   "scripts": {
     "client": "react-scripts start",
-    "server": "nodemon src/scripts/server.js",
+    "server": "node src/scripts/server.js",
     "dev": "concurrently \"npm run client\" \"npm run server\"",
     "start": "serve -s build",
     "build": "react-scripts build",
@@ -36,9 +31,13 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
-    "jest": "^24.4.0",
-    "webpack-dev-server": "^3.2.1",
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "enzyme": "^3.9.0",
-    "enzyme-adapter-react-16": "^1.11.2"
+    "enzyme-adapter-react-16": "^1.12.1",
+    "express": "^4.16.4",
+    "jest": "^24.7.1",
+    "mysql": "^2.16.0",
+    "webpack-dev-server": "^3.3.1"
   }
 }
