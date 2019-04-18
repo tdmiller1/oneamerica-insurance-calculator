@@ -531,29 +531,6 @@ class Dashboard extends Component {
         if (filter === "day" || filter==="week" || filter==="year" || filter==="month"){this.timestampFilter(filter);}
         if (filter === "midwest" || filter==="west" || filter==="south" || filter==="north"){this.locationFilter(filter);}
         if (filter === "tier1" || filter==="tier2" || filter==="tier3" || filter==="tier4" || filter==="tier5"){this.insuranceNeedsFilter(filter);}
-        // switch(filter){
-        //     case "day": 
-        //     case "week":
-        //     case "year" :
-        //     case "month":
-        //         this.timestampFilter(filter);
-        //         break;
-        //     case "midwest":
-        //     case "northeast":
-        //     case "west":
-        //     case "south":
-        //         this.locationFilter(filter);
-        //         break;
-        //     case "tier1":
-        //     case "tier2":
-        //     case "tier3":
-        //     case "tier4":
-        //     case "tier5":
-        //         this.insuranceNeedsFilter(filter);
-        //         break;
-        //     default:
-        //         break;
-        // }
     }
 
     render() {
