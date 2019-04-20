@@ -196,6 +196,8 @@ class Dashboard extends Component {
     
 
     searchCustomers = (search) =>{
+        // if(search === ""){this.filterFunction("")}
+        this.filterFunction(search)
         var url = this.state.host + '/customers/search'
         axios.get(url,{
             params:{
@@ -314,9 +316,10 @@ class Dashboard extends Component {
                 month:false,
                 year:false
             },
-            selected:[]
+            selected:[],
+            search:""
         })
-        this.filterFunction();
+        this.pullCustomers();
     }
 
     timestampFilter(time){
@@ -411,9 +414,18 @@ class Dashboard extends Component {
         this.setState({isLoading:false})
     }
 
-    async filterFunction(){
-        this.setState({isLoading:true})
-        await this.pullCustomers();
+    getCustomers = async() => {
+        var url = this.state.host + '/customers'
+        const response = await axios.get(url)
+        if(response){
+            return response.data.data;
+        }
+    }
+
+    async filterFunction(search = this.state.search){
+        if(search === ""){
+            await this.pullCustomers();
+        }
 
         var locationList = []
         var locationPromises = []
@@ -548,23 +560,27 @@ class Dashboard extends Component {
                             <h3>Loading</h3>
                         </div>)  
                     }
-                    <input className="child" id="search-bar" type="search"
+                    <input className="child" id="search-bar"
+                        onClick={(e) => {
+                            search = e.target.value
+                        }}
                         onChange={(e) => {
                             search = e.target.value
                         }}
                         onKeyPress={(e) => { 
                             if(e.key === 'Enter'){
                                 changeSearch(search);
-                                this.setState({search:""})
-                            }}}
-                        placeholder="John Doe"
+                            }
+                        }}
+                        placeholder={this.state.search === "" ? "John Doe" : this.state.search}
                         name="search"
                         />
-                    <button className="child" id="search-button"
-                    onClick={(e) => {changeSearch(search);
-                        this.setState({search:""})}}>
-                            <img src={searchIcon} alt="Search-Icon"></img>
-                        </button>
+                    <button 
+                        className="child" 
+                        id="search-button"
+                        onClick={(e) => {changeSearch(search)}}>
+                        <img src={searchIcon} alt="Search-Icon"></img>
+                    </button>
                 </div>
             )
         }
@@ -597,9 +613,8 @@ class Dashboard extends Component {
                             <h3 id="textButton" onClick={() => this.deleteSelected()}>Delete Selected</h3>
                             <h3 id="textButton" onClick={() => this.clearSelected()}>Clear Selected</h3>
                         </div>
-                        { this.state.search }
                         <SearchButton 
-                            search={this.state.search}
+                            // search={this.state.search}
                             changeSearch={(search) => {
                                 this.setState({search:search})
                                 this.searchCustomers(search)} }
@@ -624,7 +639,6 @@ class Dashboard extends Component {
                             <hr id="line"></hr>
                             <p>Find individual user</p>
                             <div>
-                                { this.state.search }
                                 <SearchButton search={this.state.search} changeSearch={(search) => {
                                     this.setState({search: search})
                                     this.searchCustomers(search)

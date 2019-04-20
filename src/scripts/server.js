@@ -31,7 +31,6 @@ app.get('/customers', function(req, res, next) {
 
 app.get('/customers/search', function(req, res, next) {
     const SEARCH_QUERY = "SELECT * FROM customer WHERE Name LIKE '%"+req.query.name+"%'"
-    console.log(req)
     connection.query(SEARCH_QUERY, function (err, rows, fields){
         if (err) throw err
 
@@ -40,12 +39,10 @@ app.get('/customers/search', function(req, res, next) {
 });
 
 app.post('/customers/add',function(req,res){
-    console.log(req.body)
     const INSERT_PRODUCTS_QUERY = "INSERT INTO customer (name, email, phone_number, location, einsurance,time) VALUES('" 
     + req.body.name + "','" + req.body.email + "','" + req.body.phone_number + "','" + req.body.location + "','" + req.body.einsurance + "',CURRENT_TIMESTAMP)";
     connection.query(INSERT_PRODUCTS_QUERY, (err, results) => {
         if(err){
-            console.log("SQL ERR: " + err)
             return res.send(err);
         }else{
             return res.json(results);
@@ -100,7 +97,6 @@ app.get('/filters/einsurance', function(req, res, next) {
 app.get('/filters/location', function(req, res, next) {
     const region = req.query.region
     var query = ""
-    console.log(region)
     switch(region){
         case "midwest":
             query = `SELECT * FROM customer WHERE Location LIKE "%IN" OR Location LIKE "%OH" OR Location LIKE "%IL" OR Location LIKE "%MO" OR Location LIKE "%ND" OR Location LIKE "%SD" OR Location LIKE "%KS" OR Location LIKE "%NE" OR Location LIKE "%MI" OR Location LIKE "%IA" OR Location LIKE "%MN" OR Location LIKE "%WI"`;
@@ -163,7 +159,6 @@ app.post('/users/add',function(req,res){
     const INSERT_USER_QUERY = "INSERT INTO oa_credentials (username, password) VALUES('"+ req.body.username + "','" + req.body.password + "')";
     connection.query(INSERT_USER_QUERY, (err, results) => {
         if(err){
-            console.log("SQL ERR: " + err)
             return res.send(err);
         }else{
             return res.json(results);

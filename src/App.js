@@ -20,8 +20,8 @@ class App extends Component {
                     <Route exact path="/createuser" component={CreateUser}/>
                 </Switch>
             </div>
-            );
-            }
+        );
+    }
 }
 
 export default withRouter(App);
