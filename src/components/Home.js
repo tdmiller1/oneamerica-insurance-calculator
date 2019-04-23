@@ -167,8 +167,8 @@ class Home extends Component {
                             <div className="input-wrapper">
 
                                 <div className="label-input">
-                                    <label htmlFor="age">Your Age</label>
-                                    <input type="text" name="age" placeholder="45" onChange={(e) => {
+                                    <label htmlFor="age">Your Age <span id="required">*</span></label>
+                                    <input type="text" name="age" placeholder="45" required onChange={(e) => {
                                         this.setState({
                                             age: parseInt(e.target.value,10)
                                         })
@@ -176,7 +176,7 @@ class Home extends Component {
                                 </div>
 
                                 <div className="label-input">
-                                    <label htmlFor="income">Your Income</label>
+                                    <label htmlFor="income">Your Income  <span id="required">*</span></label>
                                     <input type="text" name="income" placeholder="37000" required onChange={(e) => {
                                         this.setState({
                                             income: parseInt(e.target.value,10)
@@ -185,7 +185,7 @@ class Home extends Component {
                                 </div>
 
                                 <div className="label-input">
-                                    <label htmlFor="gender">Gender</label>
+                                    <label htmlFor="gender">Gender  <span id="required">*</span></label>
                                     <select defaultValue={"Select"} name="gender" required onChange={(e) => {
                                         this.setState({
                                             gender: e.target.value
