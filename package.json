@@ -4,7 +4,7 @@
   "private": true,
   "main": "src/scripts/server.js",
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "braces": "^3.0.1",
     "concurrently": "4.1.0",
     "fs": "0.0.2",
